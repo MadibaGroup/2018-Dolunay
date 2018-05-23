@@ -1,0 +1,31 @@
+\section{Introduction}\label{sec:intro}
+\subsection{The Evolution of Atomic Swaps\cite{altcoin}:}
+Atomic swaps enables trade across blockchains safely and quickly. This idea is being discussed since 2013. Atomic means that if the swap is not successful neither part loses anything. In other words, the swaps is either executed or not. Atomic swaps can be on-chain or off-chain. Off-chain swaps are instant, private and they require almost zero-fee. Both type of swaps utilize hashed-time-locked-contracts (HTLCs). This guarantees that a party can't take any funds before it offers its own.
+
+Decred is the \textbf{first on-chain atomic swap}~\cite{decred}. One challenge to be overcome in Decred is that new blocks should be mined to show the change of ownership (it makes the system slower).
+
+\textbf{The first on-chain Ethereum—Bitcoin atomic swap} is realized by Altcoin.io. Swaps take 2-3 mins.
+
+\textbf{The first off-chain atomic swap} over the lightning network is realized by Lightning Labs. Lightning network enables the exchange of coins, off-chain. It creates payment channels. After the transaction is completed, the chains are updated and the channels are closed. It is scalable.
+
+Their next goal: atomically swap any token for any other token, regardless of the blockchain it resides on.
+
+\subsection{Atomic Swap of ERC20 Tokens on the Raiden Network~\cite{Raiden}:}
+Raiden Network is similar to Bitcoin’s Lightning Network, but for Ethereum’s blockchain. It will enable instant, low-fee and scalable micro payments of ERC20 compliant tokens.
+
+Problem in decentralised exchanges: sacrificing transaction speed for settlement on-chain.
+
+\subsection{Republic Protocol ~\cite{zhang2017republic}:}
+Republic: a decentralized open-source dark pool protocol facilitating atomic swaps between cryptocurrency pairs across the Bitcoin and Ethereum blockchains. Trades are on a hidden orderbook and the matching is done using secure multiparty computation. It is a secure, decentralized, scalable dark pool protocol capable of handling billions in trading volume daily. It facilitates the exchange of Ethereum, ERC20 and Bitcoin cryptocurrencies through a decentralized dark pool.
+
+execution without exposing price and volume 
+no trusted intermediary to operate a dark pool (dark pool = private exchanges where financial assets and instruments are traded and matched by an engine running on a hidden order book)
+
+\section{Our Implementation}
+
+\begin{itemize}
+  \item ETH to ERC20 token atomic swap is implemented.
+  \item ERC20 to ERC20 token atomic swap is implemented. 
+  \item One contract can perform several swaps. Each swap is assigned a swapID.   
+  \item Each swap has three states: OPEN, CLOSED or EXPIRED.
+\end{itemize}
