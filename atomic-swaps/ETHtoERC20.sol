@@ -44,7 +44,6 @@ contract StandardToken is Token {
         balances[msg.sender] = initial;
     }
 
-
   function transfer(address _to, uint256 _value) returns (bool success) {
     //Default assumes totalSupply can't be over max (2^256 - 1).
     //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
@@ -96,32 +95,52 @@ contract StandardToken is Token {
 
 contract ETHtoERC20
 {
-    //Cash provider
-    address addressCashProvider;
-    uint etherAmount;
-        
-    //Cash taker
-    uint tokensToExchange;
-    address addressCashTaker;
-        
-    address ERC20contract;
+    bytes32 swapID;
+    struct Swap{
+        //Cash provider
+        address addressCashProvider;
+        uint etherAmount;
+            
+        //Cash taker
+        uint tokensToExchange;
+        address addressCashTaker;
+            
+        address ERC20contract;
+    }
    
+    
+    mapping (bytes32 => Swap) private swaps;
     StandardToken stdToken;
   
-    function init(uint tokens, uint ethPrice, address cashTaker, address cashProvider, address contractAddress) public{
-        ERC20contract  = contractAddress;
-        stdToken = StandardToken(ERC20contract);
-        tokensToExchange = tokens;
-        etherAmount = ethPrice;
-        addressCashProvider = cashProvider;
-        addressCashTaker = cashTaker;
+    function init(uint tokens, uint ethPrice, address cashTaker, address cashProvider, address contractAddress) public returns(bytes32 swapID){
+       
+        swapID= sha256(tokens, ethPrice, cashTaker, cashProvider, contractAddress);
+        
+        swaps[swapID].ERC20contract  = contractAddress;
+        stdToken = StandardToken(swaps[swapID].ERC20contract);
+        swaps[swapID].tokensToExchange = tokens;
+        swaps[swapID].etherAmount = ethPrice;
+        swaps[swapID].addressCashProvider = cashProvider;
+        swaps[swapID].addressCashTaker = cashTaker;
+        return swapID;
     }
     
-    function settle() public payable
+    modifier checkAllowance(address addressCashTaker, bytes32 swapID)
     {
-        require(stdToken.allowance(addressCashTaker,address(this)) >= tokensToExchange);
+        require(stdToken.allowance(addressCashTaker,address(this)) >= swaps[swapID].tokensToExchange);
+        _;
+    }
+    
+    modifier checkEther(uint etherAmount)
+    {
         require(msg.value == etherAmount);
-        stdToken.transferFrom(addressCashTaker,  addressCashProvider, tokensToExchange);
-        addressCashTaker.transfer(etherAmount);
+        _;
+    }
+    
+    function settle(bytes32 swapID)  public payable checkAllowance(swaps[swapID].addressCashTaker, swapID) checkEther(swaps[swapID].etherAmount)
+    {
+        
+        stdToken.transferFrom(swaps[swapID].addressCashTaker,  swaps[swapID].addressCashProvider, swaps[swapID].tokensToExchange);
+        swaps[swapID].addressCashTaker.transfer(swaps[swapID].etherAmount);
     }
 }

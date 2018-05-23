@@ -95,39 +95,53 @@ contract StandardToken is Token {
 
 contract ERC20toERC20
 {
-    address token1ProviderAddr;
-    uint tokenOneAmount;
+    struct Swap{
+        address token1ProviderAddr;
+        uint tokenOneAmount;
+          
+        address token2ProviderAddr;  
+        uint tokenTwoAmount;
       
-    address token2ProviderAddr;  
-    uint tokenTwoAmount;
-  
-    address ERC20contractOne;
-    address ERC20contractTwo;
-    
-    StandardToken stdTokenOne;
-    StandardToken stdTokenTwo;  
+        address ERC20contractOne;
+        address ERC20contractTwo;
+        
+        StandardToken stdTokenOne;
+        StandardToken stdTokenTwo;  
      
-    function init(uint tokens1, uint tokens2, address _token1ProviderAddr, address _token2ProviderAddr, address contractAddress1, address contractAddress2) public{
-        ERC20contractOne  = contractAddress1;
-        stdTokenOne = StandardToken(ERC20contractOne);
-        
-        ERC20contractTwo  = contractAddress2;
-        stdTokenTwo = StandardToken(ERC20contractTwo);
-        
-        tokenOneAmount = tokens1;
-        tokenTwoAmount = tokens2;
-        
-        token1ProviderAddr = _token1ProviderAddr;
-        token2ProviderAddr = _token2ProviderAddr;
     }
     
-    //remove payable!!
-    function settle() public payable
+    bytes32 swapID;
+    mapping (bytes32 => Swap) private swaps;
+ 
+     
+    function init(uint tokens1, uint tokens2, address _token1ProviderAddr, address _token2ProviderAddr, address contractAddress1, address contractAddress2) public  returns(bytes32 swapID){
+        
+        swapID= sha256(tokens1, tokens2, _token1ProviderAddr, _token2ProviderAddr, contractAddress1, contractAddress2);
+         
+        swaps[swapID].ERC20contractOne  = contractAddress1;
+        swaps[swapID].stdTokenOne = StandardToken(swaps[swapID].ERC20contractOne);
+        
+       swaps[swapID].ERC20contractTwo  = contractAddress2;
+       swaps[swapID].stdTokenTwo = StandardToken(swaps[swapID].ERC20contractTwo);
+        
+        swaps[swapID].tokenOneAmount = tokens1;
+        swaps[swapID].tokenTwoAmount = tokens2;
+        
+        swaps[swapID].token1ProviderAddr = _token1ProviderAddr;
+        swaps[swapID].token2ProviderAddr = _token2ProviderAddr;
+        return swapID;
+    }
+    
+    modifier checkTokenAmount(address tokenProviderAddr, uint tokenAmount, bytes32 swapID)
     {
-        require(stdTokenOne.allowance(token1ProviderAddr,address(this)) >= tokenOneAmount);
-        require(stdTokenTwo.allowance(token2ProviderAddr,address(this)) >= tokenTwoAmount);
-        stdTokenOne.transferFrom(token1ProviderAddr,  token2ProviderAddr, tokenOneAmount);
-        stdTokenTwo.transferFrom(token2ProviderAddr,  token1ProviderAddr, tokenTwoAmount);
+       require(swaps[swapID].stdTokenOne.allowance(tokenProviderAddr,address(this)) >= tokenAmount);
+        _;
+    }
+    
+    function settle(bytes32 swapID) public checkTokenAmount(swaps[swapID].token1ProviderAddr,swaps[swapID].tokenOneAmount, swapID) checkTokenAmount(swaps[swapID].token2ProviderAddr,swaps[swapID].tokenTwoAmount, swapID)
+    {
+        swaps[swapID].stdTokenOne.transferFrom(swaps[swapID].token1ProviderAddr,  swaps[swapID].token2ProviderAddr, swaps[swapID].tokenOneAmount);
+        swaps[swapID].stdTokenTwo.transferFrom(swaps[swapID].token2ProviderAddr,  swaps[swapID].token1ProviderAddr, swaps[swapID].tokenTwoAmount);
         
     }
 }
