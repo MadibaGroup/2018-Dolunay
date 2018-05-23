@@ -95,7 +95,14 @@ contract StandardToken is Token {
 
 contract ERC20toERC20
 {
+    enum State{
+        OPEN,
+        CLOSED,
+        EXPIRED
+    }
+    
     struct Swap{
+        State swapState;
         address token1ProviderAddr;
         uint tokenOneAmount;
           
@@ -121,14 +128,16 @@ contract ERC20toERC20
         swaps[swapID].ERC20contractOne  = contractAddress1;
         swaps[swapID].stdTokenOne = StandardToken(swaps[swapID].ERC20contractOne);
         
-       swaps[swapID].ERC20contractTwo  = contractAddress2;
-       swaps[swapID].stdTokenTwo = StandardToken(swaps[swapID].ERC20contractTwo);
+        swaps[swapID].ERC20contractTwo  = contractAddress2;
+        swaps[swapID].stdTokenTwo = StandardToken(swaps[swapID].ERC20contractTwo);
         
         swaps[swapID].tokenOneAmount = tokens1;
         swaps[swapID].tokenTwoAmount = tokens2;
         
         swaps[swapID].token1ProviderAddr = _token1ProviderAddr;
         swaps[swapID].token2ProviderAddr = _token2ProviderAddr;
+        
+        swaps[swapID].swapState = State.OPEN;
         return swapID;
     }
     
@@ -138,10 +147,16 @@ contract ERC20toERC20
         _;
     }
     
-    function settle(bytes32 swapID) public checkTokenAmount(swaps[swapID].token1ProviderAddr,swaps[swapID].tokenOneAmount, swapID) checkTokenAmount(swaps[swapID].token2ProviderAddr,swaps[swapID].tokenTwoAmount, swapID)
+    modifier checkOpen(bytes32 swapID)
+    {
+        require(swaps[swapID].swapState == State.OPEN);
+        _;
+    }
+    
+    function settle(bytes32 swapID) public checkTokenAmount(swaps[swapID].token1ProviderAddr,swaps[swapID].tokenOneAmount, swapID) checkTokenAmount(swaps[swapID].token2ProviderAddr,swaps[swapID].tokenTwoAmount, swapID) checkOpen(swapID)
     {
         swaps[swapID].stdTokenOne.transferFrom(swaps[swapID].token1ProviderAddr,  swaps[swapID].token2ProviderAddr, swaps[swapID].tokenOneAmount);
         swaps[swapID].stdTokenTwo.transferFrom(swaps[swapID].token2ProviderAddr,  swaps[swapID].token1ProviderAddr, swaps[swapID].tokenTwoAmount);
-        
+        swaps[swapID].swapState = State.CLOSED;
     }
 }

@@ -95,8 +95,15 @@ contract StandardToken is Token {
 
 contract ETHtoERC20
 {
+    enum State{
+        OPEN,
+        CLOSED,
+        EXPIRED
+    }
+    
     bytes32 swapID;
     struct Swap{
+        State swapState;
         //Cash provider
         address addressCashProvider;
         uint etherAmount;
@@ -122,6 +129,7 @@ contract ETHtoERC20
         swaps[swapID].etherAmount = ethPrice;
         swaps[swapID].addressCashProvider = cashProvider;
         swaps[swapID].addressCashTaker = cashTaker;
+        swaps[swapID].swapState = State.OPEN;
         return swapID;
     }
     
@@ -137,10 +145,16 @@ contract ETHtoERC20
         _;
     }
     
-    function settle(bytes32 swapID)  public payable checkAllowance(swaps[swapID].addressCashTaker, swapID) checkEther(swaps[swapID].etherAmount)
+    modifier checkOpen(bytes32 swapID)
     {
-        
+        require(swaps[swapID].swapState == State.OPEN);
+        _;
+    }
+    
+    function settle(bytes32 swapID)  public payable checkAllowance(swaps[swapID].addressCashTaker, swapID) checkEther(swaps[swapID].etherAmount) checkOpen(swapID)
+    {
         stdToken.transferFrom(swaps[swapID].addressCashTaker,  swaps[swapID].addressCashProvider, swaps[swapID].tokensToExchange);
         swaps[swapID].addressCashTaker.transfer(swaps[swapID].etherAmount);
+        swaps[swapID].swapState = State.CLOSED;
     }
 }
