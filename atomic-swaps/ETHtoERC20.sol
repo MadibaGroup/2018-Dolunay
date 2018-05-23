@@ -104,6 +104,7 @@ contract ETHtoERC20
     bytes32 swapID;
     struct Swap{
         State swapState;
+        uint creationTime;
         //Cash provider
         address addressCashProvider;
         uint etherAmount;
@@ -130,6 +131,7 @@ contract ETHtoERC20
         swaps[swapID].addressCashProvider = cashProvider;
         swaps[swapID].addressCashTaker = cashTaker;
         swaps[swapID].swapState = State.OPEN;
+        swaps[swapID].creationTime = now;
         return swapID;
     }
     
@@ -147,11 +149,18 @@ contract ETHtoERC20
     
     modifier checkOpen(bytes32 swapID)
     {
-        require(swaps[swapID].swapState == State.OPEN);
+          require(swaps[swapID].swapState == State.OPEN);
+           _;
+    }
+    
+    modifier checkExpired(bytes32 swapID)
+    {
+        if(now >= swaps[swapID].creationTime + 24 hours )  
+            swaps[swapID].swapState = State.EXPIRED;
         _;
     }
     
-    function settle(bytes32 swapID)  public payable checkAllowance(swaps[swapID].addressCashTaker, swapID) checkEther(swaps[swapID].etherAmount) checkOpen(swapID)
+    function settle(bytes32 swapID)  public payable checkAllowance(swaps[swapID].addressCashTaker, swapID) checkEther(swaps[swapID].etherAmount) checkOpen(swapID) checkExpired(swapID)
     {
         stdToken.transferFrom(swaps[swapID].addressCashTaker,  swaps[swapID].addressCashProvider, swaps[swapID].tokensToExchange);
         swaps[swapID].addressCashTaker.transfer(swaps[swapID].etherAmount);

@@ -103,6 +103,7 @@ contract ERC20toERC20
     
     struct Swap{
         State swapState;
+        uint creationTime;
         address token1ProviderAddr;
         uint tokenOneAmount;
           
@@ -138,6 +139,8 @@ contract ERC20toERC20
         swaps[swapID].token2ProviderAddr = _token2ProviderAddr;
         
         swaps[swapID].swapState = State.OPEN;
+        swaps[swapID].creationTime = now;
+        
         return swapID;
     }
     
@@ -153,7 +156,14 @@ contract ERC20toERC20
         _;
     }
     
-    function settle(bytes32 swapID) public checkTokenAmount(swaps[swapID].token1ProviderAddr,swaps[swapID].tokenOneAmount, swapID) checkTokenAmount(swaps[swapID].token2ProviderAddr,swaps[swapID].tokenTwoAmount, swapID) checkOpen(swapID)
+    modifier checkExpired(bytes32 swapID)
+    {
+        if(now >= swaps[swapID].creationTime + 24 hours )  
+            swaps[swapID].swapState = State.EXPIRED;
+        _;
+    }
+    
+    function settle(bytes32 swapID) public checkTokenAmount(swaps[swapID].token1ProviderAddr,swaps[swapID].tokenOneAmount, swapID) checkTokenAmount(swaps[swapID].token2ProviderAddr,swaps[swapID].tokenTwoAmount, swapID) checkOpen(swapID) checkExpired(swapID)
     {
         swaps[swapID].stdTokenOne.transferFrom(swaps[swapID].token1ProviderAddr,  swaps[swapID].token2ProviderAddr, swaps[swapID].tokenOneAmount);
         swaps[swapID].stdTokenTwo.transferFrom(swaps[swapID].token2ProviderAddr,  swaps[swapID].token1ProviderAddr, swaps[swapID].tokenTwoAmount);
