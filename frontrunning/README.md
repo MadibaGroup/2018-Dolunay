@@ -3,10 +3,10 @@
 
 ## Intro
 - Definition of frontrunning
--- Traditional
--- WRT blockchain and decentralization
+    - Traditional
+    - WRT blockchain and decentralization
 - Miners and their power
--- Transaction order, can be used for frontrunning
+    - Transaction order, can be used for frontrunning
 
 ## Frontrunning attack
 How one can profit from frontrunning
@@ -19,27 +19,27 @@ How one can profit from frontrunning
 
 ## Implications/ Proof-of-attacks
 - Historical evidence of such attacks:
--- Status ICO [link]
--- Bancor frontrunning [link, link]
--- …
+    - Status ICO [link]
+    - Bancor frontrunning [link, link]
+    - …
 - New attacks:
--- Ghazal
--- Find more applications to frontrun, not necessarily monetary gain/financial
+    - Ghazal
+    - Find more applications to frontrun, not necessarily monetary gain/financial
 
 
 ## Mitigation
 - Commit / reveal methods
--- Send the hash first, send the actual data after (sealed-bid auctions)
--- Proof of burn methods (generate random addresses with no private keys)
+    - Send the hash first, send the actual data after (sealed-bid auctions)
+    - Proof of burn methods (generate random addresses with no private keys)
 - Submarines
--- The method described in HD can be optimized and more functional with the new changes to ethereum and solidity
--- **Submarines 2.0**: There can be a new way of doing this (new WRT hackingditributed article), can predict smart contract addresses using the nonce and data of the contract (forwarder/refunder), so funds can be sent to these addresses and then contracts can be deployed
- --- Pros: new addresses, no indication of the order (Anonymity-set)
---- Cons: DDoS? Requires 3 transactions for each order?
---- **1** send the funds
---- **2** Deploy the contract
---- **3** call the function
--- Other methods? Consensus protocol based solutions?
+    - The method described in HD can be optimized and more functional with the new changes to ethereum and solidity
+    - **Submarines 2.0**: There can be a new way of doing this (new WRT hackingditributed article), can predict smart contract addresses using the nonce and data of the contract (forwarder/refunder), so funds can be sent to these addresses and then contracts can be deployed
+        - Pros: new addresses, no indication of the order (Anonymity-set)
+        - Cons: DDoS? Requires 3 transactions for each order?
+            - **1** send the funds
+            - **2** Deploy the contract
+            - **3** call the function
+    - Other methods? Consensus protocol based solutions?
 
 
 
