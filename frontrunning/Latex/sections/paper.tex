@@ -1,0 +1,109 @@
+% !TEX root = ../main.tex
+\section{Introductory Remarks}
+
+\subsection{What is frontrunning?} %Definition of frontrunning
+%Traditional
+%WRT blockchain and decentralization
+\subsection{Miners and their power} 
+%Transaction order, can be used for frontrunning
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+\section{Related Work}
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+
+\section{Comparison Framework}
+
+Solutions: \par\noindent
+Criteria:
+
+
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+\section{Frontrunning Attacks}
+
+\subsection{Financial Markets}
+%oders, exchanges
+
+\subsection{Non-financial Applications}
+Applications, Ghazal, register domains before the user, (domain squatting?) \par\noindent
+Other applications (look at Dapps or other blockchain use cases)\par\noindent
+Arbitrage (buy before the order, sell to the original order) (other scenarios)\par\noindent
+Maker griefing (attack on the system?s reputation itself)\par\noindent
+Etherdelta case: Fill the order when cancelling transaction is sent. What would be the profitable scenario here?
+
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+\section{Implications}
+
+Historical evidence of such attacks:\par\noindent
+Status ICO [link]\par\noindent
+Bancor frontrunning [link, link]\par\noindent
+?
+New attacks:\par\noindent
+Ghazal\par\noindent
+Find more applications to frontrun, not necessarily monetary gain/financial
+
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+\section{Mitigations}
+
+Commit / reveal methods
+\begin{itemize}
+\item{Send the hash first, send the actual data after (sealed-bid auctions)}
+\item{Proof of burn methods (generate random addresses with no private keys)}
+\end{itemize}
+Submarines
+\begin{itemize}
+\item{The method described in HD can be optimized and more functional with the new changes to ethereum and solidity}
+\item{Submarines 2.0: There can be a new way of doing this (new WRT hackingditributed article), can predict smart contract addresses using the nonce and data of the contract (forwarder/refunder), so funds can be sent to these addresses and then contracts can be deployed} 
+\begin {itemize}
+\item{Pros: new addresses, no indication of the order (Anonymity-set)}
+\item{Cons: DDoS? Requires 3 transactions for each order?} >> 1 send the funds 2 Deploy the contract 3 call the function
+\end{itemize}
+\item{Other methods? Consensus protocol based solutions?}
+
+\end{itemize}
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+\section{Concluding Remarks}
+
+
+ 
+%\subsubsection*{Acknowledgements.} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
