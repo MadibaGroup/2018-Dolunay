@@ -40,10 +40,32 @@ Etherdelta case: Fill the order when cancelling transaction is sent. What would 
 
 \section{Implications}
 
-Historical evidence of such attacks:\par\noindent
-Status ICO [link]\par\noindent
-Bancor frontrunning [link, link]\par\noindent
-?
+\subsection{Historical evidence of such attacks:}\par\noindent
+There has been many incidents of frontrunning in real world blockchains specially where it facilitates monetary gain. Here we will analyze the evidence of these incidents:
+
+% NOTE: This seperation can also happen by another category, like: frontrunning by miners: status ico F2pool, and frontrunning by others
+
+\subsubsection{Status ICO}
+In July 2017, Status.im did their ICO and they reached their cap, hence closing the ICO, within 3 hours, by collecting over 200 million dollars (300K Ether) worth of Ethereum ~\cite{statusicoanalysis}.
+%NOTE: ICO Initial Coin Offering should be explained probably in introduction section. the process of ICO smart contract and how the capped system works --> limited time/funds can be included in the ico and why people would try to get in as soon as possible, explain how their investment strategy works and such. Maybe the second half could be explained here to say why frontrunning an ICO makes sense? 
+% add more on capped ICOs, status used Distribution & Dynamic Ceilings : https://blog.status.im/distribution-dynamic-ceilings-e2f427f5cca  ~\cite{statuswhitepaper}
+
+% The dynamic ceiling and prevention of bigger investments getting their full investment in could be the reason behind the design of F2pool move, by having multiple addresses each contributing around 100ETH to the ICO smart contract, instead of having one big transaction in.
+%Also the ICO smart contract only accepted transactions with gas price lower than 50gwei, unless they were whitelisted before. this was for preventing high gas payers to get in front of the line. although as this was not clearly communicated to users (UX issues?), there were tons of transactions that failed due to high gas price but also clogged the ethereum network as the miners chose transactions with higher gas price to be included in their blocks. 
+
+
+% weird findings: apparently all the tokens bought by f2pool was transfered to Yunbi, the chinese exchange: 0xB6c3647F55085B9a327404Fe8B718076Ee19245a
+
+
+% I would like to spend some time to make charts from the transactions happening on the date of the Status ICO
+% this will include: The blocks mined by F2Pool, containing transactions (~100 ETH) to Status ICO, other blocks mined in that time period, the movement of status tokens from those addresses allegedly linked to F2Pool (or/and Yunbi in this case).
+% https://github.com/corpetty/ICO_analysis/blob/master/status/Status.ipynb
+% https://github.com/corpetty/py-etherscan-api
+
+
+
+\subsubsection{Bancor}
+
 New attacks:\par\noindent
 Ghazal\par\noindent
 Find more applications to frontrun, not necessarily monetary gain/financial
