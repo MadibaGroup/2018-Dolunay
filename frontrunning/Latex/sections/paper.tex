@@ -70,16 +70,25 @@ On the time of the ICO there were reports of Ethereum network being unusable and
 % https://github.com/corpetty/py-etherscan-api
 
 
+%What is Bancor and how it can be frontrun:%
+\subsubsection{Bancor} is an Ethereum-based application that allows users to exchange their tokens without any counterparty risk. This protocol aims to solve the cryptocurrency liquidity issue by introducing \textit{Smart Tokens}~\cite{hertzog2017bancor}-- ERC20 compatible tokens with a built-in liquidity mechanism that are always available to users. Smart Tokens can be bought and sold through the users smart contract at an automatically calculated price which displays supply and demand. Doing so, Bancor protocol provides continuous liquidity for digital assets without relying on an orderbook as there is no requirement to match sellers and buyers.
 
-\subsubsection{Bancor}
-%@mahsa: write about what bancor is and what are the frontrunning attacks
+\par\noindent\textbf{Front-running Bancor} Unlike other existing decentralized exchanges, Bancor handles all the trades and exchanges on the Ethereum blockchain, so all the transactions are visible to the public for ~16s (the average Ethereum blocktime) before being included within a block. This leaves Bancor vulnerable to frontrunning~\cite{BancorIs7:online} as attackers are given enough time to modify the transactions ordering and gain favourable profits. Bancor frontrunning attack can occur in two ways:
+\begin{itemize}
+\item {\textbf{Miner Frontrunning.}} As mention, Bancor protocol uses an algorithm that automatically calculates the price of digital assets to provide market liquidity. Essentially, buy orders increase the price of the tokens while sell order decrease them. So  dishonest miners can easily reorder the pending transactions and  profit from a guaranteed price-rise. For example, they can place their own buy order ahead of any other large buy order transaction and receive a better rate than other Bancor users. 
+\item {\textbf{Non-miner Frontrunning.}} In order for the Ethereum transactions to be executed on the Ethereum Virtual Machine (EVM), users have to pay for the computations in small amount of Ether called \textit{gas}~\cite{AccountT67:online}.  The price users pay for transactions can increase or decrease how quickly the transactions are executed by the miners. Therefore, any regular non-miner users who run a full-node Ethereum client can modify the order of pending transactions by paying a more amount of gas \ie by monitoring the network, upon seeing a  pending buy transaction which will further increase the price of the asset, a fontrunner user can pay a higher gas price and send his transaction a head of that. By doing so, he achieves a better rate from any other Bancor users.
+\end{itemize}
+ 
+ 
 
+ 
+ 
+ %Mahsa ToDos:%
 New attacks:\par\noindent
 Ghazal\par\noindent
 %@mahsa: write on ghazal and namecoin but with the focus on ghazal front running applications
 %@ possibility of PoC attack (@shayan @mahsa)
-
-Find more applications to frontrun, not necessarily monetary gain/financial
+%===========================%
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 \section{Mitigations}
