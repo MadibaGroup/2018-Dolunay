@@ -26,7 +26,8 @@ Criteria:
 \section{Frontrunning Attacks}
 
 \subsection{Financial Markets}
-%oders, exchanges
+%orders, exchanges
+% @shayan: front runnign attacks on 0x and etherdelta . if one past one found add it to Implications!
 
 \subsection{Non-financial Applications}
 Applications, Ghazal, register domains before the user, (domain squatting?) \par\noindent
@@ -34,6 +35,8 @@ Other applications (look at Dapps or other blockchain use cases)\par\noindent
 Arbitrage (buy before the order, sell to the original order) (other scenarios)\par\noindent
 Maker griefing (attack on the system?s reputation itself)\par\noindent
 Etherdelta case: Fill the order when cancelling transaction is sent. What would be the profitable scenario here?
+
+% maybe inlcude 0xbitcoin ERC721 mineable tokens frontrunning!
 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -78,6 +81,7 @@ On the time of the ICO there were reports of Ethereum network being unusable and
 \item {\textbf{Miner Frontrunning.}} As mention, Bancor protocol uses an algorithm that automatically calculates the price of digital assets to provide market liquidity. Essentially, buy orders increase the price of the tokens while sell order decrease them. So  dishonest miners can easily reorder the pending transactions and  profit from a guaranteed price-rise. For example, they can place their own buy order ahead of any other large buy order transaction and receive a better rate than other Bancor users. 
 \item {\textbf{Non-miner Frontrunning.}} In order for the Ethereum transactions to be executed on the Ethereum Virtual Machine (EVM), users have to pay for the computations in small amount of Ether called \textit{gas}~\cite{AccountT67:online}.  The price users pay for transactions can increase or decrease how quickly the transactions are executed by the miners. Therefore, any regular non-miner users who run a full-node Ethereum client can modify the order of pending transactions by paying a more amount of gas \ie by monitoring the network, upon seeing a  pending buy transaction which will further increase the price of the asset, a fontrunner user can pay a higher gas price and send his transaction a head of that. By doing so, he achieves a better rate from any other Bancor users.
 \end{itemize}
+
  
  
 
