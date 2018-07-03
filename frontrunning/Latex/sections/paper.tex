@@ -74,15 +74,28 @@ On the time of the ICO there were reports of Ethereum network being unusable and
 
 
 %What is Bancor and how it can be frontrun:%
+
 \subsubsection{Bancor} is an Ethereum-based application that allows users to exchange their tokens without any counterparty risk. This protocol aims to solve the cryptocurrency liquidity issue by introducing \textit{Smart Tokens}~\cite{hertzog2017bancor}-- ERC20 compatible tokens with a built-in liquidity mechanism that are always available to users. Smart Tokens can be bought and sold through the users smart contract at an automatically calculated price which displays supply and demand. Doing so, Bancor protocol provides continuous liquidity for digital assets without relying on an orderbook as there is no requirement to match sellers and buyers.
 
-\par\noindent\textbf{Front-running Bancor} Unlike other existing decentralized exchanges, Bancor handles all the trades and exchanges on the Ethereum blockchain, so all the transactions are visible to the public for ~16s (the average Ethereum blocktime) before being included within a block. This leaves Bancor vulnerable to frontrunning~\cite{BancorIs7:online} as attackers are given enough time to modify the transactions ordering and gain favourable profits. Bancor frontrunning attack can occur in two ways:
+\par\noindent\textbf{Front-running Bancor} Recently, researchers have shown that Bancor is vulnerable to frontrunning attacks. Implemented on the Ethereum blockchain, when Bancor transactions are broadcast to the network, they sit in a pending transaction pool known as \textit{mempool} waiting for the miners to mine them. Since Bancor handles all the trades and exchanges on the Ethereum blockchain (unlike other existing decentralized exchanges), these transactions are all visible to the public for 16s (the average Ethereum blocktime) before being included within a block. This leaves this blockchain-based decentralized exchange vulnerable to the blockchain race condition attack as attackers are given enough time to front-run other transactions and gain favourable profits~\cite{BancorIs7:online}. Bancor frontrunning attacks can occur in two different ways:
+
+
 \begin{itemize}
-\item {\textbf{Miner Frontrunning.}} As mention, Bancor protocol uses an algorithm that automatically calculates the price of digital assets to provide market liquidity. Essentially, buy orders increase the price of the tokens while sell order decrease them. So  dishonest miners can easily reorder the pending transactions and  profit from a guaranteed price-rise. For example, they can place their own buy order ahead of any other large buy order transaction and receive a better rate than other Bancor users. 
-\item {\textbf{Non-miner Frontrunning.}} In order for the Ethereum transactions to be executed on the Ethereum Virtual Machine (EVM), users have to pay for the computations in small amount of Ether called \textit{gas}~\cite{AccountT67:online}.  The price users pay for transactions can increase or decrease how quickly the transactions are executed by the miners. Therefore, any regular non-miner users who run a full-node Ethereum client can modify the order of pending transactions by paying a more amount of gas \ie by monitoring the network, upon seeing a  pending buy transaction which will further increase the price of the asset, a fontrunner user can pay a higher gas price and send his transaction a head of that. By doing so, he achieves a better rate from any other Bancor users.
+\item {\textbf{Miner Frontrunning.}} As mentioned, Bancor protocol uses an algorithm that automatically calculates the price of digital assets to provide better market liquidity. In the Bancor model, essentially buy orders increase the price of the tokens while sell order decrease it. Since the Blockchain miners are the only parties who can decide on the order of transactions within a block, they can easily intercept and reorder the pending transactions sitting in the mempool and profit from a guaranteed price-rise. For example, a miner learns about the pending \textit{buy} transaction of 1000 Ether, based on the Bancor design, if this transaction goes through, it causes the price of Ether to increase. So the dishonest miner can step in front of this transaction and  place his own buy order ahead of it. So he would simply create his \textit{buy} of 1000 Ether and include it within a block and now he mines the previous \textit{buy} transaction of 1000 Ether. Doing so, he would receive a better rate than other Bancor user, can sell the tokens he has received and gain a price advantage at the expense of others. Similarly, a dishonest miner can sell hi tokens in front, if he sees a pending \textit{sell} transaction.
+
+
+\item {\textbf{Non-miner Frontrunning.}} Researchers have also shown that a regular non-miner user can also front-run Bancor. In order for the Bancor transactions to be executed on the Ethereum Virtual Machine (EVM),  users have to pay for the computations in small amount of Ether called \textit{gas}~\cite{AccountT67:online}. The price that users pay for transactions (a.k.a. transaction fees) can increase or decrease how quickly they are executed and included within the blocks by the miners.  This is because the Ethereum miners consume resources to process the transactions and so receive the transaction fees after creating the blocks. Once seeing two identical transactions with different transaction fees, profit maximizers miners are free to mine select the transaction which offers the highest fee. Therefore, any regular non-miner users who run a full-node Ethereum client can modify the order of pending transactions by paying a more amount of gas \ie by monitoring the network, upon seeing a  pending \textit{buy} transaction which will further increase the price of the asset, a font-runner user can pay a higher gas price and send his transaction a head of that. By doing so, he achieves a better rate from any other Bancor users. 
+
+
+
 \end{itemize}
 
- 
+
+
+
+
+
+
  
 
  
