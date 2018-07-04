@@ -3,8 +3,33 @@
 
 \subsection{What is frontrunning?} %Definition of frontrunning
 %Traditional
+Frontrunning was first appeared on the Chicago Board Options Exchange (SBOE) ~\cite{markham1988front}, and was later defined by \textit{Secrities Exchange Comission} in 1977 as following:
+\begin{quote}
+The practice of effecting an options transaction based upon non-public information regarding an impending block transaction in the underlying stock, in order to obtain a profit when the options market adjusts to the price at which the block trades. ~\cite{sec1978cboe}
+\end{quote} 
+On the years after there were ongoing discussions between self-regulatory exchanges and SEC to regulate, detect and define laws to deal with frontrunning~\cite{markham1988front}, with SEC stating: 
+\begin{quote}
+it seems evident that such behaviour on the part of persons with knowledge of imminent transactions which will likely affect the price of the derivative security constitutes an unfair use of such knowledge. \footnote{Securities Exchange Act Release No. 14156, November 19, 1977, (Letter from George A. Fitzsimmons, Secretary, Securities and Exchange Commission to Joseph W. Sullivan, President  CBOE).}
+\end{quote} 
+% http://3197d6d14b5f19f2f440-5e13d29c4c016cf96cbbfd197c579b45.r81.cf1.rackcdn.com/collection/papers/1970/1978_OptMkt_06_Chapter_III_3.pdf
+Initially the frontrunning policies only applied to certain options, later on in 2002, the rule was refined to include the same prohibitions to security futures~\cite{sec2012frontrunning}.
+
+
+
+%In actuality, front-running is more complex than this definition suggests. It encompasses at least three forms of conduct, each of which raises different regulatory and policy issues.9 They are: (1) trading by third parties who are tipped on an impending block trade ("tippee" trading); (2) transactions in which the owner or purchaser of the block trade itself engages in the offset- ting futures or options transaction as a means of "hedging" against price fluctuations caused by the block transaction ("self-front-running"); 1 ° and (3) transactions where a broker with knowledge of an impending customer block order trades ahead of that order for the broker's own profit ("trading ahead").
+% from JerryWMarkhamFrontRunning.pdf
+
+% More to read and add from : SECURITIES AND EXCHANGE COMMISSION Release No. 34-67079. pdf included in Related_Documents
+% https://www.sec.gov/about/annual_report/1988.pdf
+
+
+
+
+\textbf{Frontrunning in Blockchains}: The main discussion regarding regulations for exchanges on the topic of frontrunning, comes from the fact that information access is layered and some could be accessed only by insider actors, such as the broker, the IT administrator, \etc. In the blockchain world, everyone running a node of such blockchain could potentially have access to such information, hence it makes it much easier for any actor to engage in frontrunning within applications running on the blockchain. Some other key differences are the fact that such actor can stay anonymous and also enforcing regulation is infeasible in traditional sense, however the decentral application could be designed in such a way to prevent frontrunning attacks. 
+
+
 %WRT blockchain and decentralization
-\subsection{Miners and their power} 
+\subsection{Miners and their power}
 %Transaction order, can be used for frontrunning
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -37,6 +62,7 @@ Maker griefing (attack on the system?s reputation itself)\par\noindent
 Etherdelta case: Fill the order when cancelling transaction is sent. What would be the profitable scenario here?
 
 % maybe inlcude 0xbitcoin ERC721 mineable tokens frontrunning!
+% mint: https://etherscan.io/tx/0x9883bc3ad018fd2b649982f88fbad7dc5abcb8f11c4f1d87ef814ba30c2b3428
 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -52,14 +78,14 @@ There has been many incidents of frontrunning in real world blockchains speciall
 ICO, Initial Coin Offering, is one of the blockchain applications, specially blockchains such as Ethereum with smart contract capability. The common practice is to deploy a smart contract on the blockchain indicating the details of the ICO such as the trade ratio, when it starts and ends, and more details on how it will be capped.
 In June 2017, Status.im started their ICO and within 3 hours they reached the dynamic ceiling in place that triggered the end of the ICO, summing in 300,000 ether in funds, estimated at more than 200 million dollars at the time of their ICO. ~\cite{statusicoanalysis}. The idea behind Dynamic Ceilings is to make it more costly for larger contributors,  in the form of transaction fees, which have to split their contributions to different addresses, with minimal impact to smaller contributors~\cite{statuswhitepaper}.
 On the time of the ICO there were reports of Ethereum network being unusable and transactions were not confirming. Further study showed that some mining pools (\todo: define mining pool) could have been manipulating the network for their own profit.
- 
+
 %@shayan: make charts and figure out the orange seller
 
-%NOTE: ICO Initial Coin Offering should be explained probably in introduction section. the process of ICO smart contract and how the capped system works --> limited time/funds can be included in the ico and why people would try to get in as soon as possible, explain how their investment strategy works and such. Maybe the second half could be explained here to say why frontrunning an ICO makes sense? 
+%NOTE: ICO Initial Coin Offering should be explained probably in introduction section. the process of ICO smart contract and how the capped system works --> limited time/funds can be included in the ico and why people would try to get in as soon as possible, explain how their investment strategy works and such. Maybe the second half could be explained here to say why frontrunning an ICO makes sense?
 % add more on capped ICOs, status used Distribution & Dynamic Ceilings : https://blog.status.im/distribution-dynamic-ceilings-e2f427f5cca  ~\cite{statuswhitepaper}
 
 % The dynamic ceiling and prevention of bigger investments getting their full investment in could be the reason behind the design of F2pool move, by having multiple addresses each contributing around 100ETH to the ICO smart contract, instead of having one big transaction in.
-%Also the ICO smart contract only accepted transactions with gas price lower than 50gwei, unless they were whitelisted before. this was for preventing high gas payers to get in front of the line. although as this was not clearly communicated to users (UX issues?), there were tons of transactions that failed due to high gas price but also clogged the ethereum network as the miners chose transactions with higher gas price to be included in their blocks. 
+%Also the ICO smart contract only accepted transactions with gas price lower than 50gwei, unless they were whitelisted before. this was for preventing high gas payers to get in front of the line. although as this was not clearly communicated to users (UX issues?), there were tons of transactions that failed due to high gas price but also clogged the ethereum network as the miners chose transactions with higher gas price to be included in their blocks.
 
 
 % weird findings: apparently all the tokens bought by f2pool was transfered to Yunbi, the chinese exchange: 0xB6c3647F55085B9a327404Fe8B718076Ee19245a
@@ -81,17 +107,17 @@ On the time of the ICO there were reports of Ethereum network being unusable and
 
 
 \begin{itemize}
-\item {\textbf{Miner Frontrunning.}} As mentioned, Bancor protocol uses an algorithm that automatically calculates the price of digital assets to provide better market liquidity. In the Bancor model, essentially buy orders increase the price of the tokens while sell order decrease it. Since the Blockchain miners are the only parties who can decide on the order of transactions within a block, they can easily intercept and reorder the pending transactions sitting in the mempool and profit from a guaranteed price-rise. For example, a miner learns about the pending \textit{buy} transaction of 1000 Ether, based on the Bancor design, if this transaction goes through, it causes the price of Ether to increase. So the dishonest miner can step in front of this transaction and  place his own buy order ahead of it. So he would simply create his \textit{buy} of 1000 Ether and include it within a block and now he mines the previous \textit{buy} transaction of 1000 Ether. Doing so, he would receive a better rate than other Bancor user, can sell the tokens he has received and gain a price advantage at the expense of others. Similarly, a dishonest miner can sell hi tokens in front, if he sees a pending \textit{sell} transaction.
+\item {\textbf{Miner Frontrunning.}} As mentioned, Bancor protocol uses an algorithm that automatically calculates the price of digital assets to provide better market liquidity. In the Bancor model, essentially buy orders increase the price of the tokens while sell order decrease it. Since the Blockchain miners are the only parties who can decide on the order of transactions within a block, they can easily intercept and reorder the pending transactions sitting in the mempool and profit from a guaranteed price-rise. For example, a miner learns about the pending \textit{buy} transaction of 1000 Ether, based on the Bancor design, if this transaction goes through, it causes the price of Ether to increase. So the dishonest miner can step in front of this transaction and  place his own buy order ahead of it. So he would simply create his \textit{buy} of 1000 Ether and include it within a block and now he mines the previous \textit{buy} transaction of 1000 Ether. Doing so, he would receive a better rate than other Bancor user, can sell the tokens he has received and gain a price advantage at the expense of others. Similarly, a dishonest miner can sell his tokens in front, if he sees a pending \textit{sell} transaction.
 
 
-\item {\textbf{Non-miner Frontrunning.}} Researchers have also shown that a regular non-miner user can also front-run Bancor. In order for the Bancor transactions to be executed on the Ethereum Virtual Machine (EVM),  users have to pay for the computations in small amount of Ether called \textit{gas}~\cite{AccountT67:online}. The price that users pay for transactions (a.k.a. transaction fees) can increase or decrease how quickly they are executed and included within the blocks by the miners.  This is because the Ethereum miners consume resources to process the transactions and so receive the transaction fees after creating the blocks. Once seeing two identical transactions with different transaction fees, profit maximizers miners are free to mine select the transaction which offers the highest fee. Therefore, any regular non-miner users who run a full-node Ethereum client can modify the order of pending transactions by paying a more amount of gas \ie by monitoring the network, upon seeing a  pending \textit{buy} transaction which will further increase the price of the asset, a font-runner user can pay a higher gas price and send his transaction a head of that. By doing so, he achieves a better rate from any other Bancor users. 
+\item {\textbf{Non-miner Frontrunning.}} Researchers have also shown that a regular non-miner user can also front-run Bancor. In order for the Bancor transactions to be executed on the Ethereum Virtual Machine (EVM),  users have to pay for the computations in small amount of Ether called \textit{gas}~\cite{AccountT67:online}. The price that users pay for transactions (a.k.a. transaction fees) can increase or decrease how quickly they are executed and included within the blocks by the miners.  This is because the Ethereum miners consume resources to process the transactions and so receive the transaction fees after creating the blocks. Once seeing two identical transactions with different transaction fees, profit maximizers miners are free to mine select the transaction which offers the highest fee. Therefore, any regular non-miner users who run a full-node Ethereum client can modify the order of pending transactions by paying a more amount of gas \ie by monitoring the network, upon seeing a  pending \textit{buy} transaction which will further increase the price of the asset, a font-runner user can pay a higher gas price and send his transaction a head of that. By doing so, he achieves a better rate from any other Bancor users.
 
 \end{itemize}
 
-%Following section talks about frontrunning in namespaces but limited to Ghazal. Will talk about NameCoin in the section of mitigations (commit & reveal method) 
-\subsubsection{Namespaces} Although frontrunning attacks have been more showcased in the context of decentralized exchanges and trading systems, they are are not yet limited to the financial markets. Frontrunning can occur within other blockchain based applications such as naming systems. Blockchain-based namespaces have been introduced to eliminate the role of central parties \ie domain name system (DNS) which introduces single point of failures in the entire web. One such system is Ghazal, an Ethereum-based naming and PKI system~\cite{moosavighazal}. Ghazal users rely on the Ethereum blockchain to register their \texttt{.ghazal} domain names and bind certificates to those names. In Ghazal model, a user would register domain name by executing the \textit{registerdomain} function from the Ghazal smart contract with the domain name in plain text as the function argument. As mentioned before, These transactions will sit in the mempool so that it would be mined by Ethereum miners and included in the block. During this period in which the transaction is not yet confirmed, frontrunning attack can occur by (i) dishonest miners and/or (ii) regular non-miner user. In the first case, a miner would intercept the \textit{registerdomain} transaction and register that name ahead of the user. A regular non-miner node in the Ethereum network can frontrun other user's \textit{registerdomain} at a good profit by paying higher transaction fees. In both cases the adversarial party could sell the domain name to the users for higher price. 
- 
- 
+%Following section talks about frontrunning in namespaces but limited to Ghazal. Will talk about NameCoin in the section of mitigations (commit & reveal method)
+\subsubsection{Namespaces} Although frontrunning attacks have been more showcased in the context of decentralized exchanges and trading systems, they are are not yet limited to the financial markets. Frontrunning can occur within other blockchain based applications such as naming systems. Blockchain-based namespaces have been introduced to eliminate the role of central parties \ie domain name system (DNS) which introduces single point of failures in the entire web. One such system is Ghazal, an Ethereum-based naming and PKI system~\cite{moosavighazal}. Ghazal users rely on the Ethereum blockchain to register their \texttt{.ghazal} domain names and bind certificates to those names. In Ghazal model, a user would register domain name by executing the \textit{registerdomain} function from the Ghazal smart contract with the domain name in plain text as the function argument. As mentioned before, These transactions will sit in the mempool so that it would be mined by Ethereum miners and included in the block. During this period in which the transaction is not yet confirmed, frontrunning attack can occur by (i) dishonest miners and/or (ii) regular non-miner user. In the first case, a miner would intercept the \textit{registerdomain} transaction and register that name ahead of the user. A regular non-miner node in the Ethereum network can frontrun other user's \textit{registerdomain} at a good profit by paying higher transaction fees. In both cases the adversarial party could sell the domain name to the users for higher price.
+
+
 
 %@ possibility of PoC attack (@shayan @mahsa)
 %===========================%
@@ -107,7 +133,7 @@ Commit / reveal methods %namecoin story @mahsa
 Submarines
 \begin{itemize}
 \item{The method described in HD can be optimized and more functional with the new changes to ethereum and solidity}
-\item{Submarines 2.0: There can be a new way of doing this (new WRT hackingditributed article), can predict smart contract addresses using the nonce and data of the contract (forwarder/refunder), so funds can be sent to these addresses and then contracts can be deployed} 
+\item{Submarines 2.0: There can be a new way of doing this (new WRT hackingditributed article), can predict smart contract addresses using the nonce and data of the contract (forwarder/refunder), so funds can be sent to these addresses and then contracts can be deployed}
 \begin {itemize}
 \item{Pros: new addresses, no indication of the order (Anonymity-set)}
 \item{Cons: DDoS? Requires 3 transactions for each order?} >> 1 send the funds 2 Deploy the contract 3 call the function
@@ -120,38 +146,5 @@ Submarines
 \section{Concluding Remarks}
 
 
- 
-%\subsubsection*{Acknowledgements.} 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+%\subsubsection*{Acknowledgements.}
