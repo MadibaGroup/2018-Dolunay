@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  3 JUL 2018 15:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  19 JUL 2018 12:05
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1094,42 +1094,70 @@ LaTeX Font Info:    Try loading font information for U+stmry on input line 28.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/stmaryrd/Ustmry.fd)
 (./sections/abstract.tex) (./sections/paper.tex
 
-LaTeX Warning: Citation `statusicoanalysis' on page 1 undefined on input line 5
-3.
+LaTeX Warning: Citation `liang2005distressed' on page 1 undefined on input line
+ 17.
 
 
-LaTeX Warning: Citation `statuswhitepaper' on page 1 undefined on input line 53
+LaTeX Warning: Citation `markham1988front' on page 1 undefined on input line 49
 .
 
-./sections/paper.tex:54: Undefined control sequence.
-l.54 ...study showed that some mining pools (\todo
-                                                  : define mining pool) coul...
 
-? 
+LaTeX Warning: Citation `sec1978cboe' on page 1 undefined on input line 51.
+
+
+LaTeX Warning: Citation `markham1988front' on page 1 undefined on input line 53
+.
+
+
+LaTeX Warning: Citation `sec2012frontrunning' on page 1 undefined on input line
+ 58.
+
 [1
 
 
 
 {/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 
-LaTeX Warning: Citation `hertzog2017bancor' on page 2 undefined on input line 7
-8.
+LaTeX Warning: Citation `malinova2017market' on page 2 undefined on input line 
+67.
 
 
-LaTeX Warning: Citation `BancorIs7:online' on page 2 undefined on input line 80
-.
+LaTeX Warning: Citation `aune2017footprints' on page 2 undefined on input line 
+68.
 
+
+LaTeX Warning: Citation `statusicoanalysis' on page 2 undefined on input line 1
+69.
+
+
+LaTeX Warning: Citation `statuswhitepaper' on page 2 undefined on input line 16
+9.
+
+./sections/paper.tex:170: Undefined control sequence.
+l.170 ...tudy showed that some mining pools (\todo
+                                                  : define mining pool) coul...
+
+? 
 [2]
 
-LaTeX Warning: Citation `AccountT67:online' on page 3 undefined on input line 8
-7.
+LaTeX Warning: Citation `hertzog2017bancor' on page 3 undefined on input line 1
+94.
 
 
-LaTeX Warning: Citation `moosavighazal' on page 3 undefined on input line 92.
+LaTeX Warning: Citation `BancorIs7:online' on page 3 undefined on input line 19
+6.
 
-[3])
+[3]
+
+LaTeX Warning: Citation `AccountT67:online' on page 4 undefined on input line 2
+03.
+
+
+LaTeX Warning: Citation `moosavighazal' on page 4 undefined on input line 208.
+
+[4])
 No file main.bbl.
-[4]
+[5]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 50.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 50.
  (./main.aux)
@@ -1140,25 +1168,27 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 50.
  ) 
 Here is how much of TeX's memory you used:
- 22608 strings out of 493014
- 430214 string characters out of 6133351
+ 22637 strings out of 493014
+ 430574 string characters out of 6133351
  549483 words of memory out of 5000000
- 25704 multiletter control sequences out of 15000+600000
- 7345 words of font info for 28 fonts, out of 8000000 for 9000
+ 25719 multiletter control sequences out of 15000+600000
+ 9729 words of font info for 37 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,6n,72p,1601b,382s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 57i,9n,72p,1601b,382s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></
 usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></us
-r/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/l
-ocal/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/lo
-cal/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/loc
-al/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (4 pages, 110733 bytes).
+r/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/l
+ocal/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/loca
+l/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/t
+exlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/te
+xlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/tex
+live/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on main.pdf (5 pages, 135474 bytes).
 PDF statistics:
- 85 PDF objects out of 1000 (max. 8388607)
- 70 compressed objects within 1 object stream
- 22 named destinations out of 1000 (max. 500000)
+ 104 PDF objects out of 1000 (max. 8388607)
+ 86 compressed objects within 1 object stream
+ 28 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
