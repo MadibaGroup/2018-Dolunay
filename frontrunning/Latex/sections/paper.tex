@@ -3,6 +3,9 @@
 \section{Introduction}
 
 % PAPER BEING SOLD HERE
+% @mahsa summary of `What is frontrunning?` in 2 sentenses, frontrunning in blockchain and why is this important to consider in blockchain/dapp design
+% require more indepth academic look into the issue
+
 
 
 \section{Preliminary}
@@ -12,6 +15,9 @@
 %Some notes (to be paraphrased):
 %if other market participants can obtain prior or contemporaneous knowledge of transactions, they may attempt to trade before the institutional investors can com- plete their trades, a practice known as front running. In financial markets, any sort of front running or information leakage is a serious concern.
 %We would like to ask what causes such front-running behaviour. There are two factors: (1) imperfect competition and (2) liquidity uncertainty
+
+% @mahsa
+
 
 
 ~\cite{liang2005distressed} : talks about front running in illiquid markets (contains lots of useful definitions of frontrunning to talk about in this section)
@@ -57,6 +63,10 @@ it seems evident that such behaviour on the part of persons with knowledge of im
 % http://3197d6d14b5f19f2f440-5e13d29c4c016cf96cbbfd197c579b45.r81.cf1.rackcdn.com/collection/papers/1970/1978_OptMkt_06_Chapter_III_3.pdf
 Initially the frontrunning policies only applied to certain options, later on in 2002, the rule was refined to include the same prohibitions to security futures~\cite{sec2012frontrunning}.
 
+%@shayan complete the historical context
+
+
+
 
 \subsection{Frontrunning in Blockchains}: One of the main discussion regarding regulations for exchanges on the topic of frontrunning, comes from the fact that information access is layered and some could be accessed only by insider actors, such as the broker, the IT administrator, \etc. In the blockchain world, everyone running a node of one blockchain could potentially have access to such information, hence it makes it is more susceptible for any actor to engage in frontrunning within applications running on the blockchain. Some other key differences are the fact that such actor can stay anonymous and also enforcing regulation is infeasible in traditional sense, however the decentral application could be designed in such a way to prevent frontrunning attacks. 
 
@@ -96,7 +106,7 @@ Initially the frontrunning policies only applied to certain options, later on in
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-\section{Frontrunning Attacks}
+\section{Frontrunning Attacks in Blockchain}
 
 \subsection{Financial Markets}
 %orders, exchanges
