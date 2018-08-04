@@ -1,0 +1,73 @@
+\begin{thebibliography}{10}
+
+\bibitem{AccountT67:online}
+Account types, gas, and transactions ? ethereum homestead 0.1 documentation.
+\newblock
+  \url{http://ethdocs.org/en/latest/contracts-and-transactions/account-types-gas-and-transactions.html#what-is-gas}.
+\newblock (Accessed on 06/14/2018).
+
+\bibitem{aune2017footprints}
+R.~T. Aune, A.~Krellenstein, M.~OÕHara, and O.~Slama.
+\newblock Footprints on a blockchain: Trading and information leakage in
+  distributed ledgers.
+\newblock {\em The Journal of Trading}, 12(3):5--13, 2017.
+
+\bibitem{BancorIs7:online}
+P.~D. Emin Gün~Sirer.
+\newblock Bancor is flawed.
+\newblock \url{http://hackingdistributed.com/2017/06/19/bancor-is-flawed/},
+  2017.
+\newblock (Accessed on 06/14/2018).
+
+\bibitem{hertzog2017bancor}
+E.~Hertzog, G.~Benartzi, and G.~Benartzi.
+\newblock Bancor protocol.
+\newblock 2017.
+
+\bibitem{liang2005distressed}
+D.~Liang.
+\newblock Distressed sales and financial arbitrageurs: Front-running in
+  illiquid markets.
+\newblock 2005.
+
+\bibitem{malinova2017market}
+K.~Malinova and A.~Park.
+\newblock Market design with blockchain technology.
+\newblock 2017.
+
+\bibitem{markham1988front}
+J.~W. Markham.
+\newblock Front-running-insider trading under the commodity exchange act.
+\newblock {\em Cath. UL Rev.}, 38:69, 1988.
+
+\bibitem{moosavighazal}
+S.~Moosavi and J.~Clark.
+\newblock Ghazal: toward truly authoritative web certificates using ethereum.
+
+\bibitem{statusicoanalysis}
+C.~Petty.
+\newblock A look at the status.im ico token distribution.
+\newblock
+  \url{https://medium.com/the-bitcoin-podcast-blog/a-look-at-the-status-im-ico-token-distribution-f5bcf7f00907},
+  2017.
+\newblock Accessed: 2018-06-10.
+
+\bibitem{sec1978cboe}
+SEC.
+\newblock 96th cong, 1st sess, report of the special study of the options
+  markets to the securities and exchange comission.
+\newblock {\em Comm. Print 1978}, pages 183--189, 1978.
+
+\bibitem{sec2012frontrunning}
+SEC.
+\newblock Notice of filing of proposed rule change to adopt finra rule 5270
+  (front running of block transactions) in the consolidated finra rulebook.
+\newblock {\em Release No. 34-67079; File No. SR-FINRA-2012-025}, 2012.
+
+\bibitem{statuswhitepaper}
+S.~Team.
+\newblock The status network, a strategy towards mass adoption of ethereum.
+\newblock \url{https://status.im/whitepaper.pdf}, 2017.
+\newblock Accessed: 2018-06-10.
+
+\end{thebibliography}
