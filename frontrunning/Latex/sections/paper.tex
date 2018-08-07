@@ -26,9 +26,9 @@
 %______________________________________________________________%
 
 \subsection{Historical Context}
-Frontrunning was first appeared on the Chicago Board Options Exchange (SBOE) ~\cite{markham1988front}, and was later defined by \textit{Secrities Exchange Comission} in 1977 as following:
+Frontrunning was first appeared on the Chicago Board Options Exchange ( \textit{CBoE}) ~\cite{markham1988front}, and was identified by \textit{Securities Exchange Commission} in 1977 as the following:
 \begin{quote}
-The practice of effecting an options transaction based upon non-public information regarding an impending block transaction\footnote{Block in the stock market is large number of shares, 10\,000 or more, to sell which will heavily changes the price} in the underlying stock, in order to obtain a profit when the options market adjusts to the price at which the block trades. ~\cite{sec1978cboe}
+The practice of effecting an options transaction based upon non-public information regarding an impending block transaction\footnote{Block in the stock market is large number of shares, 10\,000 or more, to sell which will heavily changes the price} in the underlying stock, in order to obtain a profit when the options market adjusts to the price at which the block trades. ~\cite{sec1978optionsmarket}
 \end{quote} 
 
 %In actuality, front-running is more complex than this definition suggests. It encompasses at least three forms of conduct, each of which raises different regulatory and policy issues.9 They are: (1) trading by third parties who are tipped on an impending block trade ("tippee" trading); (2) transactions in which the owner or purchaser of the block trade itself engages in the offset- ting futures or options transaction as a means of "hedging" against price fluctuations caused by the block transaction ("self-front-running"); 1 ° and (3) transactions where a broker with knowledge of an impending customer block order trades ahead of that order for the broker's own profit ("trading ahead").
@@ -37,20 +37,23 @@ The practice of effecting an options transaction based upon non-public informati
 % More to read and add from : SECURITIES AND EXCHANGE COMMISSION Release No. 34-67079. pdf included in Related_Documents
 % https://www.sec.gov/about/annual_report/1988.pdf
 
-
-On the years after there were ongoing discussions between self-regulatory exchanges and SEC to regulate, detect and define laws to deal with frontrunning~\cite{markham1988front}, with SEC stating: 
+On the years after there were ongoing discussions between self-regulatory exchanges (\eg \textit{CBoE}) and  \textit{SEC} to regulate, detect and define laws and regulations to deal with frontrunning~\cite{markham1988front}, with \textit{SEC} stating: 
 \begin{quote}
-it seems evident that such behaviour on the part of persons with knowledge of imminent transactions which will likely affect the price of the derivative security constitutes an unfair use of such knowledge. \footnote{Securities Exchange Act Release No. 14156, November 19, 1977, (Letter from George A. Fitzsimmons, Secretary, Securities and Exchange Commission to Joseph W. Sullivan, President  CBOE).}
+It seems evident that such behaviour on the part of persons with knowledge of imminent transactions which will likely affect the price of the derivative security constitutes an unfair use of such knowledge. \footnote{Securities Exchange Act Release No. 14156, November 19, 1977, (Letter from George A. Fitzsimmons, Secretary, Securities and Exchange Commission to Joseph W. Sullivan, President  CBoE).}
 \end{quote} 
-% http://3197d6d14b5f19f2f440-5e13d29c4c016cf96cbbfd197c579b45.r81.cf1.rackcdn.com/collection/papers/1970/1978_OptMkt_06_Chapter_III_3.pdf
-Initially the frontrunning policies only applied to certain options, later on in 2002, the rule was refined to include the same prohibitions to security futures~\cite{sec2012frontrunning}.
 
-%@shayan complete the historical context
+As defining what exactly is considered illegal front-running required more knowledge of how these new markets behave, \textit{CBoE} and other exchanges (and brokers) issued educational circulars for their members asserting that frontrunning violates existing rules, with some examples of what is considered frontrunning. However difference of opinion regarding the unfairness o front running activities, insufficient exchange rules and lack of a precise definition in this area resulted in no action by self-regulator organizations~cite{sec1978optionsmarket}. 
 
-
+Further reading on the early details on the history and challenges of detecting and regulating frontrunning can be found in~\cite{markham1988front} . % TODO: add a more recent publication here as well! 
 
 
-\subsection{Frontrunning in Blockchains}: One of the main discussion regarding regulations for exchanges on the topic of frontrunning, comes from the fact that information access is layered and some could be accessed only by insider actors, such as the broker, the IT administrator, \etc. In the blockchain world, everyone running a node of one blockchain could potentially have access to such information, hence it makes it is more susceptible for any actor to engage in frontrunning within applications running on the blockchain. Some other key differences are the fact that such actor can stay anonymous and also enforcing regulation is infeasible in traditional sense, however the decentral application could be designed in such a way to prevent frontrunning attacks. 
+Initially the frontrunning policies only applied to certain option markets, later on in 2002, the rule was refined to include the same prohibitions to security futures~\cite{finra_2002}, which then in 2012 with the new amendment, FINRA Rule 5270, the frontrunning rule was extended to cover trading in an option, derivative, or other financial instruments overlying a security with some exceptions~\cite{finra_2012, sec2012frontrunning}. 
+
+
+
+\subsection{Frontrunning in Blockchains}: One of the main discussion regarding regulations for exchanges on the topic of frontrunning, comes from the fact that information access is layered and some could be accessed only by insider actors, such as the broker, the IT administrator, \etc. In the blockchain world, anyone running a node of one blockchain could potentially have access to such information, hence it makes it is more susceptible for any actor to engage in frontrunning within applications running on the blockchain. Some other key differences are the fact that such actor can stay anonymous and also enforcing regulation is infeasible in traditional sense, however a decentral application could be designed in such a way to mitigate frontrunning attacks. 
+
+% TODO: example with figure! similar to a traditional exchange. e.g an order on a decentral exchange, just the description then refer to \subsection{Financial Markets}
 
 
 
