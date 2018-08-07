@@ -12,37 +12,18 @@
 
 \subsection{What is frontrunning?} %Definition of frontrunning
 
-%Some notes (to be paraphrased):
-%if other market participants can obtain prior or contemporaneous knowledge of transactions, they may attempt to trade before the institutional investors can complete their trades, a practice known as front running. In financial markets, any sort of front running or information leakage is a serious concern.
-%We would like to ask what causes such front-running behaviour. There are two factors: (1) imperfect competition and (2) liquidity uncertainty
-~\cite{liang2005distressed} : talks about front running in illiquid markets (contains lots of useful definitions of frontrunning to talk about in this section)
+\emph{Front-running} is analogous to any course of action during which a person benefits from prior access to inside or confidential market information to upcoming transactions and trades. This problem can occur in both financial and non-financial systems, however, it is more noticeable within the trading and exchange systems as it was originated back in stock markets. In the old times, all the trades were executed on papers, so in case of receiving a large order from a client, the broker might say this loud and other people around the table could be informed. Therefore, a malicious trader would now run in front of that order and put his own transaction in between (before the trade was executed) and profit from the price increase of the stock. In other words, a group of market participants obtain non-public market information which allows them to front-run other users trades by putting their orders a head of those trades and benefit from advance knowledge of pending client orders. The two significant factors which cause the front-running practice to happen within the financial markets are (i) imperfect competition and (ii) liquidity uncertainty. \textbf{should I explain more?!} Any sort of front-running activity within the financial markets is considered as an illegal practice.
 
 
-% @mahsa
+%%%%%%SHOULD WE KEEP THE FOLLOWINGS?%%%%%%
+%~\cite{liang2005distressed} : talks about front running in illiquid markets (contains lots of useful definitions of frontrunning to talk about in this section)
+%~\cite{sannikov2016dynamic}
 
-
-
-
-
-%Traditional
-
-%talking about front running 
-
-
-%Miners in Bitcoin can do selfish mining and such but in theory
-% here we talk about miners actually being malicious(?) to profit themselves. 
-
-
-
-
-% more on the definition in the wiki page: https://en.wikipedia.org/wiki/Front_running
 
 % [optional but interesting] Here we can talk about Principal–agent problem: https://en.wikipedia.org/wiki/Principal%E2%80%93agent_problem
-
-
 % ticket scalping : https://en.wikipedia.org/wiki/Ticket_resale
 
-
+%______________________________________________________________%
 
 \subsection{Historical Context}
 Frontrunning was first appeared on the Chicago Board Options Exchange (SBOE) ~\cite{markham1988front}, and was later defined by \textit{Secrities Exchange Comission} in 1977 as following:
@@ -145,7 +126,10 @@ Etherdelta case: Fill the order when cancelling transaction is sent. What would 
 
 
 \subsection{Miners}
-
+%Miners in Bitcoin can do selfish mining and such but in theory
+% here we talk about miners actually being malicious(?) to profit themselves. 
+%You can do the same thing on the blockchain. If a miner or user sees an unconfirmed transaction in the mempool they could squeeze their own transaction to come in front and profit from that. Essentially, profitting from reordering the transactions.
+% Miners can only frontrun in blocks they themselves happen to mine.
 % Mining blocks hence order of the transactions within a block --> reorder
 % 
 
