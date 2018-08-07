@@ -273,7 +273,6 @@
       <column-instance column='[SuccessRate (copy)]' derivation='Count' name='[cnt:SuccessRate (copy):qk]' pivot='key' type='quantitative' />
       <column-instance column='[Calculation_2693363711567581188]' derivation='CountD' name='[ctd:Calculation_2693363711567581188:qk]' pivot='key' type='quantitative' />
       <column-instance column='[tx_hash]' derivation='CountD' name='[ctd:tx_hash:qk]' pivot='key' type='quantitative' />
-      <column-instance column='[Calculation_2693363711513722880]' derivation='Max' name='[max:Calculation_2693363711513722880:nk]' pivot='key' type='nominal' />
       <column-instance column='[SuccessRate (copy)]' derivation='None' name='[none:SuccessRate (copy):nk]' pivot='key' type='nominal' />
       <column-instance column='[block_miner]' derivation='None' name='[none:block_miner:nk]' pivot='key' type='nominal' />
       <column-instance column='[block_number]' derivation='None' name='[none:block_number:ok]' pivot='key' type='ordinal' />
@@ -312,9 +311,6 @@
             </map>
             <map to='#f28e2b'>
               <bucket>&quot;[federated.140ujbs0tnmsxj0zw04q711nhhq4].[cnt:Calculation_2693363711513722880:qk]&quot;</bucket>
-            </map>
-            <map to='#f28e2b'>
-              <bucket>&quot;[federated.140ujbs0tnmsxj0zw04q711nhhq4].[max:Calculation_2693363711513722880:nk]&quot;</bucket>
             </map>
             <map to='#f28e2b'>
               <bucket>&quot;[federated.140ujbs0tnmsxj0zw04q711nhhq4].[sum:Calculation_2693363711513722880:qk]&quot;</bucket>
@@ -465,7 +461,7 @@
               </aliases>
             </column>
             <column caption='Block Number' datatype='integer' name='[block_number]' role='dimension' type='ordinal' />
-            <column-instance column='[Calculation_2693363711513722880]' derivation='Max' name='[max:Calculation_2693363711513722880:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Calculation_2693363711513722880]' derivation='Count' name='[cnt:Calculation_2693363711513722880:qk]' pivot='key' type='quantitative' />
             <column-instance column='[block_miner]' derivation='None' name='[none:block_miner:nk]' pivot='key' type='nominal' />
             <column-instance column='[block_number]' derivation='None' name='[none:block_number:ok]' pivot='key' type='ordinal' />
             <column caption='Receipt Gas Used' datatype='integer' name='[receipt_gas_used]' role='measure' type='quantitative' />
@@ -656,8 +652,9 @@
             </view>
             <mark class='Circle' />
             <encodings>
+              <color column='[federated.140ujbs0tnmsxj0zw04q711nhhq4].[none:block_miner:nk]' />
+              <size column='[federated.140ujbs0tnmsxj0zw04q711nhhq4].[attr:tx_value:qk]' />
               <lod column='[federated.140ujbs0tnmsxj0zw04q711nhhq4].[none:block_number:ok]' />
-              <lod column='[federated.140ujbs0tnmsxj0zw04q711nhhq4].[attr:tx_value:qk]' />
             </encodings>
             <style>
               <style-rule element='mark'>
@@ -666,8 +663,8 @@
             </style>
           </pane>
         </panes>
-        <rows>[federated.140ujbs0tnmsxj0zw04q711nhhq4].[max:Calculation_2693363711513722880:nk]</rows>
-        <cols>[federated.140ujbs0tnmsxj0zw04q711nhhq4].[none:block_miner:nk]</cols>
+        <rows>[federated.140ujbs0tnmsxj0zw04q711nhhq4].[cnt:Calculation_2693363711513722880:qk]</rows>
+        <cols>[federated.140ujbs0tnmsxj0zw04q711nhhq4].[none:block_number:ok]</cols>
       </table>
     </worksheet>
   </worksheets>
@@ -692,7 +689,16 @@
             <card type='title' />
           </strip>
         </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.140ujbs0tnmsxj0zw04q711nhhq4].[none:block_miner:nk]' type='color' />
+            <card pane-specification-id='0' param='[federated.140ujbs0tnmsxj0zw04q711nhhq4].[attr:tx_value:qk]' type='size' />
+          </strip>
+        </edge>
       </cards>
+      <viewpoint>
+        <zoom type='entire-view' />
+      </viewpoint>
     </window>
   </windows>
 </workbook>
