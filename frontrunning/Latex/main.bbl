@@ -12,6 +12,16 @@ R.~T. Aune, A.~Krellenstein, M.~OÕHara, and O.~Slama.
   distributed ledgers.
 \newblock {\em The Journal of Trading}, 12(3):5--13, 2017.
 
+\bibitem{finra_2002}
+F.~I.~R. Authority.
+\newblock {\em IM-2110-3. Front Running Policy}.
+\newblock 2002.
+
+\bibitem{finra_2012}
+F.~I.~R. Authority.
+\newblock {\em 5270. Front Running of Block Transactions}.
+\newblock 2012.
+
 \bibitem{BancorIs7:online}
 P.~D. Emin Gün~Sirer.
 \newblock Bancor is flawed.
@@ -23,12 +33,6 @@ P.~D. Emin Gün~Sirer.
 E.~Hertzog, G.~Benartzi, and G.~Benartzi.
 \newblock Bancor protocol.
 \newblock 2017.
-
-\bibitem{liang2005distressed}
-D.~Liang.
-\newblock Distressed sales and financial arbitrageurs: Front-running in
-  illiquid markets.
-\newblock 2005.
 
 \bibitem{malinova2017market}
 K.~Malinova and A.~Park.
@@ -52,17 +56,11 @@ C.~Petty.
   2017.
 \newblock Accessed: 2018-06-10.
 
-\bibitem{sec1978cboe}
+\bibitem{sec1978optionsmarket}
 SEC.
 \newblock 96th cong, 1st sess, report of the special study of the options
   markets to the securities and exchange comission.
 \newblock {\em Comm. Print 1978}, pages 183--189, 1978.
-
-\bibitem{sec2012frontrunning}
-SEC.
-\newblock Notice of filing of proposed rule change to adopt finra rule 5270
-  (front running of block transactions) in the consolidated finra rulebook.
-\newblock {\em Release No. 34-67079; File No. SR-FINRA-2012-025}, 2012.
 
 \bibitem{statuswhitepaper}
 S.~Team.

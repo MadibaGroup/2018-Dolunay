@@ -2,56 +2,57 @@ This is BibTeX, Version 0.99d (TeX Live 2016)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: main.aux
 The style file: abbrv.bst
+White space in argument---line 33 of file main.aux
+ : \citation{finra_2012,
+ :                       sec2012frontrunning}
+I'm skipping whatever remains of this command
 Database file #1: bib/Frontrunning_Ref.bib
-Repeated entry---line 73 of file bib/Frontrunning_Ref.bib
- : @article{sec1978cboe
- :                     ,
-I'm skipping whatever remains of this entry
 Warning--to sort, need author or key in AccountT67:online
+Warning--empty publisher in finra_2002
+Warning--empty publisher in finra_2012
 Warning--empty journal in hertzog2017bancor
-Warning--empty journal in liang2005distressed
 Warning--empty journal in malinova2017market
 Warning--empty journal in moosavighazal
 Warning--empty year in moosavighazal
 You've used 12 entries,
             2118 wiz_defined-function locations,
-            557 strings with 5628 characters,
-and the built_in function-call counts, 2976 in all, are:
-= -- 288
+            555 strings with 5422 characters,
+and the built_in function-call counts, 3001 in all, are:
+= -- 285
 > -- 117
 < -- 1
 + -- 50
 - -- 36
-* -- 148
-:= -- 515
+* -- 152
+:= -- 512
 add.period$ -- 38
 call.type$ -- 12
-change.case$ -- 54
+change.case$ -- 52
 chr.to.int$ -- 0
-cite$ -- 18
-duplicate$ -- 120
-empty$ -- 252
+cite$ -- 19
+duplicate$ -- 124
+empty$ -- 262
 format.name$ -- 36
-if$ -- 622
+if$ -- 631
 int.to.chr$ -- 0
 int.to.str$ -- 12
-missing$ -- 8
+missing$ -- 10
 newline$ -- 65
 num.names$ -- 22
-pop$ -- 79
+pop$ -- 87
 preamble$ -- 1
 purify$ -- 42
 quote$ -- 0
-skip$ -- 91
+skip$ -- 89
 stack$ -- 0
 substring$ -- 112
-swap$ -- 17
+swap$ -- 18
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 48
-warning$ -- 6
+type$ -- 44
+warning$ -- 7
 while$ -- 27
 width$ -- 14
-write$ -- 124
+write$ -- 123
 (There was 1 error message)
