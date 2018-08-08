@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=latex 2017.5.26)  8 AUG 2018 12:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=latex 2017.5.26)  8 AUG 2018 14:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1116,24 +1116,22 @@ LaTeX Font Info:    Try loading font information for U+stmry on input line 29.
 {/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 
 LaTeX Warning: Citation ` sec2012frontrunning' on page 2 undefined on input lin
-e 52.
+e 61.
 
-[2]
-! Undefined control sequence.
-l.170 ...tudy showed that some mining pools (\todo
-                                                  : define mining pool) coul...
 
-? 
-[3] [4]) (./main.bbl [5]
+LaTeX Warning: Citation `breidenbach2018enter' on page 2 undefined on input lin
+e 68.
+
+[2] [3] [4] [5]) (./main.bbl
 Missing character: There is no Õ in font cmr9!
 Missing character: There is no ü in font cmr9!
-
+ [6]
 Underfull \hbox (badness 10000) in paragraph at lines 52--58
 \OT1/cmtt/m/n/9 bitcoin -[] podcast -[] blog / a -[] look -[] at -[] the -[] st
 atus -[] im -[] ico -[] token -[] distribution -[]
  []
 
-) [6]
+) [7]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 51.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 51.
  (./main.aux)
@@ -1144,13 +1142,13 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 51.
  ) 
 Here is how much of TeX's memory you used:
- 22722 strings out of 493014
- 431828 string characters out of 6133369
+ 22725 strings out of 493014
+ 431853 string characters out of 6133369
  552135 words of memory out of 5000000
- 25787 multiletter control sequences out of 15000+600000
+ 25789 multiletter control sequences out of 15000+600000
  10241 words of font info for 39 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,9n,72p,1597b,461s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 57i,9n,72p,1570b,457s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></
@@ -1163,10 +1161,10 @@ xlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/tex
 live/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texli
 ve/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texliv
 e/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on main.pdf (6 pages, 174735 bytes).
+Output written on main.pdf (7 pages, 180126 bytes).
 PDF statistics:
- 173 PDF objects out of 1000 (max. 8388607)
- 137 compressed objects within 2 object streams
- 43 named destinations out of 1000 (max. 500000)
+ 179 PDF objects out of 1000 (max. 8388607)
+ 142 compressed objects within 2 object streams
+ 44 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
