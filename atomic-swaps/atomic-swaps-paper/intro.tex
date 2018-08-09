@@ -3,7 +3,7 @@ An atomic swap enables involving parties to exchange cryptocurrencies, tokens on
 
 
 \section{Related Work}
-Decred realized \textbf{the first on-chain atomic swap} between Decred and Litecoin~\cite{decred}. The need to mine new blocks to show the change of ownership can make the Decred's system slower. \textbf{The first on-chain Ethereum-Bitcoin atomic swap} is realized by Altcoin.io(REF!!). Lightning Labs performed \textbf{the first off-chain atomic swap} over the lightning network. Lightning network enables the off-chain exchange of coins  by creating payment channels between the trading parties. After the transaction is completed, the chains are updated and the channels are closed. Lightning network enables fast and scalable transactions and the involving parties don't have to pay transaction fees for every transaction.
+Decred realized \textbf{the first on-chain atomic swap} between Decred and Litecoin~\cite{decred}. The need to mine new blocks to show the change of ownership can make the Decred's system slower. \textbf{The first on-chain Ethereum-Bitcoin atomic swap} is realized by Altcoin.io(REF!!). Lightning Labs performed \textbf{the first off-chain atomic swap} over the lightning network. Lightning network enables the off-chain exchange of coins  by creating payment channels between the trading parties. After the transaction is completed, the chains are updated and the channels are closed. Lightning network enables fast and scalable transactions and the involving parties don't have to pay transaction fees for every transaction. 
 
 %https://medium.com/@bitcoinatom/why-are-atomic-swaps-better-than-trading-on-exchanges-798492e150fd
 %Their next goal: atomically swap any token for any other token, regardless of the blockchain it resides on.
@@ -25,7 +25,7 @@ In an atomic cross-chain swap setting, involving parties perform exchange across
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{approve}
-\caption{approve}
+\caption{ETH to ERC20 with approve}
 \label{fig:withapprove}
 \vspace{-10pt}
 \end{figure}
@@ -33,9 +33,33 @@ In an atomic cross-chain swap setting, involving parties perform exchange across
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{withoutapprove}
-\caption{without approve}
-\label{fig:withapprove}
+\caption{ETH to ERC20-like without approve}
+\label{fig:withoutapprove}
 \vspace{-10pt}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\textwidth]{ERC20toERC223}
+	\caption{ERC20 to ERC223}
+	\label{fig:ERC20toERC223}
+	\vspace{-10pt}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\textwidth]{ERC223toERC223}
+	\caption{ERC223 to ERC223}
+	\label{fig:ERC223toERC223}
+	\vspace{-10pt}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\textwidth]{ETHtoERC223}
+	\caption{ETH to ERC223}
+	\label{fig:ETHtoERC223}
+	\vspace{-10pt}
 \end{figure}
 
 \section{Comparison of Token Standards}
@@ -54,14 +78,8 @@ ERC223 offers 3 improvements:
 tokenFallback: the receiving contract has a chance to do some work.
 \subsection{ERC777}
 
-
-\textbf{TO-DO:}
-\begin{itemize}
-  \item explain how we count transactions and the difference between margin and fixed transactions
-  \item introduce more settings in the table
-\end{itemize}
-
 \section{Atomic swaps with different settings}
+Atomic swaps can be realized using different kinds of tokens and there can be different variations depending on the function calls used or collateralization. Table~\ref{Table:Comparison of different swaps} illustrates the possible settings and compares the amount of transactions required for each case. 
 
 \begin{table}[h!]
 \footnotesize
@@ -71,18 +89,23 @@ tokenFallback: the receiving contract has a chance to do some work.
 \begin{tabular}{ |c|c|c|c|c|c| }
   \hline
    maker & taker & class & order transactions (margin) & account (onetime) transactions (fixed) \\ \hline
-   ERC20 & ETH & approve & 2 & 3 \\ \hline
-   ERC20 & ERC20 & approve & 3 & 4 \\ \hline
-   ERC20-like & ETH & w/o approve &  & \\ \hline
-   ERC20-like & ERC20-like & w/o approve &  & \\ \hline
-   ERC223 & ETH & & &\\ \hline
+   ERC20 & ETH & approve & 2 & 4 \\ \hline
+   ERC20 & ERC20 & approve & 2 & 5 \\ \hline
+   ERC20-like & ETH & w/o approve & 2 & 4 \\ \hline
+   ERC20-like & ERC20-like & w/o approve & 2 & 5 \\ \hline
+   ERC223 & ETH & hybrid & 2 & 4\\ \hline
    ERC20 & ETH & collateralized & &\\ \hline
    ERC20 & ETH & partially collateralized & &\\ \hline
-   ERC20 & ERC223 & & \\ \hline
+   ERC20 & ERC223 & hybrid & 2 & 5 \\ \hline
+   ERC223 & ERC223 & collateralized & 2 & 5\\ \hline
 \end{tabular}
 \caption {swaps}
 %}
-\end{table}\label{Table:Comparison of different swaps}
-\textbf{ERC20 to ETH:} Somebody sets up the swap. Token holder calls approve on the ERC20 contract with the swap contract as the target/allowance holder/spender. The holder of the ETH calls a settle function, sending their ETH along with it. This triggers the swap and the swap contract calls transferFrom on the ERC20 contract, transferring the tokens from the token holder to the ETH holder. The swap contract at this stage also sends the ETH to the token holder. The atomic swap is now complete. Hence, approving on the ERC20 contract and calling the settle function are counted as the order transactions. When the one-time transactions are also considered, deploying the swap contract should also be counted, which in total makes 4 transactions. We assume that the token contract already exists.
+\end{table}\label{Table:Comparison of different swaps} 
+\textbf{ERC20 to ETH:} This setting is described in Figure~\ref{fig:withapprove}. Somebody deploys the swap contract. For each atomic swap between two parties, somebody (who may or may not be one of the transacting parties) initiates a swap object within the swap contract. Token holder calls approve on the ERC20 contract with the swap contract as the target/allowance holder/spender. The token holder may approve the swap contract for multiple transactions by setting an allowance greater than necessary for one swap. The holder of the ETH calls a settle function on the swap contract, sending their ETH along with it. This triggers the swap and the swap contract calls transferFrom on the ERC20 contract, transferring the tokens from the token holder to the ETH holder. The swap contract at this stage also sends the ETH to the token holder. The atomic swap is now complete. Deploying the swap contract and approving on the ERC20 contract are considered as the fixed transactions as they do not need to be performed for every swap. The swap initialization and calling of the settle function, both within the swap contract, must be carried out for every swap. When taken with the fixed cost transactions, an atomic swap takes up to four transactions total.
 
-\textbf{ERC20 to ERC20:} For the order transactions, we have 3 in total as the other token holder should also approve the amount of tokens to be spent. 
+\textbf{ERC20 to ERC20:} For the fixed transactions, we have 5 in total as the other token holder should also approve the amount of tokens to be spent.
+
+\textbf{ERC20-like to ETH:} This setting is described in Figure~\ref{fig:withoutapprove}. For this setting, the approve function in the ERC20 interface is not used.
+
+\textbf{ERC20-like to ERC20-like:}
