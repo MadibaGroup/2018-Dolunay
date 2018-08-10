@@ -9,24 +9,17 @@
 
 \section{Preliminaries}
 
-\subsection{What is frontrunning?} %Definition of frontrunning
+\subsection{What is Front running?} %Definition of frontrunning
+\label{sec:What is frontrunning?}
 
-\emph{Front-running} is analogous to any course of action during which a person benefits from prior access to inside or confidential market information to upcoming transactions and trades. This problem can occur in both financial and non-financial systems, however, it is more noticeable within the trading and exchange systems as it was originated back in stock markets. In the old times, all the trades were executed on papers, so in case of receiving a large order from a client, the broker might say this loud and other people around the table could be informed. Therefore, a malicious trader would now run in front of that order and put his own transaction in between (before the trade was executed) and profit from the price increase of the stock. In other words, a group of market participants obtain non-public market information which allows them to front-run other users trades by putting their orders a head of those trades and benefit from advance knowledge of pending client orders. The two significant factors which cause the front-running practice to happen within the financial markets are (i) imperfect competition and (ii) liquidity uncertainty. \textbf{should I explain more?!} Any sort of front-running activity within the financial markets is considered as an unethical and illegal practice as it is unfairly beneficial for a few market participants who have the privilege of acting on this information and taking advantages at the expense of the investor. 
-
-
-
-\subsection{Frontrunning in Blockchains}: One of the main discussion regarding regulations for exchanges on the topic of frontrunning, comes from the fact that information access is layered and some could be accessed only by insider actors, such as the broker, the IT administrator, \etc. In the blockchain world, anyone running a node of one blockchain could potentially have access to such information, hence it makes it is more susceptible for any actor to engage in frontrunning within applications running on the blockchain. Some other key differences are the fact that such actor can stay anonymous and also enforcing regulation is infeasible in traditional sense, however a decentral application could be designed in such a way to mitigate frontrunning attacks. 
-
-% Financial / Non-financial applications (description)
-% Examples: Decentral Exchanges / Whois/domain registry
-% @Mahsa ^
+\emph{Front running} is analogous to any course of action during which a person benefits from prior access to inside or confidential market information to upcoming transactions and trades. This problem can occur in both financial and non-financial systems, however, it is more noticeable within the trading and exchange systems as it was originated back in stock markets. In the old times, all the trades were executed on papers, so in case of receiving a large order from a client, the broker might say this loud and other people around the table could be informed. Therefore, a malicious trader would now run in front of that order and put his own transaction in between (before the trade was executed) and profit from the price increase of the stock. In other words, a group of market participants obtain non-public market information which allows them to front-run other users trades by putting their orders a head of those trades and benefit from advance knowledge of pending client orders. The two significant factors which cause the front-running practice to happen within the financial markets are (i) imperfect competition and (ii) liquidity uncertainty. \textbf{should I explain more?!} Any sort of front-running activity within the financial markets is considered as an unethical and illegal practice as it is unfairly beneficial for a few market participants who have the privilege of acting on this information and taking advantages at the expense of the investor. 
 
 
-%%%%%%SHOULD WE KEEP THE FOLLOWINGS?%%%%%% Maybe literature? 
-%~\cite{liang2005distressed} : talks about front running in illiquid markets (contains lots of useful definitions of frontrunning to talk about in this section)
-%~\cite{sannikov2016dynamic}
 
-%______________________________________________________________%
+\subsection{Front Running on the Blockchains}
+
+Blockchain technology has received an exceptional amount of attention since it was first introduced as the underlying technology of the cryptocurrency Bitcoin in Satoshi Nakamoto's (pseudonymous) 2008 white paper \cite{nakamoto2008bitcoin}. Many decentralized applications that are nowadays built on top of this technology represent the significance of the blockchain as it completely eliminates the single points of failures within any systems. However, blockchains have some inherent characteristic that leave them vulnerable to \emph{front running} behaviour. Although this data structure is known to be publicly visible to every network participants, information is layered  and some of them are accessed only by insiders. Any network participants that runs a full node on the blockchain is able to obtain those information and as mentioned in Section~\ref{sec:What is frontrunning?}, this leaves the application vulnerable to front running. Decentralized exchanges are a group of blockchain financial applications where front running can be executed. Bancor \cite{hertzog2017bancor} is an example of such systems in which front runners benefit from potential price increase of the market stocks (details are provided in Section ...). Decentralized namespaces, as blockchain non-financial applications, are another example. Ghazal \cite{moosavighazal} is such system in which upon seeing a transaction from Alice to register \texttt{alice.com}, front runner can go ahead of her and register this domain name. He can later sell \texttt{alice.com} to Alice for a higher price and benefit from the price increase.
+%___________________________________________________________%
 
 
 
