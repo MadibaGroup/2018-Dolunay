@@ -21,11 +21,6 @@
 Blockchain technology has received an exceptional amount of attention since it was first introduced as the underlying technology of the cryptocurrency Bitcoin in Satoshi Nakamoto's (pseudonymous) 2008 white paper \cite{nakamoto2008bitcoin}. Many decentralized applications that are nowadays built on top of this technology represent the significance of the blockchain as it completely eliminates the single points of failures within any systems. However, blockchains have some inherent characteristic that leave them vulnerable to \emph{front running} behaviour. Although this data structure is known to be publicly visible to every network participants, information is layered  and some of them are accessed only by insiders. Any network participants that runs a full node on the blockchain is able to obtain those information and as mentioned in Section~\ref{sec:What is frontrunning?}, this leaves the application vulnerable to front running. Decentralized exchanges are a group of blockchain financial applications where front running can be executed. Bancor \cite{hertzog2017bancor} is an example of such systems in which front runners benefit from potential price increase of the market stocks (details are provided in Section ...). Decentralized namespaces, as blockchain non-financial applications, are another example. Ghazal \cite{moosavighazal} is such system in which upon seeing a transaction from Alice to register \texttt{alice.com}, front runner can go ahead of her and register this domain name. He can later sell \texttt{alice.com} to Alice for a higher price and benefit from the price increase.
 %___________________________________________________________%
 
-
-
-
-
-
 \section{Related Work}
 As the traditional frontrunning was originated to trading financial instruments most of the literature are focused on financial aspects of the markets. %TODO: expand this with something
 
@@ -69,33 +64,38 @@ Initially the frontrunning policies only applied to certain option markets, late
 %______________________________________________________________%
 
 
-\section{(On) Blockchain Frontrunning}
+\section{(On) Blockchain Front-running}
 
-\subsection{Who can frontrun?}
-%Actors:
+\subsection{Who Can Front-run?}
 
-All nodes connected to the network have the ability to front run specific transactions, however miners have special control on the blocks they happen to mine and hence more possible ways to frontrun.
-
-\subsubsection{Blockchain users/nodes}
-
-\begin{itemize}
-\item{\textbf{Higher GasPrice}: Monitor transactions, rebroadcast with higher GasPrice}
-\item{\textbf{Fully/well connected nodes}: Similar to HFT situation of faster connections to other nodes, for a higher chance of transaction inclusion, also Sybil attacks?} 
-\item{\textbf{Noticable by the network}: More visible to the network as both transactions are broadcast to all the nodes}
-\end{itemize}
-
+In general, all the network participants have the ability to front run specific transactions that are sent to the network. However, miners can include any transactions they like into the block they attempt to mine. Thus, they possess special power in terms of front running as opposed to other users of the network. In the following, we discuss and compare the two groups of blockchain potential front runners.
 
 \subsubsection{Miners}
+As mentioned above, since the Blockchain miners are the only parties who can decide on the order of transactions within a block they mine, they can easily intercept and reorder the pending transactions sitting in the mempool and profit from a guaranteed price-rise. For example in an Ethereum based application, a miner learns about the pending \textit{buy} transaction of 1000 Ether, presumably if this transaction goes through, it causes the price of Ether to increase. So the dishonest miner can step in front of this transaction and  place his own buy order ahead of it. He would simply create his \textit{buy} of 1000 Ether and include it within a block and now he mines the previous \textit{buy} transaction of 1000 Ether. Doing so, he would receive a better rate than other network users, can sell the assets he has received and gain a price advantage at the expense of others. Similarly, a dishonest miner can sell his tokens in front, if he sees a pending \textit{sell} transaction. In an open source blockchain application, there is no rules on how transactions must be ordered and miners are free to send transactions in the order they prefer. However, miners can only front run other transactions (by reordering them) within the block they happen to mine while they do not broadcast any transactions to the network. This makes the miners to be less noticeable to the network when front running.
 
-\begin{itemize}
-\item{\textbf{Their own mined blocks}: The can only frontrun transactions within the block they mine. This could be done by reordering the transactions within the blocks.}
-%^ If a miner or user sees an unconfirmed transaction in the mempool they could squeeze their own transaction to come in front and profit from that. Essentially, profitting from reordering the transactions.
+\subsubsection{Blockchain users/nodes}
+Any regular (non-miner or miner) user can also front-run other transactions in the network. For regular users to front run others on the blockchain, they need to be fully/well connected to other nodes on the network. Doing so, they are able to listen to the network and monitor all transactions that are broadcast. On the Ethereum blockchain users have to pay for the computations in small amount of Ether called \textit{gas}~\cite{AccountT67:online}. The price that users pay for transactions (a.k.a. transaction fees) can increase or decrease how quickly they are executed and included within the blocks by the miners.  This is because the Ethereum miners consume resources to process the transactions and so receive the transaction fees after creating the blocks. Once seeing two identical transactions with different transaction fees, profit maximizers miners are free to mine select the transaction which offers the highest fee. Therefore, any regular users who run a full-node Ethereum client can modify the order of pending transactions by paying a more amount of gas \ie by monitoring the network, upon seeing a  pending \textit{buy} transaction which will further increase the price of the asset, a font-runner user can pay a higher gas price and send his transaction a head of that. By doing so, he achieves a better rate from any other network users. Note that in this case, blockchain front runners are more visible to the network as they broadcast their transactions to all the network participants. 
 
-\item{\textbf{Less Noticable by the network}: Miners can include transactions within the blocks they happen to mine without broadcasting the transactions, hence less chance of being detected by the network participants.} 
-%Should the following be included? 
-%\item{\textbf{Incentivized mitigation methods}: applications could pay the fees to the miners to incentives them to behave } 
-\end{itemize}
 
+%\subsubsection{Blockchain users/nodes}:
+%\begin{itemize}
+%\item{\textbf{Higher GasPrice}: Monitor transactions, rebroadcast with higher GasPrice}
+%\item{\textbf{Fully/well connected nodes}: Similar to HFT situation of faster connections to other nodes, for a higher chance of transaction inclusion, also Sybil attacks?} 
+%\item{\textbf{Noticable by the network}: More visible to the network as both transactions are broadcast to all the nodes}
+%\end{itemize}
+%
+%
+%\subsubsection{Miners}
+%
+%
+%\begin{itemize}
+%\item{\textbf{Their own mined blocks}: The can only frontrun transactions within the block they mine. This could be done by reordering the transactions within the blocks.}
+%%^ If a miner or user sees an unconfirmed transaction in the mempool they could squeeze their own transaction to come in front and profit from that. Essentially, profitting from reordering the transactions.
+%
+%\item{\textbf{Less Noticable by the network}: Miners can include transactions within the blocks they happen to mine without broadcasting the transactions, hence less chance of being detected by the network participants.} 
+%%Should the following be included? 
+%%\item{\textbf{Incentivized mitigation methods}: applications could pay the fees to the miners to incentives them to behave } 
+%\end{itemize}
 
 
 \subsection{Historical evidence}
@@ -147,21 +147,23 @@ Bancor is an Ethereum-based application that allows users to exchange their toke
 
 \par\noindent\textbf{Front-running Bancor} Recently, researchers have shown that Bancor is vulnerable to frontrunning attacks. Implemented on the Ethereum blockchain, when Bancor transactions are broadcast to the network, they sit in a pending transaction pool known as \textit{mempool} waiting for the miners to mine them. Since Bancor handles all the trades and exchanges on the Ethereum blockchain (unlike other existing decentralized exchanges), these transactions are all visible to the public for 16s (the average Ethereum blocktime) before being included within a block. This leaves this blockchain-based decentralized exchange vulnerable to the blockchain race condition attack as attackers are given enough time to front-run other transactions and gain favourable profits~\cite{BancorIs7:online}. Bancor frontrunning attacks can occur in two different ways:
 
-%Mahsa: clean up this. remove miner/non-miner separation. miner section would be refrenced to the miner section re-ordering in blocks they HAPPEN to mine.
-% Probably we could reuse these texts in the miner/non-miner section in Who can Frontrun section.
 
 
-\begin{itemize}
-\item {\textbf{Miner Frontrunning.}} As mentioned, Bancor protocol uses an algorithm that automatically calculates the price of digital assets to provide better market liquidity. In the Bancor model, essentially buy orders increase the price of the tokens while sell order decrease it. Since the Blockchain miners are the only parties who can decide on the order of transactions within a block, they can easily intercept and reorder the pending transactions sitting in the mempool and profit from a guaranteed price-rise. For example, a miner learns about the pending \textit{buy} transaction of 1000 Ether, based on the Bancor design, if this transaction goes through, it causes the price of Ether to increase. So the dishonest miner can step in front of this transaction and  place his own buy order ahead of it. So he would simply create his \textit{buy} of 1000 Ether and include it within a block and now he mines the previous \textit{buy} transaction of 1000 Ether. Doing so, he would receive a better rate than other Bancor user, can sell the tokens he has received and gain a price advantage at the expense of others. Similarly, a dishonest miner can sell his tokens in front, if he sees a pending \textit{sell} transaction.
-
-
-\item {\textbf{Non-miner Frontrunning.}} Researchers have also shown that a regular non-miner user can also front-run Bancor. In order for the Bancor transactions to be executed on the Ethereum Virtual Machine (EVM),  users have to pay for the computations in small amount of Ether called \textit{gas}~\cite{AccountT67:online}. The price that users pay for transactions (a.k.a. transaction fees) can increase or decrease how quickly they are executed and included within the blocks by the miners.  This is because the Ethereum miners consume resources to process the transactions and so receive the transaction fees after creating the blocks. Once seeing two identical transactions with different transaction fees, profit maximizers miners are free to mine select the transaction which offers the highest fee. Therefore, any regular non-miner users who run a full-node Ethereum client can modify the order of pending transactions by paying a more amount of gas \ie by monitoring the network, upon seeing a  pending \textit{buy} transaction which will further increase the price of the asset, a font-runner user can pay a higher gas price and send his transaction a head of that. By doing so, he achieves a better rate from any other Bancor users.
-
-\end{itemize}
+%\begin{itemize}
+%\item {\textbf{Miner Frontrunning.}} As mentioned, Bancor protocol uses an algorithm that automatically calculates the price of digital assets to provide better market liquidity. In the Bancor model, essentially buy orders increase the price of the tokens while sell order decrease it. Since the Blockchain miners are the only parties who can decide on the order of transactions within a block, they can easily intercept and reorder the pending transactions sitting in the mempool and profit from a guaranteed price-rise. For example, a miner learns about the pending \textit{buy} transaction of 1000 Ether, based on the Bancor design, if this transaction goes through, it causes the price of Ether to increase. So the dishonest miner can step in front of this transaction and  place his own buy order ahead of it. So he would simply create his \textit{buy} of 1000 Ether and include it within a block and now he mines the previous \textit{buy} transaction of 1000 Ether. Doing so, he would receive a better rate than other Bancor user, can sell the tokens he has received and gain a price advantage at the expense of others. Similarly, a dishonest miner can sell his tokens in front, if he sees a pending \textit{sell} transaction.
+%
+%
+%\item {\textbf{Non-miner Frontrunning.}} Researchers have also shown that a regular non-miner user can also front-run Bancor. In order for the Bancor transactions to be executed on the Ethereum Virtual Machine (EVM),  users have to pay for the computations in small amount of Ether called \textit{gas}~\cite{AccountT67:online}. The price that users pay for transactions (a.k.a. transaction fees) can increase or decrease how quickly they are executed and included within the blocks by the miners.  This is because the Ethereum miners consume resources to process the transactions and so receive the transaction fees after creating the blocks. Once seeing two identical transactions with different transaction fees, profit maximizers miners are free to mine select the transaction which offers the highest fee. Therefore, any regular non-miner users who run a full-node Ethereum client can modify the order of pending transactions by paying a more amount of gas \ie by monitoring the network, upon seeing a  pending \textit{buy} transaction which will further increase the price of the asset, a font-runner user can pay a higher gas price and send his transaction a head of that. By doing so, he achieves a better rate from any other Bancor users.
+%
+%\end{itemize}
 
 
 
 \subsubsection{Domain Name Registration} 
+
+%"domain name frontrunning." The practice resulted in Network Solutions registering a previously-unregistered domain to itself immediately after someone searched for it, then holding the domain for four days before it could be purchased by someone else or at another registrar. But the company claims that it's merely trying to protect customers from others doing exactly that. Until there is more regulation over frontrunning from ICANN, this is the best it can come up with
+
+
 %Following section talks about frontrunning in namespaces but limited to Ghazal. Will talk about NameCoin in the section of mitigations (commit & reveal method)
 %
 % PoC of frontrunning ghazal
