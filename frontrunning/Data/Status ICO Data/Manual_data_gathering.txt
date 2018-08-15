@@ -1,0 +1,45 @@
+F2Pool Tx to Status ICO
+
+Directly:
+Jun-20-2017 03:55:22 PM +UTC
+3903912
+https://etherscan.io/tx/0xecebe96fc1f70522ed3240b7ae53ce75ae87d33d697990cc0e78738a215051c2
+
+
+
+
+100 Ether Deposits:
+
+https://etherscan.io/address/0x510b15da0ec1f09a9657c6d68ec6a3cc5ae62727
+https://etherscan.io/address/0x0ed47f2c6255f18afcd4fcbde57d4a4bc438e0b7
+https://etherscan.io/address/0x0b8b46da3ebacc566f92220b079a445ed4c52f29
+https://etherscan.io/address/0x79ed5c08cf6d3b97648577587e7dc5954d9e640b
+https://etherscan.io/address/0x2e4410de82f0718e91956b764a3ffbb2bc3f6e3b
+https://etherscan.io/address/0x8b1f94228688d866bc649725494e58c6493ade40
+https://etherscan.io/address/0x00a6e8338caa05d310859819b1dcc0b02d091c2c
+https://etherscan.io/address/0x8e9da799f68a9222e8205ce64bae56f213a4e159
+https://etherscan.io/address/0x9985f3d48e5ce0311991a7ff43b2b62e7eb922c8
+https://etherscan.io/address/0x87cee59aab634f04761364c2ea7b8bf7b9176c1d
+https://etherscan.io/address/0x0af146ad5c363cd9e862bac29fd1437960773417
+https://etherscan.io/address/0x1988a53b1b0da923fafb2d997bcdf5a99a516289
+https://etherscan.io/address/0xd5596d10cdb3327570e20cd2f8bd1cd1ebc0f499
+https://etherscan.io/address/0x519b42efda6cdd249e11bc1aa1549d3946794a64
+https://etherscan.io/address/0xa3a417af5c66df4219b134099611e97430aede6d
+https://etherscan.io/address/0x47b23b858f85f3f49d350c06a5bf241de471c3b5
+https://etherscan.io/address/0x0886d80ad2d871d376f6bd1efd8d91ff3bbf2ec1
+https://etherscan.io/address/0xed66594831aec877f0fb2bc215cc4fbf3b8e2246
+https://etherscan.io/address/0x03e4f0b034c79d2fbb27f2e2db76183acf97dd22
+https://etherscan.io/address/0x7fdd87a6fc024dcef7c3e607db5222fc01ee3b9a
+
+
+
+
+
+
+
+
+All tokens end up in : 0xb6c3647f55085b9a327404fe8b718076ee19245a (Yunbi) : 10,963,378 SNT
+
+Final Churn goes to : https://etherscan.io/address/0x000d7321f6767c3910bbce248cb9df5c8eb0edf9
+
+
