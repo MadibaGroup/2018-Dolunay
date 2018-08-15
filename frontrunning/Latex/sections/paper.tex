@@ -3,8 +3,6 @@
 \section{Introduction}
 % Why is this important.
 % PAPER BEING SOLD HERE
-
-
 %______________________________________________________________%
 
 \section{Preliminaries}
@@ -207,12 +205,14 @@ What does this mean to have a frontrun-resistent blockchain?  There are technica
 \end{itemize}
 
 
-\subsection{Application design to prevent frontrunning}
-Applications, in this case Dapps, could be designed in a way to prevent frontrunning.
+\subsection{Application Design to Prevent Front-running}
+
+Another way of preventing the front-running activities is to design the applications, whether they are decentralized (Dapps) or centralized, in such a way that no information would be available to the malicious parties which enables them to front-run the other users.
+Followings discuss the two techniques which can be used by the Apps/DApps developers while designing the systems to prevent front-running activities.
 
 \begin{itemize}
-\item{\textbf{Commitment scheme}: Also known as \textit{Commit and Reveal}, is a cryptographic primitive that enables one to commit to a value (\eg statement, document, \dots} while keeping it a secret and on a later time reveal the committed value~\cite{brassard1988minimum}. Commitment scheme is a good method to prevent information leakage from the sensitive transactions. This could be done by simply broadcasting the hash value of the committed data and later on revealing the values that would be hashed to the committed hash. 
-In the case of decentral exchanges, user can send a commit transaction which will be cryptic to network participants but will act as a placeholder in the queue for the user, after the transaction is mined, user sends reveal transaction revealing the order details which will be executed in a fair order. Another use of such commitment scheme, is in Decentral DNS, such as Ghazal or ENS. User will send a commit transaction similar to a sealed bid, once the transaction is confirmed and the grace period is over, user sends a reveal transaction revealing the bid and also the details of the requested domain.
+\item{\textbf{Commitment scheme}: Also known as \textit{Commit and Reveal}, is a cryptographic primitive that enables one to commit to a value (\eg statement, document, \etc}) while keeping it a secret and on a later time reveal the committed value~\cite{brassard1988minimum}. Commitment scheme is a good method to prevent information leakage from the sensitive transactions. This could be done by simply broadcasting the hash value of the committed data and later on revealing the values that would be hashed to the committed hash. 
+In the case of decentral exchanges, user can send a commit transaction which will be cryptic to network participants but will act as a placeholder in the queue for the user, after the transaction is mined, user sends reveal transaction revealing the order details which will be executed in a fair order. Another use of such commitment scheme, is in decentralized naming systems, such as Ghazal or ENS. In this case, a user would send a commit transaction similar to a sealed bid, once the transaction is confirmed and the grace period is over, user would send a reveal transaction revealing the bid and also the details of the requested domain. Using this scheme, one is able to hide information from the adversarial parties in the system and prevent them from front-running.
 
 
 %TODO: a figure for commit and reveal? 
