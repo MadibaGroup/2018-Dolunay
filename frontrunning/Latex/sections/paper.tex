@@ -175,7 +175,7 @@ Bancor is an Ethereum-based application that allows users to exchange their toke
 %
 % PoC of frontrunning ghazal
 Although frontrunning attacks have been more showcased in the context of decentralized exchanges and trading systems, they are are not yet limited to the financial markets. Frontrunning can occur within other blockchain based applications such as naming systems. Blockchain-based namespaces have been introduced to eliminate the role of central parties \ie domain name system (DNS) which introduces single point of failures in the entire web. One such system is Ghazal, an Ethereum-based naming and PKI system~\cite{moosavighazal}. Ghazal users rely on the Ethereum blockchain to register their \texttt{.ghazal} domain names and bind certificates to those names. In Ghazal model, a user would register domain name by executing the \textit{registerdomain} function from the Ghazal smart contract with the domain name in plain text as the function argument. As mentioned before, These transactions will sit in the mempool so that it would be mined by Ethereum miners and included in the block. During this period in which the transaction is not yet confirmed, frontrunning attack can occur by (i) dishonest miners and/or (ii) regular non-miner user. In the first case, a miner would intercept the \textit{registerdomain} transaction and register that name ahead of the user. A regular non-miner node in the Ethereum network can frontrun other user's \textit{registerdomain} at a good profit by paying higher transaction fees. In both cases the adversarial party could sell the domain name to the users for higher price.
-
+%TODO: also talk about ENS 
 
 
 
@@ -186,6 +186,7 @@ Although frontrunning attacks have been more showcased in the context of decentr
 
 \section{How to stop frontrunning?}
 In the traditional markets, frontrunning is considered unethical and also illegal. In the blockchain space, the designers of the decentral applications cannot rely on the justice system for unethical behaviour, and they must assume that each participant in the network acts rationally in their own self interest, the application will be operating in an adversarial environment~\cite{0xfrontrunning:online}.
+A few decentral exchange projects such as \textit{EtherDelta} and \textit{0xProject}, have proposed solutions for frontrunning, which is off-chain orderbooks. The methods discussed within these projects prevent blockchain network participants from front running the orders as the orders are private and not known to the network and will not be broadcasted. However they are introducing third parties, \eg relayers in 0xproject, to be managing the orders with the promise not to reorder or frontrun other orders. 
 
 \emph{Traditional Frontrunning Prevention Methods}. regulations/enforcement/broker education/sealed order
 %@shayan: ^
@@ -210,8 +211,14 @@ What does this mean to have a frontrun-resistent blockchain?  There are technica
 Applications, in this case Dapps, could be designed in a way to prevent frontrunning.
 
 \begin{itemize}
-\item{\textbf{Commit/Reveal}: describe. General solution to prevent data leaks of the transactions. although it does not hide the participatory factor (it shows the actor participated in the application but hides the details, obvious participation(commit))}
+\item{\textbf{Commitment scheme}: Also known as \textit{Commit and Reveal}, is a cryptographic primitive that enables one to commit to a value (\eg statement, document, \dots} while keeping it a secret and on a later time reveal the committed value~\cite{brassard1988minimum}. Commitment scheme is a good method to prevent information leakage from the sensitive transactions. This could be done by simply broadcasting the hash value of the committed data and later on revealing the values that would be hashed to the committed hash. 
+In the case of decentral exchanges, user can send a commit transaction which will be cryptic to network participants but will act as a placeholder in the queue for the user, after the transaction is mined, user sends reveal transaction revealing the order details which will be executed in a fair order. Another use of such commitment scheme, is in Decentral DNS, such as Ghazal or ENS. User will send a commit transaction similar to a sealed bid, once the transaction is confirmed and the grace period is over, user sends a reveal transaction revealing the bid and also the details of the requested domain.
+
+
+%although it does not hide the participatory factor (it shows the actor participated in the application but hides the details, obvious participation(commit))}
 % discussion about Anonymity-set ?
+
+
 \item{\textbf{Submarine sends}: describe. General solution similar to commit and reveal. This is to solve the participatory factor of the commit and reveal solution.}
 
 \item{\textbf{Application logic specific solution}: Depending on the use case of  the Dapp or the application, it could be designed in a way to deincentives some actors to frontrun the transactions or prevent them from doing so. As an example on desiging a decentral orderbook, it could be said that a miner could front run orders for financial gain on price improvement, however if the fees of the orders are sent to the miner of the block, it deincentiveses the miner to front run the orders as they already gain enough financial benefit from including the correct order of transactions. 
