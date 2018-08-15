@@ -46,7 +46,7 @@ As defining what exactly is considered illegal front-running required more knowl
 
 Further reading on the early details on the history and challenges of detecting and regulating frontrunning can be found in~\cite{markham1988front} . % TODO: add a more recent publication here as well! 
 
-Initially the frontrunning policies only applied to certain option markets, later on in 2002, the rule was refined to include the same prohibitions to security futures~\cite{finra_2002}, which then in 2012 with the new amendment, FINRA Rule 5270, the frontrunning rule was extended to cover trading in an option, derivative, or other financial instruments overlying a security with some exceptions~\cite{finra_2012, sec2012frontrunning}. 
+Initially the frontrunning policies only applied to certain option markets, later on in 2002, the rule was refined to include the same prohibitions to security futures~\cite{finra_2002}, which then in 2012 with the new amendment, FINRA Rule 5270, the frontrunning rule was extended to cover trading in an option, derivative, or other financial instruments overlying a security with some exceptions~\cite{sec2012frontrunning, finra_2012}. 
 
 
 \subsection{Recent Literature on Blockchain frontrunning}
@@ -214,6 +214,8 @@ Applications, in this case Dapps, could be designed in a way to prevent frontrun
 \item{\textbf{Commitment scheme}: Also known as \textit{Commit and Reveal}, is a cryptographic primitive that enables one to commit to a value (\eg statement, document, \dots} while keeping it a secret and on a later time reveal the committed value~\cite{brassard1988minimum}. Commitment scheme is a good method to prevent information leakage from the sensitive transactions. This could be done by simply broadcasting the hash value of the committed data and later on revealing the values that would be hashed to the committed hash. 
 In the case of decentral exchanges, user can send a commit transaction which will be cryptic to network participants but will act as a placeholder in the queue for the user, after the transaction is mined, user sends reveal transaction revealing the order details which will be executed in a fair order. Another use of such commitment scheme, is in Decentral DNS, such as Ghazal or ENS. User will send a commit transaction similar to a sealed bid, once the transaction is confirmed and the grace period is over, user sends a reveal transaction revealing the bid and also the details of the requested domain.
 
+
+%TODO: a figure for commit and reveal? 
 
 %although it does not hide the participatory factor (it shows the actor participated in the application but hides the details, obvious participation(commit))}
 % discussion about Anonymity-set ?
