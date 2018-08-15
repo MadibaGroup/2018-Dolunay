@@ -102,22 +102,16 @@ Any regular (non-miner or miner) user can also front-run other transactions in t
 \subsection{Historical evidence}
 As blockchain records are immutably recorded, there is enough historical data to analyze for possible front running detection. For examples here we research some of the events of such attacks happening in the Ethereum blockchain applications.
 
-
 % TODO: @shayan: talk about cancel order frontrunning on decentral exchanges (etherdelta), griefing 
 % maybe inlcude 0xbitcoin ERC721 mineable tokens frontrunning!
 % mint: https://etherscan.io/tx/0x9883bc3ad018fd2b649982f88fbad7dc5abcb8f11c4f1d87ef814ba30c2b3428
 
-
-\subsubsection{Status ICO} %Frontrunning by a miner/mining pool
-
+\subsubsection{Status ICO} \hfill\\ %Frontrunning by a miner/mining pool 
 %@Shayan: Clean up this part, finish it! 
-
 % ICOs and ceiling
 % hard cap --> frontrun and buy the tokens in big chunk
 % dynamic ceiling, fair token distribution --> status ICO
-
-
-ICO, Initial Coin Offering, is one of the blockchain applications, specially blockchains such as Ethereum with smart contract capability. The common practice is to deploy a smart contract on the blockchain indicating the details of the ICO such as the trade ratio, when it starts and ends, and more details on how it will be capped.
+\noindent ICO, Initial Coin Offering, is one of the blockchain applications, specially blockchains such as Ethereum with smart contract capability. The common practice is to deploy a smart contract on the blockchain indicating the details of the ICO such as the trade ratio, when it starts and ends, and more details on how it will be capped.
 In June 2017, Status.im started their ICO and within 3 hours they reached the dynamic ceiling in place that triggered the end of the ICO, summing in 300,000 ether in funds, estimated at more than 200 million dollars at the time of their ICO. ~\cite{statusicoanalysis}. The idea behind Dynamic Ceilings is to make it more costly for larger contributors,  in the form of transaction fees, which have to split their contributions to different addresses, with minimal impact to smaller contributors~\cite{statuswhitepaper}.
 On the time of the ICO there were reports of Ethereum network being unusable and transactions were not confirming. Further study showed that some mining pools (\todo: define mining pool) could have been manipulating the network for their own profit.
 
@@ -143,9 +137,8 @@ On the time of the ICO there were reports of Ethereum network being unusable and
 
 %What is Bancor and how it can be frontrun:%
 
-\subsubsection{Bancor} %frontrunning by network participants.
-
-Bancor is an Ethereum-based application that allows users to exchange their tokens without any counter-party risk. This protocol aims to solve the cryptocurrency liquidity issue by introducing \textit{Smart Tokens}~\cite{hertzog2017bancor}-- ERC20 compatible tokens with a built-in liquidity mechanism that are always available to users. Smart Tokens can be bought and sold through the users smart contract at an automatically calculated price which displays supply and demand. Doing so, Bancor protocol provides continuous liquidity for digital assets without relying on an order book as there is no requirement to match sellers and buyers.
+\subsubsection{Bancor} \hfill\\
+\noindent Bancor is an Ethereum-based application that allows users to exchange their tokens without any counter-party risk. This protocol aims to solve the cryptocurrency liquidity issue by introducing \textit{Smart Tokens}~\cite{hertzog2017bancor}-- ERC20 compatible tokens with a built-in liquidity mechanism that are always available to users. Smart Tokens can be bought and sold through the users smart contract at an automatically calculated price which displays supply and demand. Doing so, Bancor protocol provides continuous liquidity for digital assets without relying on an order book as there is no requirement to match sellers and buyers.
 
 \par\noindent\textbf{Front-running Bancor} Recently, researchers have shown that Bancor is vulnerable to front running attacks. Implemented on the Ethereum blockchain, when Bancor transactions are broadcast to the network, they sit in a pending transaction pool known as \textit{mempool} waiting for the miners to mine them. Since Bancor handles all the trades and exchanges on the Ethereum blockchain (unlike other existing decentralized exchanges), these transactions are all visible to the public for 16s (the average Ethereum blocktime) before being included within a block. This leaves this blockchain-based decentralized exchange vulnerable to the blockchain race condition attack as attackers are given enough time to front-run other transactions and gain favourable profits~\cite{BancorIs7:online}. As mentioned in Section~\ref{sec:who can frontrun?} and same as every other Ethereum based application, Bancor transactions can be front run by miners and other regular (non-miner) users. There is an implementation of a Bancor front running attack in the Python programming language which represent how a non-miner user can front run other network participants \cite{NewTab13:online}.
 
@@ -162,15 +155,12 @@ Bancor is an Ethereum-based application that allows users to exchange their toke
 
 
 
-\subsubsection{Domain Name Registration} 
-
+\subsubsection{Domain Name Front-running} \hfill\\
 %"domain name frontrunning." The practice resulted in Network Solutions registering a previously-unregistered domain to itself immediately after someone searched for it, then holding the domain for four days before it could be purchased by someone else or at another registrar. But the company claims that it's merely trying to protect customers from others doing exactly that. Until there is more regulation over frontrunning from ICANN, this is the best it can come up with
-
-
 %Following section talks about frontrunning in namespaces but limited to Ghazal. Will talk about NameCoin in the section of mitigations (commit & reveal method)
 %
 % PoC of frontrunning ghazal
-Although frontrunning attacks have been more showcased in the context of decentralized exchanges and trading systems, they are are not yet limited to the financial markets. Frontrunning can occur within other blockchain based applications such as naming systems. Blockchain-based namespaces have been introduced to eliminate the role of central parties \ie domain name system (DNS) which introduces single point of failures in the entire web. One such system is Ghazal, an Ethereum-based naming and PKI system~\cite{moosavighazal}. Ghazal users rely on the Ethereum blockchain to register their \texttt{.ghazal} domain names and bind certificates to those names. In Ghazal model, a user would register domain name by executing the \textit{registerdomain} function from the Ghazal smart contract with the domain name in plain text as the function argument. As mentioned before, These transactions will sit in the mempool so that it would be mined by Ethereum miners and included in the block. During this period in which the transaction is not yet confirmed, frontrunning attack can occur by (i) dishonest miners and/or (ii) regular non-miner user. In the first case, a miner would intercept the \textit{registerdomain} transaction and register that name ahead of the user. A regular non-miner node in the Ethereum network can frontrun other user's \textit{registerdomain} at a good profit by paying higher transaction fees. In both cases the adversarial party could sell the domain name to the users for higher price.
+\noindent Although frontrunning attacks have been more showcased in the context of decentralized exchanges and trading systems, they are are not yet limited to the financial markets. Frontrunning can occur within other blockchain based applications such as naming systems. Blockchain-based namespaces have been introduced to eliminate the role of central parties \ie domain name system (DNS) which introduces single point of failures in the entire web. One such system is Ghazal, an Ethereum-based naming and PKI system~\cite{moosavighazal}. Ghazal users rely on the Ethereum blockchain to register their \texttt{.ghazal} domain names and bind certificates to those names. In Ghazal model, a user would register domain name by executing the \textit{registerdomain} function from the Ghazal smart contract with the domain name in plain text as the function argument. As mentioned before, These transactions will sit in the mempool so that it would be mined by Ethereum miners and included in the block. During this period in which the transaction is not yet confirmed, frontrunning attack can occur by (i) dishonest miners and/or (ii) regular non-miner user. In the first case, a miner would intercept the \textit{registerdomain} transaction and register that name ahead of the user. A regular non-miner node in the Ethereum network can frontrun other user's \textit{registerdomain} at a good profit by paying higher transaction fees. In both cases the adversarial party could sell the domain name to the users for higher price.
 
 
 
