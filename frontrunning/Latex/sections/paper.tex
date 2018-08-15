@@ -19,6 +19,9 @@
 \subsection{Front Running on the Blockchains}
 
 Blockchain technology has received an exceptional amount of attention since it was first introduced as the underlying technology of the cryptocurrency Bitcoin in Satoshi Nakamoto's (pseudonymous) 2008 white paper \cite{nakamoto2008bitcoin}. Many decentralized applications that are nowadays built on top of this technology represent the significance of the blockchain as it completely eliminates the single points of failures within any systems. However, blockchains have some inherent characteristic that leave them vulnerable to \emph{front running} behaviour. Although this data structure is known to be publicly visible to every network participants, information is layered  and some of them are accessed only by insiders. Any network participants that runs a full node on the blockchain is able to obtain those information and as mentioned in Section~\ref{sec:What is frontrunning?}, this leaves the application vulnerable to front running. Decentralized exchanges are a group of blockchain financial applications where front running can be executed. Bancor \cite{hertzog2017bancor} is an example of such systems in which front runners benefit from potential price increase of the market stocks (details are provided in Section ...). Decentralized namespaces, as blockchain non-financial applications, are another example. Ghazal \cite{moosavighazal} is such system in which upon seeing a transaction from Alice to register \texttt{alice.com}, front runner can go ahead of her and register this domain name. He can later sell \texttt{alice.com} to Alice for a higher price and benefit from the price increase.
+Another application that is vulnerable to front running is Initial Coin Offering, ICO, smart contracts. ICO is a method to distribute tokens based on the deposits of the native coin, Ether in the case of Ethereum. ICOs mostly have capped quantity of tokens \TODO{talk about why?}, there is a competition on who can get in to get the tokens at a discounted price, hence an opportunity to frontrun other transactions to get in. 
+
+
 %___________________________________________________________%
 
 \section{Related Work}
@@ -46,7 +49,7 @@ As defining what exactly is considered illegal front-running required more knowl
 
 Further reading on the early details on the history and challenges of detecting and regulating frontrunning can be found in~\cite{markham1988front} . % TODO: add a more recent publication here as well! 
 
-Initially the frontrunning policies only applied to certain option markets, later on in 2002, the rule was refined to include the same prohibitions to security futures~\cite{finra_2002}, which then in 2012 with the new amendment, FINRA Rule 5270, the frontrunning rule was extended to cover trading in an option, derivative, or other financial instruments overlying a security with some exceptions~\cite{finra_2012, sec2012frontrunning}. 
+Initially the frontrunning policies only applied to certain option markets, later on in 2002, the rule was refined to include the same prohibitions to security futures~\cite{finra_2002}, which then in 2012 with the new amendment, FINRA Rule 5270, the frontrunning rule was extended to cover trading in an option, derivative, or other financial instruments overlying a security with some exceptions~\cite{sec2012frontrunning, finra_2012}. 
 
 
 \subsection{Recent Literature on Blockchain frontrunning}
@@ -72,10 +75,14 @@ Initially the frontrunning policies only applied to certain option markets, late
 In general, all the network participants have the ability to front run specific transactions that are sent to the network. However, miners can include any transactions they like into the block they attempt to mine. Thus, they possess special power in terms of front running as opposed to other users of the network. In the following, we discuss and compare the two groups of blockchain potential front runners.
 
 \subsubsection{Miners}
-As mentioned above, since the Blockchain miners are the only parties who can decide on the order of transactions within a block they mine, they can easily intercept and reorder the pending transactions sitting in the mempool and profit from a guaranteed price-rise. For example in an Ethereum based application, a miner learns about the pending \textit{buy} transaction of 1000 Ether, presumably if this transaction goes through, it causes the price of Ether to increase. So the dishonest miner can step in front of this transaction and  place his own buy order ahead of it. He would simply create his \textit{buy} of 1000 Ether and include it within a block and now he mines the previous \textit{buy} transaction of 1000 Ether. Doing so, he would receive a better rate than other network users, can sell the assets he has received and gain a price advantage at the expense of others. Similarly, a dishonest miner can sell his tokens in front, if he sees a pending \textit{sell} transaction. In an open source blockchain application, there is no rules on how transactions must be ordered and miners are free to send transactions in the order they prefer. However, miners can only front run other transactions (by reordering them) within the block they happen to mine while they do not broadcast any transactions to the network. This makes the miners to be less noticeable to the network when front running.
+As mentioned above, since the Blockchain miners are the only parties who can decide on the order of transactions within a block they mine, they can easily intercept and reorder the pending transactions sitting in the mempool and profit from a guaranteed price-rise. For example in an Ethereum based application, a miner learns about the pending \textit{buy} transaction of 1000 units of a token, i.e. TKN, presumably if this transaction goes through, it causes the price the purchased token to increase. So the dishonest miner can step in front of this transaction and  place his own buy order ahead of it. He would simply create his \textit{buy} of 1000 TKN and include it within a block and now he mines the previous \textit{buy} transaction of 1000 TKN. Doing so, he would receive a better rate than other network users, and can sell the assets he has received and gain a price advantage at the expense of others. Similarly, a dishonest miner can sell his tokens in front, if he sees a pending \textit{sell} transaction. In an open source blockchain application, there is no rules on how transactions must be ordered and miners are free to send transactions in the order they prefer. However, miners can only front run other transactions (by reordering them) within the block they happen to mine. They could do this also by not broadcasting their own transactions to the network, this makes the miners to be less noticeable to the network when front running.
+Another example here is in the case of decentral exchanges and order cancellation. Every exchange should have the functionality to cancel the orders, especially for a volatile market. In this case, when user decides that her order is not profitable anymore, she would send a cancelation transaction. Here the miner sees the cancelation transaction and puts his own order before the cancellation transaction to fill the order, potentially profiting from the order. They can also include the canceled transaction in their block to collect the full gas limit used by that transaction~\cite{CostofDecentralization:online}.
+
 
 \subsubsection{Blockchain users/nodes}
-Any regular (non-miner or miner) user can also front-run other transactions in the network. For regular users to front run others on the blockchain, they need to be fully/well connected to other nodes on the network. Doing so, they are able to listen to the network and monitor all transactions that are broadcast. On the Ethereum blockchain users have to pay for the computations in small amount of Ether called \textit{gas}~\cite{AccountT67:online}. The price that users pay for transactions (a.k.a. transaction fees) can increase or decrease how quickly they are executed and included within the blocks by the miners.  This is because the Ethereum miners consume resources to process the transactions and so receive the transaction fees after creating the blocks. Once seeing two identical transactions with different transaction fees, profit maximizers miners are free to mine select the transaction which offers the highest fee. Therefore, any regular users who run a full-node Ethereum client can modify the order of pending transactions by paying a more amount of gas \ie by monitoring the network, upon seeing a  pending \textit{buy} transaction which will further increase the price of the asset, a font-runner user can pay a higher gas price and send his transaction a head of that. By doing so, he achieves a better rate from any other network users. Note that in this case, blockchain front runners are more visible to the network as they broadcast their transactions to all the network participants. 
+Any regular (non-miner or miner) user can also front-run other transactions in the network. For regular users to front run others on the blockchain, they need to be fully/well connected to other nodes on the network. Doing so, they are able to listen to the network and monitor all transactions that are broadcast. On the Ethereum blockchain users have to pay for the computations in small amount of Ether called \textit{gas}~\cite{AccountT67:online}. The price that users pay for transactions (a.k.a. transaction fees) can increase or decrease how quickly miners will execute them and include them within the block they mine. This is because the Ethereum miners consume resources to process the transactions and so receive the transaction fees after creating the blocks. Once seeing two identical transactions with different transaction fees, 
+%Given the limited space in the blocks, a rational miner will prioritize transactions that pay higher gas price per unit of gas, this maximizes their profit in the block they mine.
+miners act to maximize their profit and are free to mine the transaction which offers the highest fee. Therefore, any regular users who run a full-node Ethereum client can modify the order of pending transactions by paying with a higher gas price\ie by monitoring the network, upon seeing a  pending \textit{buy} transaction which will further increase the price of the asset, a font-runner user can pay a higher gas price and hope to have his transaction a head of the other one mined. By doing so, he achieves a better rate from the other network users. Note that in this case, blockchain front runners are more visible to the network as they broadcast their transactions to all the network participants. 
 
 
 %\subsubsection{Blockchain users/nodes}:
@@ -102,7 +109,10 @@ Any regular (non-miner or miner) user can also front-run other transactions in t
 \subsection{Historical evidence}
 As blockchain records are immutably recorded, there is enough historical data to analyze for possible front running detection. For examples here we research some of the events of such attacks happening in the Ethereum blockchain applications.
 
+<<<<<<< HEAD
 % TODO: @shayan: talk about cancel order frontrunning on decentral exchanges (etherdelta), griefing 
+=======
+>>>>>>> e00db43d413a73f4ebe17c712950daa66c423c57
 % maybe inlcude 0xbitcoin ERC721 mineable tokens frontrunning!
 % mint: https://etherscan.io/tx/0x9883bc3ad018fd2b649982f88fbad7dc5abcb8f11c4f1d87ef814ba30c2b3428
 
@@ -117,19 +127,23 @@ On the time of the ICO there were reports of Ethereum network being unusable and
 
 %@shayan: make charts and figure out the orange seller
 
-%NOTE: ICO Initial Coin Offering should be explained probably in introduction section. the process of ICO smart contract and how the capped system works --> limited time/funds can be included in the ico and why people would try to get in as soon as possible, explain how their investment strategy works and such. Maybe the second half could be explained here to say why frontrunning an ICO makes sense?
 % add more on capped ICOs, status used Distribution & Dynamic Ceilings : https://blog.status.im/distribution-dynamic-ceilings-e2f427f5cca  ~\cite{statuswhitepaper}
 
 % The dynamic ceiling and prevention of bigger investments getting their full investment in could be the reason behind the design of F2pool move, by having multiple addresses each contributing around 100ETH to the ICO smart contract, instead of having one big transaction in.
 %Also the ICO smart contract only accepted transactions with gas price lower than 50gwei, unless they were whitelisted before. this was for preventing high gas payers to get in front of the line. although as this was not clearly communicated to users (UX issues?), there were tons of transactions that failed due to high gas price but also clogged the ethereum network as the miners chose transactions with higher gas price to be included in their blocks.
 
 
-% weird findings: apparently all the tokens bought by f2pool was transfered to Yunbi, the chinese exchange: 0xB6c3647F55085B9a327404Fe8B718076Ee19245a
-
 % Proof of f2pool involvement: https://etherscan.io/address/0x5fb8373bf5086fb38ef0fb686b3092145de0d1c1
 % funds come from f2pool and refunds goes back to f2pool again
 
-% I would like to spend some time to make charts from the transactions happening on the date of the Status ICO
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\linewidth]{figures/F2Pool_transactions_to_StatusICO_and_Refunds.png}
+\caption{F2Pool prior to Status.im ICO deposited 100 Ether in multiple new Ethereum addresses. On the time of the ICO they sent these deposits to Status ICO smart contract and prioritized mining of these transactions in their mining pool, this was to overcome the dynamic ceiling algorithm of the token sale smart contract. Later on they sent the refunded Ether back to their own address.\label{fig:f2poolfrontrun}}
+\end{figure}
+
+
 % this will include: The blocks mined by F2Pool, containing transactions (~100 ETH) to Status ICO, other blocks mined in that time period, the movement of status tokens from those addresses allegedly linked to F2Pool (or/and Yunbi in this case).
 % https://github.com/corpetty/ICO_analysis/blob/master/status/Status.ipynb
 % https://github.com/corpetty/py-etherscan-api
@@ -160,8 +174,13 @@ On the time of the ICO there were reports of Ethereum network being unusable and
 %Following section talks about frontrunning in namespaces but limited to Ghazal. Will talk about NameCoin in the section of mitigations (commit & reveal method)
 %
 % PoC of frontrunning ghazal
+<<<<<<< HEAD
 \noindent Although frontrunning attacks have been more showcased in the context of decentralized exchanges and trading systems, they are are not yet limited to the financial markets. Frontrunning can occur within other blockchain based applications such as naming systems. Blockchain-based namespaces have been introduced to eliminate the role of central parties \ie domain name system (DNS) which introduces single point of failures in the entire web. One such system is Ghazal, an Ethereum-based naming and PKI system~\cite{moosavighazal}. Ghazal users rely on the Ethereum blockchain to register their \texttt{.ghazal} domain names and bind certificates to those names. In Ghazal model, a user would register domain name by executing the \textit{registerdomain} function from the Ghazal smart contract with the domain name in plain text as the function argument. As mentioned before, These transactions will sit in the mempool so that it would be mined by Ethereum miners and included in the block. During this period in which the transaction is not yet confirmed, frontrunning attack can occur by (i) dishonest miners and/or (ii) regular non-miner user. In the first case, a miner would intercept the \textit{registerdomain} transaction and register that name ahead of the user. A regular non-miner node in the Ethereum network can frontrun other user's \textit{registerdomain} at a good profit by paying higher transaction fees. In both cases the adversarial party could sell the domain name to the users for higher price.
 
+=======
+Although frontrunning attacks have been more showcased in the context of decentralized exchanges and trading systems, they are are not yet limited to the financial markets. Frontrunning can occur within other blockchain based applications such as naming systems. Blockchain-based namespaces have been introduced to eliminate the role of central parties \ie domain name system (DNS) which introduces single point of failures in the entire web. One such system is Ghazal, an Ethereum-based naming and PKI system~\cite{moosavighazal}. Ghazal users rely on the Ethereum blockchain to register their \texttt{.ghazal} domain names and bind certificates to those names. In Ghazal model, a user would register domain name by executing the \textit{registerdomain} function from the Ghazal smart contract with the domain name in plain text as the function argument. As mentioned before, These transactions will sit in the mempool so that it would be mined by Ethereum miners and included in the block. During this period in which the transaction is not yet confirmed, frontrunning attack can occur by (i) dishonest miners and/or (ii) regular non-miner user. In the first case, a miner would intercept the \textit{registerdomain} transaction and register that name ahead of the user. A regular non-miner node in the Ethereum network can frontrun other user's \textit{registerdomain} at a good profit by paying higher transaction fees. In both cases the adversarial party could sell the domain name to the users for higher price.
+%TODO: also talk about ENS 
+>>>>>>> e00db43d413a73f4ebe17c712950daa66c423c57
 
 
 
@@ -171,6 +190,8 @@ On the time of the ICO there were reports of Ethereum network being unusable and
 
 
 \section{How to stop frontrunning?}
+In the traditional markets, frontrunning is considered unethical and also illegal. In the blockchain space, the designers of the decentral applications cannot rely on the justice system for unethical behaviour, and they must assume that each participant in the network acts rationally in their own self interest, the application will be operating in an adversarial environment~\cite{0xfrontrunning:online}.
+A few decentral exchange projects such as \textit{EtherDelta} and \textit{0xProject}, have proposed solutions for frontrunning, which is off-chain orderbooks. The methods discussed within these projects prevent blockchain network participants from front running the orders as the orders are private and not known to the network and will not be broadcasted. However they are introducing third parties, \eg relayers in 0xproject, to be managing the orders with the promise not to reorder or frontrun other orders. 
 
 \emph{Traditional Frontrunning Prevention Methods}. regulations/enforcement/broker education/sealed order
 %@shayan: ^
@@ -195,8 +216,16 @@ What does this mean to have a frontrun-resistent blockchain?  There are technica
 Applications, in this case Dapps, could be designed in a way to prevent frontrunning.
 
 \begin{itemize}
-\item{\textbf{Commit/Reveal}: describe. General solution to prevent data leaks of the transactions. although it does not hide the participatory factor (it shows the actor participated in the application but hides the details, obvious participation(commit))}
+\item{\textbf{Commitment scheme}: Also known as \textit{Commit and Reveal}, is a cryptographic primitive that enables one to commit to a value (\eg statement, document, \dots} while keeping it a secret and on a later time reveal the committed value~\cite{brassard1988minimum}. Commitment scheme is a good method to prevent information leakage from the sensitive transactions. This could be done by simply broadcasting the hash value of the committed data and later on revealing the values that would be hashed to the committed hash. 
+In the case of decentral exchanges, user can send a commit transaction which will be cryptic to network participants but will act as a placeholder in the queue for the user, after the transaction is mined, user sends reveal transaction revealing the order details which will be executed in a fair order. Another use of such commitment scheme, is in Decentral DNS, such as Ghazal or ENS. User will send a commit transaction similar to a sealed bid, once the transaction is confirmed and the grace period is over, user sends a reveal transaction revealing the bid and also the details of the requested domain.
+
+
+%TODO: a figure for commit and reveal? 
+
+%although it does not hide the participatory factor (it shows the actor participated in the application but hides the details, obvious participation(commit))}
 % discussion about Anonymity-set ?
+
+
 \item{\textbf{Submarine sends}: describe. General solution similar to commit and reveal. This is to solve the participatory factor of the commit and reveal solution.}
 
 \item{\textbf{Application logic specific solution}: Depending on the use case of  the Dapp or the application, it could be designed in a way to deincentives some actors to frontrun the transactions or prevent them from doing so. As an example on desiging a decentral orderbook, it could be said that a miner could front run orders for financial gain on price improvement, however if the fees of the orders are sent to the miner of the block, it deincentiveses the miner to front run the orders as they already gain enough financial benefit from including the correct order of transactions. 
