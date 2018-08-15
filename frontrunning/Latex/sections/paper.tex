@@ -19,6 +19,9 @@
 \subsection{Front Running on the Blockchains}
 
 Blockchain technology has received an exceptional amount of attention since it was first introduced as the underlying technology of the cryptocurrency Bitcoin in Satoshi Nakamoto's (pseudonymous) 2008 white paper \cite{nakamoto2008bitcoin}. Many decentralized applications that are nowadays built on top of this technology represent the significance of the blockchain as it completely eliminates the single points of failures within any systems. However, blockchains have some inherent characteristic that leave them vulnerable to \emph{front running} behaviour. Although this data structure is known to be publicly visible to every network participants, information is layered  and some of them are accessed only by insiders. Any network participants that runs a full node on the blockchain is able to obtain those information and as mentioned in Section~\ref{sec:What is frontrunning?}, this leaves the application vulnerable to front running. Decentralized exchanges are a group of blockchain financial applications where front running can be executed. Bancor \cite{hertzog2017bancor} is an example of such systems in which front runners benefit from potential price increase of the market stocks (details are provided in Section ...). Decentralized namespaces, as blockchain non-financial applications, are another example. Ghazal \cite{moosavighazal} is such system in which upon seeing a transaction from Alice to register \texttt{alice.com}, front runner can go ahead of her and register this domain name. He can later sell \texttt{alice.com} to Alice for a higher price and benefit from the price increase.
+Another application that is vulnerable to front running is Initial Coin Offering, ICO, smart contracts. ICO is a method to distribute tokens based on the deposits of the native coin, Ether in the case of Ethereum. ICOs mostly have capped quantity of tokens \TODO{talk about why?}, there is a competition on who can get in to get the tokens at a discounted price, hence an opportunity to frontrun other transactions to get in. 
+
+
 %___________________________________________________________%
 
 \section{Related Work}
@@ -125,19 +128,23 @@ On the time of the ICO there were reports of Ethereum network being unusable and
 
 %@shayan: make charts and figure out the orange seller
 
-%NOTE: ICO Initial Coin Offering should be explained probably in introduction section. the process of ICO smart contract and how the capped system works --> limited time/funds can be included in the ico and why people would try to get in as soon as possible, explain how their investment strategy works and such. Maybe the second half could be explained here to say why frontrunning an ICO makes sense?
 % add more on capped ICOs, status used Distribution & Dynamic Ceilings : https://blog.status.im/distribution-dynamic-ceilings-e2f427f5cca  ~\cite{statuswhitepaper}
 
 % The dynamic ceiling and prevention of bigger investments getting their full investment in could be the reason behind the design of F2pool move, by having multiple addresses each contributing around 100ETH to the ICO smart contract, instead of having one big transaction in.
 %Also the ICO smart contract only accepted transactions with gas price lower than 50gwei, unless they were whitelisted before. this was for preventing high gas payers to get in front of the line. although as this was not clearly communicated to users (UX issues?), there were tons of transactions that failed due to high gas price but also clogged the ethereum network as the miners chose transactions with higher gas price to be included in their blocks.
 
 
-% weird findings: apparently all the tokens bought by f2pool was transfered to Yunbi, the chinese exchange: 0xB6c3647F55085B9a327404Fe8B718076Ee19245a
-
 % Proof of f2pool involvement: https://etherscan.io/address/0x5fb8373bf5086fb38ef0fb686b3092145de0d1c1
 % funds come from f2pool and refunds goes back to f2pool again
 
-% I would like to spend some time to make charts from the transactions happening on the date of the Status ICO
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\linewidth]{figures/F2Pool_transactions_to_StatusICO_and_Refunds.png}
+\caption{F2Pool prior to Status.im ICO deposited 100 Ether in multiple new Ethereum addresses. On the time of the ICO they sent these deposits to Status ICO smart contract and prioritized mining of these transactions in their mining pool, this was to overcome the dynamic ceiling algorithm of the token sale smart contract. Later on they sent the refunded Ether back to their own address.\label{fig:f2poolfrontrun}}
+\end{figure}
+
+
 % this will include: The blocks mined by F2Pool, containing transactions (~100 ETH) to Status ICO, other blocks mined in that time period, the movement of status tokens from those addresses allegedly linked to F2Pool (or/and Yunbi in this case).
 % https://github.com/corpetty/ICO_analysis/blob/master/status/Status.ipynb
 % https://github.com/corpetty/py-etherscan-api
