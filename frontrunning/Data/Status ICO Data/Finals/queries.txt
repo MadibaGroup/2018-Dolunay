@@ -1,0 +1,31 @@
+# Get all the transaction of ~100 Ether from F2Pool addresses to status ICO with details such as miner of the their block and such
+
+  WITH
+  F2PoolFunded AS (
+  SELECT
+    *
+  FROM
+    `ethereumetl.ethereum.transactions` transaction
+  WHERE
+    transaction.from_address = '0x61c808d82a3ac53231750dadc13c777b59310bd9'
+    AND transaction.value = NUMERIC '100000000000000000000' )
+SELECT
+  statusICOtxs.block_number,
+  statusICOtxs.tx_hash,
+  statusICOtxs.tx_from,
+  statusICOtxs.tx_to,
+  statusICOtxs.tx_value,
+  statusICOtxs.tx_gas,
+  statusICOtxs.receipt_gas_used,
+  statusICOtxs.block_miner,
+  statusICOtxs.block_transaction_count
+FROM
+  `statusico.transactions_details_gas` statusICOtxs
+JOIN
+  F2PoolFunded
+ON
+  statusICOtxs.tx_from = F2PoolFunded.to_address
+
+  ======================================================================
+
+  

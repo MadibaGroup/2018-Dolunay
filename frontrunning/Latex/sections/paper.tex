@@ -126,16 +126,32 @@ ICO, Initial Coin Offering, is one of the blockchain applications, specially blo
 In June 2017, Status.im started their ICO and within 3 hours they reached the dynamic ceiling in place that triggered the end of the ICO, summing in 300,000 ether in funds, estimated at more than 200 million dollars at the time of their ICO. ~\cite{statusicoanalysis}. The idea behind Dynamic Ceilings is to make it more costly for larger contributors,  in the form of transaction fees, which have to split their contributions to different addresses, with minimal impact to smaller contributors~\cite{statuswhitepaper}.
 On the time of the ICO there were reports of Ethereum network being unusable and transactions were not confirming. Further study showed that some mining pools (\todo: define mining pool) could have been manipulating the network for their own profit.
 
-%@shayan: make charts and figure out the orange seller
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\linewidth]{figures/Mining_pool_ratio.png}
+\caption{The percentage of Ethereum blocks mined between block 3903900 and 3908029, this is the time frame in which Status.im ICO was running. This percentage roughly shows the hashing power ratio each miner had at that time. \label{fig:mining_pool_ratio}} % IS THIS STATEMENT CORRECT?
+\end{figure}
+
+F2Pool, an Ethereum mining pool that had around 23\% of the mining hash rate at the time (Figure ~\ref{fig:mining_pool_ratio}), sent 100 Ether to 30 new Ethereum addresses before Status.im ICO started. On the time the ICO started F2Pool constructed 31 transactions from the addresses they controlled to the ICO token sale smart contract without broadcasting these transactions to the network and focused their mining power to mine only their own transactions with some exceptions.
+As shown in figure  ~\ref{fig:Transactions_miners_while_status_ico_cut}, most of the top miners in the mentioned time window, have mined almost the same number of failed and successful transactions which were directed toward Status.im token sale, however F2Pool's transaction indicate they successful transactions were equivalent to 10\% of the failed transactions, hence maximizing the mining rewards for them while censoring other transactions to the token sale smart contract.
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\linewidth]{figures/Transactions_miners_while_status_ico_cut.png}
+\caption{This chart shows the miner behaviour on the time window that Status.im ICO was running. \label{fig:Transactions_miners_while_status_ico_cut}} 
+\end{figure}
+
+
+Involvement of F2Pool in this action becomes obvious when the transactions from these 30 addresses are traced. As shown in figure ~\ref{fig:f2poolfrontrun}, the funds deposited by F2Pool in these addresses where sent to Status.im ICO and mined by F2Pool. Once the dynamic ceiling algorithm refunded a portion of the sent funds back to these addresses, these funds were again sent back to F2Pool main address. 
+%TODO: these need more details and proofs. ask Jeremy about how to go on about this! 
 
 % add more on capped ICOs, status used Distribution & Dynamic Ceilings : https://blog.status.im/distribution-dynamic-ceilings-e2f427f5cca  ~\cite{statuswhitepaper}
 
 % The dynamic ceiling and prevention of bigger investments getting their full investment in could be the reason behind the design of F2pool move, by having multiple addresses each contributing around 100ETH to the ICO smart contract, instead of having one big transaction in.
 %Also the ICO smart contract only accepted transactions with gas price lower than 50gwei, unless they were whitelisted before. this was for preventing high gas payers to get in front of the line. although as this was not clearly communicated to users (UX issues?), there were tons of transactions that failed due to high gas price but also clogged the ethereum network as the miners chose transactions with higher gas price to be included in their blocks.
-
-
-% Proof of f2pool involvement: https://etherscan.io/address/0x5fb8373bf5086fb38ef0fb686b3092145de0d1c1
-% funds come from f2pool and refunds goes back to f2pool again
 
 
 \begin{figure}[h]
@@ -145,13 +161,8 @@ On the time of the ICO there were reports of Ethereum network being unusable and
 \end{figure}
 
 
-% this will include: The blocks mined by F2Pool, containing transactions (~100 ETH) to Status ICO, other blocks mined in that time period, the movement of status tokens from those addresses allegedly linked to F2Pool (or/and Yunbi in this case).
-% https://github.com/corpetty/ICO_analysis/blob/master/status/Status.ipynb
-% https://github.com/corpetty/py-etherscan-api
-
 
 %What is Bancor and how it can be frontrun:%
-
 \subsubsection{Bancor} %frontrunning by network participants.
 
 Bancor is an Ethereum-based application that allows users to exchange their tokens without any counter-party risk. This protocol aims to solve the cryptocurrency liquidity issue by introducing \textit{Smart Tokens}~\cite{hertzog2017bancor}-- ERC20 compatible tokens with a built-in liquidity mechanism that are always available to users. Smart Tokens can be bought and sold through the users smart contract at an automatically calculated price which displays supply and demand. Doing so, Bancor protocol provides continuous liquidity for digital assets without relying on an order book as there is no requirement to match sellers and buyers.
