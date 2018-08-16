@@ -116,11 +116,9 @@ As blockchain records are immutably recorded, there is enough historical data to
 % ICOs and ceiling
 % hard cap --> frontrun and buy the tokens in big chunk
 % dynamic ceiling, fair token distribution --> status ICO
-\noindent ICO, Initial Coin Offering, is one of the blockchain applications, specially blockchains such as Ethereum with smart contract capability. The common practice is to deploy a smart contract on the blockchain indicating the details of the ICO such as the trade ratio, when it starts and ends, and more details on how it will be capped.
-In June 2017, Status.im started their ICO and within 3 hours they reached the dynamic ceiling in place that triggered the end of the ICO, summing in 300,000 ether in funds, estimated at more than 200 million dollars at the time of their ICO. ~\cite{statusicoanalysis}. The idea behind Dynamic Ceilings is to make it more costly for larger contributors,  in the form of transaction fees, which have to split their contributions to different addresses, with minimal impact to smaller contributors~\cite{statuswhitepaper}.
-On the time of the ICO there were reports of Ethereum network being unusable and transactions were not confirming. Further study showed that some mining pools (\todo: define mining pool) could have been manipulating the network for their own profit.
 
-
+\noindent As discussed in ~\ref{sec:Front Running on the Blockchains}, capped ICOs are a good application for frontrunning attacks.  In June 2017, Status.im~\cite{statuswhitepaper} started their ICO and within 3 hours they reached their cap, resulted in close to 300,000 Ether of funding. They used a \textit{fair} token distribution method called \textit{Dynamic ceiling}, which was in place to prevent large investments to take place early and limited the amount of Ether deposited, this was an attempt to increase the time window for smaller investors. They implemented multiple caps --ceiling-- which each would have a maximum amount that can be deposited. In this case every deposit would be checked by the smart contract and the exceeding amount would be refunded to the sender while the accepted amount would be sent to the Status.im wallet ~\cite{statusicoanalysis}. 
+On the time of the ICO there were reports of Ethereum network being unusable and transactions were not confirming. Further study showed that some mining pools might have been manipulating the network for their own profit.
 
 \begin{figure}[h]
 \centering
@@ -128,31 +126,32 @@ On the time of the ICO there were reports of Ethereum network being unusable and
 \caption{The percentage of Ethereum blocks mined between block 3903900 and 3908029, this is the time frame in which Status.im ICO was running. This percentage roughly shows the hashing power ratio each miner had at that time. \label{fig:mining_pool_ratio}} % IS THIS STATEMENT CORRECT?
 \end{figure}
 
-F2Pool, an Ethereum mining pool that had around 23\% of the mining hash rate at the time (Figure ~\ref{fig:mining_pool_ratio}), sent 100 Ether to 30 new Ethereum addresses before Status.im ICO started. On the time the ICO started F2Pool constructed 31 transactions from the addresses they controlled to the ICO token sale smart contract without broadcasting these transactions to the network and focused their mining power to mine only their own transactions with some exceptions.
-As shown in figure  ~\ref{fig:Transactions_miners_while_status_ico_cut}, most of the top miners in the mentioned time window, have mined almost the same number of failed and successful transactions which were directed toward Status.im token sale, however F2Pool's transaction indicate they successful transactions were equivalent to 10\% of the failed transactions, hence maximizing the mining rewards for them while censoring other transactions to the token sale smart contract.
+F2Pool, an Ethereum mining pool that had around 23\% of the mining hash rate at the time (Figure ~\ref{fig:mining_pool_ratio}), sent 100 Ether to 30 new Ethereum addresses before Status.im ICO started. On the time the ICO started F2Pool constructed 31 transactions from the addresses they controlled to the ICO token sale smart contract --without broadcasting these transactions to the network-- and focused their mining power to mine their own transactions.
+As shown in figure  ~\ref{fig:Transactions_miners_while_status_ico_cut}, most of the top miners in the mentioned time frame, have mined almost the same number of failed and successful transactions which were directed toward Status.im token sale, however F2Pool's transactions indicate their successful transactions were equivalent to 10\% of the failed transactions, hence maximizing the mining rewards, on gas, while censoring other transactions to the token sale smart contract.
 
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.5\linewidth]{figures/Transactions_miners_while_status_ico_cut.png}
+\includegraphics[width=0.7\linewidth]{figures/Transactions_miners_while_status_ico_cut.png}
 \caption{This chart shows the miner behaviour on the time window that Status.im ICO was running. \label{fig:Transactions_miners_while_status_ico_cut}} 
 \end{figure}
 
 
 Involvement of F2Pool in this action becomes obvious when the transactions from these 30 addresses are traced. As shown in figure ~\ref{fig:f2poolfrontrun}, the funds deposited by F2Pool in these addresses where sent to Status.im ICO and mined by F2Pool. Once the dynamic ceiling algorithm refunded a portion of the sent funds back to these addresses, these funds were again sent back to F2Pool main address. 
-%TODO: these need more details and proofs. ask Jeremy about how to go on about this! 
-
-% add more on capped ICOs, status used Distribution & Dynamic Ceilings : https://blog.status.im/distribution-dynamic-ceilings-e2f427f5cca  ~\cite{statuswhitepaper}
-
-% The dynamic ceiling and prevention of bigger investments getting their full investment in could be the reason behind the design of F2pool move, by having multiple addresses each contributing around 100ETH to the ICO smart contract, instead of having one big transaction in.
-%Also the ICO smart contract only accepted transactions with gas price lower than 50gwei, unless they were whitelisted before. this was for preventing high gas payers to get in front of the line. although as this was not clearly communicated to users (UX issues?), there were tons of transactions that failed due to high gas price but also clogged the ethereum network as the miners chose transactions with higher gas price to be included in their blocks.
 
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.5\linewidth]{figures/F2Pool_transactions_to_StatusICO_and_Refunds.png}
+\includegraphics[width=0.7\linewidth]{figures/F2Pool_transactions_to_StatusICO_and_Refunds.png}
 \caption{F2Pool prior to Status.im ICO deposited 100 Ether in multiple new Ethereum addresses. On the time of the ICO they sent these deposits to Status ICO smart contract and prioritized mining of these transactions in their mining pool, this was to overcome the dynamic ceiling algorithm of the token sale smart contract. Later on they sent the refunded Ether back to their own address.\label{fig:f2poolfrontrun}}
 \end{figure}
+
+
+Although this incident does not involve transaction reordering in the blocks, it shows how miners can modify their code to behave in centain way that could result in their monetary profit. 
+%TODO: these might need more details and proofs. ask Jeremy about how to go on about this! 
+
+
+%Also the ICO smart contract only accepted transactions with gas price lower than 50gwei, unless they were whitelisted before. this was for preventing high gas payers to get in front of the line. although as this was not clearly communicated to users (UX issues?), there were tons of transactions that failed due to high gas price but also clogged the ethereum network as the miners chose transactions with higher gas price to be included in their blocks.
 
 
 
@@ -189,7 +188,7 @@ Involvement of F2Pool in this action becomes obvious when the transactions from 
 
 \section{How to stop frontrunning?}
 In the traditional markets, frontrunning is considered unethical and also illegal. In the blockchain space, the designers of the decentral applications cannot rely on the justice system for unethical behaviour, and they must assume that each participant in the network acts rationally in their own self interest, the application will be operating in an adversarial environment~\cite{0xfrontrunning:online}.
-A few decentral exchange projects such as \textit{EtherDelta} and \textit{0xProject}, have proposed solutions for frontrunning, which is off-chain orderbooks. The methods discussed within these projects prevent blockchain network participants from front running the orders as the orders are private and not known to the network and will not be broadcasted. However they are introducing third parties, \eg relayers in 0xproject, to be managing the orders with the promise not to reorder or frontrun other orders. 
+A few decentral exchange projects such as \textit{EtherDelta} and \textit{0xProject}~\cite{warren20170x}, have proposed solutions for frontrunning, which is off-chain orderbooks. The methods discussed within these projects prevent blockchain network participants from front running the orders as the orders are private and not known to the network and will not be broadcasted. However they are introducing third parties, \eg relayers in 0xproject, to be managing the orders with the promise not to reorder or frontrun other orders. 
 
 \emph{Traditional Frontrunning Prevention Methods}. regulations/enforcement/broker education/sealed order
 %@shayan: ^
