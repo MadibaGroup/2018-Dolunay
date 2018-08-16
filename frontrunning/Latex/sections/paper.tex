@@ -105,18 +105,13 @@ miners act to maximize their profit and are free to mine the transaction which o
 %\end{itemize}
 
 
-\subsection{Historical evidence}
+\subsection{Historical evidence in the Blockchain}
 As blockchain records are immutably recorded, there is enough historical data to analyze for possible front running detection. For examples here we research some of the events of such attacks happening in the Ethereum blockchain applications.
 
 % maybe inlcude 0xbitcoin ERC721 mineable tokens frontrunning!
 % mint: https://etherscan.io/tx/0x9883bc3ad018fd2b649982f88fbad7dc5abcb8f11c4f1d87ef814ba30c2b3428
 
-\subsubsection{Status ICO} \hfill\\ %Frontrunning by a miner/mining pool 
-%@Shayan: Clean up this part, finish it! 
-% ICOs and ceiling
-% hard cap --> frontrun and buy the tokens in big chunk
-% dynamic ceiling, fair token distribution --> status ICO
-
+\subsubsection{Status ICO} \hfill\\ 
 \noindent As discussed in ~\ref{sec:Front Running on the Blockchains}, capped ICOs are a good application for frontrunning attacks.  In June 2017, Status.im~\cite{statuswhitepaper} started their ICO and within 3 hours they reached their cap, resulted in close to 300,000 Ether of funding. They used a \textit{fair} token distribution method called \textit{Dynamic ceiling}, which was in place to prevent large investments to take place early and limited the amount of Ether deposited, this was an attempt to increase the time window for smaller investors. They implemented multiple caps --ceiling-- which each would have a maximum amount that can be deposited. In this case every deposit would be checked by the smart contract and the exceeding amount would be refunded to the sender while the accepted amount would be sent to the Status.im wallet ~\cite{statusicoanalysis}. 
 On the time of the ICO there were reports of Ethereum network being unusable and transactions were not confirming. Further study showed that some mining pools might have been manipulating the network for their own profit.
 
@@ -173,7 +168,7 @@ Although this incident does not involve transaction reordering in the blocks, it
 %\end{itemize}
 
 
-
+%NOTE: @mahsa: is this considered a Historical evidence? should we talk about this somewhere else and maybe do a PoC on Ghazal for this section?
 \subsubsection{Domain Name Front-running} \hfill\\    %Following section talks about frontrunning in namespaces but limited to Ghazal. Will talk about NameCoin in the section of mitigations (commit & reveal method)
 \noindent As mentioned in Section~\ref{sec:Front Running on the Blockchains}, although front-running attacks have been more showcased in the context of decentralized exchanges and trading systems, they are are not yet limited to the financial markets. Front-running can occur within other (non-financial) blockchain applications such as naming systems. Blockchain-based domain registrar have been introduced to eliminate the role of central parties \ie domain name system (DNS) which introduce single point of failures in the entire web. One such system is Ghazal, an Ethereum-based naming and PKI system~\cite{moosavighazal}. Ghazal users rely on the Ethereum blockchain to register their \texttt{.ghazal} domain names and bind certificates to those names. In Ghazal model, a user would register domain name by executing the \textit{registerdomain} function from the Ghazal smart contract with the domain name in plain text as the function argument. As mentioned before, These transactions will sit in the mempool so that it would be mined by Ethereum miners and included in the block. During this period in which the transaction is not yet confirmed, front-running attack can occur by (i) dishonest miners and/or (ii) regular non-miner user. In the first case, a miner would intercept the \textit{registerdomain} transaction and register that name ahead of the user. A regular non-miner node in the Ethereum network can front-run other user's \textit{registerdomain} at a good profit by paying higher transaction fees. This practice allows the adversarial party  to register an unregistered domain immediately after someone searched for it, and sell the domain name to the users for a higher price. Note that, domain name front-running also occurs in the vanilla system. In this case, front-runners would monitor and identify domain names of interest, and sell it back to the other users with a higher price~\cite{sac022en33:online}.
 % PoC of frontrunning ghazal
