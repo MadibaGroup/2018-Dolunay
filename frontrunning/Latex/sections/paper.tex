@@ -60,7 +60,7 @@ Aune~\etal\cite{aune2017footprints} discuss how the lack of time priority betwee
 Malinova and Park discuss different design settings for financial markets and trading platforms on decentral ledgers ~\cite{malinova2017market}.  They argue that blockchain brings a new options of transparency which affects traders behaviour, specially in the presence of intermediary front-runners. They model indirect trading costs and use the economic literature on search and trading at decentralized exchanges in their design settings to make front-running costly and inefficient.
 
 
- ~\cite{breidenbach2018enter}
+Breidenbach~\etal ~\cite{breidenbach2018enter} face the front-running issue in the context of automating bug bounties for smart contracts. Upon submitting the bug bounty to the Hydra smart contract, one can front-run the bug report and claim the bounty instead of the original reporter. They propose \textit{Submarine Commitments} which is to conceal the bounty claim and the participatory factor. They claim submarine commitments ``are a stronger form of a commit-reveal scheme''. 
 
 
 % Double spend papers: ~\cite{bamert2013have} ~\cite{karame2012double}
@@ -210,7 +210,7 @@ There are two main approaches to prevent front running, one to design a blockcha
 \subsection{front-run-resistent Blockchain}
 What does this mean to have a front-run-resistent blockchain?  There are technical difficulties to achieve such solutions as there are unknown factors within such network designs (corner/edge cases).
 
-\emph{Fixed transaction ordering}: One possible solution to fix current blockchains in regards to transaction reordering by miners has been proposed by da Silva et al~\cite{fixedordering2018silva}, which consist of an algorithm, Fixed Transaction Ordering and Admission (FTOA) algorithm, in the consensus protocol that enforces the order of the transactions. 
+\emph{Fixed transaction ordering}: One possible solution to fix current blockchains in regards to transaction reordering by miners has been proposed by da Silva~\etal~\cite{fixedordering2018silva}, which consist of an algorithm, Fixed Transaction Ordering and Admission (FTOA) algorithm, in the consensus protocol that enforces the order of the transactions. 
 
 
 \begin{itemize}
@@ -239,7 +239,7 @@ In the case of decentral exchanges, user can send a commit transaction which wil
 
 
 %TODO: also fixes collatorize the commit, but what about no collatorization cases but hide the participation (not really a front-running case)
-\item{\textbf{Submarine sends}: describe. General solution similar to commit and reveal. This is to solve the participatory factor of the commit and reveal solution.}
+\item{\textbf{Submarine Commitments}: describe. General solution similar to commit and reveal. This is to solve the participatory factor of the commit and reveal solution.}
 
 \item{\textbf{Application logic specific solution}: Depending on the use case of  the Dapp or the application, it could be designed in a way to deincentives some actors to front-run the transactions or prevent them from doing so. As an example on desiging a decentral orderbook, it could be said that a miner could front run orders for financial gain on price improvement, however if the fees of the orders are sent to the miner of the block, it deincentiveses the miner to front run the orders as they already gain enough financial benefit from including the correct order of transactions. 
 Another example for decentral orderbook design could be using call market design instead of  time-sensitive orderbooks. In such design the arrival time of the order does not matter as they are executed in batches. }
