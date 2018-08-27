@@ -52,15 +52,17 @@ Initially the front-running policies only applied to certain option markets, lat
 
 
 \subsection{Recent Literature on Blockchain front-running}
-
-A few researchers discussed front-running in the context of blockchain and decentral ledgers. 
-
-Aune~\etal\cite{aune2017footprints} discuss how the lack of time priority between broadcasting a transaction and its validation by miners on a blockchain based system would lead to the market information leakage. As mentioned in Section~\ref{sec:What is front-running?}, the information leakage results the entire system to be vulnerable to the front-running. They also propose a cryptographic approach to prevent any decentralized system from front-running. In this approach, which is similar to commit and reveal, a transaction hash (fingerprint) is broadcast to the network to secure time priority while not revealing the information. Once the hash is processed and assigned an index and timestamp, the transaction details are broadcast. This makes the transaction and its hash to be executed at their reserved time priority and not vulnerable to front-running.
+%NOTE (ASK JEREMY): decentral or decentralized?
+There are only a few research carried out on the front-running subject in the context of blockchain and decentral ledgers. 
+Aune~\etal discuss how the lack of time priority between broadcasting a transaction and its validation by miners on a blockchain based system would lead to the market information leakage~\cite{aune2017footprints}. As mentioned in Section~\ref{sec:What is front-running?}, the information leakage results the entire system to be vulnerable to the front-running. They also propose a cryptographic approach to prevent any decentralized system from front-running. In this approach, which is similar to commit and reveal, a transaction hash (fingerprint) is broadcast to the network to secure time priority while not revealing the information. Once the hash is processed and assigned an index and timestamp, the transaction details are broadcast. This makes the transaction and its hash to be executed at their reserved time priority and not vulnerable to front-running.
 
 Malinova and Park discuss different design settings for financial markets and trading platforms on decentral ledgers ~\cite{malinova2017market}.  They argue that blockchain brings a new options of transparency which affects traders behaviour, specially in the presence of intermediary front-runners. They model indirect trading costs and use the economic literature on search and trading at decentralized exchanges in their design settings to make front-running costly and inefficient.
 
 
 Breidenbach~\etal ~\cite{breidenbach2018enter} face the front-running issue in the context of automating bug bounties for smart contracts. Upon submitting the bug bounty to the Hydra smart contract, one can front-run the bug report and claim the bounty instead of the original reporter. They propose \textit{Submarine Commitments} which is to conceal the bounty claim and the participatory factor. They claim submarine commitments ``are a stronger form of a commit-reveal scheme''. 
+
+ 
+Some researchers have discussed the double spending attack on the Bitcoin blockchain. In this attack, as the name implies, the adversary spends a coin more than one time. To do so, he would use the coin as an input of a transaction and broadcast it to the network, before the transaction gets validated and executed, he broadcasts another transaction associated with a higher transaction fee which spends the same input ~\cite{bamert2013have, karame2012double}. This adversarial behaviour is similar to the front-running attack where the attacker would front-run other users by paying a higher gas price when broadcasting his transactions to the network.  As mentioned above, this leads to the faster execution of the transaction on the Ethereum blcokchain.
 
 
 % Double spend papers: ~\cite{bamert2013have} ~\cite{karame2012double}

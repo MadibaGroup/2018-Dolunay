@@ -10,3 +10,5 @@ frontrunning/Latex/main.log
 *.bbl
 *.blg
 
+
+*.out
