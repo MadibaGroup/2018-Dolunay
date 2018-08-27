@@ -7,10 +7,10 @@
 
 \section{Preliminaries}
 
-\subsection{What is Front running?} %Definition of front-running
+\subsection{What is Front-running?} %Definition of front-running
 \label{sec:What is front-running?}
 
-\emph{Front running} is analogous to any course of action during which a person benefits from prior access to inside or confidential market information to upcoming transactions and trades. This problem can occur in both financial and non-financial systems, however, it is more noticeable within the trading and exchange systems as it was originated back in stock markets. In the old times, all the trades were executed on papers, so in case of receiving a large order from a client, the broker might say this loud and other people around the table could be informed. Therefore, a malicious trader would now run in front of that order and put his own transaction in between (before the trade was executed) and profit from the price increase of the stock. In other words, a group of market participants obtain non-public market information which allows them to front-run other users trades by putting their orders a head of those trades and benefit from advance knowledge of pending client orders. The two significant factors which cause the front-running practice to happen within the financial markets are (i) imperfect competition and (ii) liquidity uncertainty. \textbf{should I explain more?!} Any sort of front-running activity within the financial markets is considered as an unethical and illegal practice as it is unfairly beneficial for a few market participants who have the privilege of acting on this information and taking advantages at the expense of the investor. 
+\emph{Front-running} is analogous to any course of action during which a person benefits from prior access to inside or confidential market information about upcoming transactions and trades. This problem can occur in both financial and non-financial systems, however, it is more noticeable within the trading and exchange systems as it was originated back in stock markets. In the old times, all the trades were executed on papers, so in case of receiving a large order from a client, the broker might say this loud and other people around the table could be informed. Therefore, a malicious trader would now run in front of that order and put his own transaction in-between (before the trade was executed) and profit from the price increase of the stock. In other words, a group of market participants obtain non-public market information which allows them to front-run other users trades by putting their orders a head of those trades and benefit from advance knowledge of pending client orders. The two significant factors which cause the front-running practice to happen within the financial markets are (i) imperfect competition and (ii) liquidity uncertainty~\cite{liang2005distressed}. Any sort of front-running activity within the financial markets is considered as an unethical and illegal practice as it is unfairly beneficial for a few market participants who have the privilege of acting on this information and taking advantages at the expense of the investors. 
 
 
 
@@ -27,8 +27,9 @@ Another application that is vulnerable to front running is Initial Coin Offering
 As the traditional front-running was originated to trading financial instruments most of the literature are focused on financial aspects of the markets. %TODO: expand this with something
 
 
-\subsection{Historical Context / Classic front-running}
-front-running was first appeared on the Chicago Board Options Exchange ( \textit{CBoE}) ~\cite{markham1988front}, and was identified by \textit{Securities Exchange Commission} in 1977 as the following:
+\subsection{Literature on Tranditional Front-running}
+As traditional frontrunning has been the subject of discussion for decades, there are many literatures on this subject. Here we focus on the historical context and how the regulations evolved to be what they are today.\\
+Front-running was first appeared on the Chicago Board Options Exchange ( \textit{CBoE}) ~\cite{markham1988front}, and was identified by \textit{Securities Exchange Commission} in 1977 as the following:
 \begin{quote}
 The practice of effecting an options transaction based upon non-public information regarding an impending block transaction\footnote{Block in the stock market is large number of shares, 10\,000 or more, to sell which will heavily changes the price} in the underlying stock, in order to obtain a profit when the options market adjusts to the price at which the block trades. ~\cite{sec1978optionsmarket}
 \end{quote} 
@@ -51,9 +52,10 @@ Further reading on the early details on the history and challenges of detecting 
 Initially the front-running policies only applied to certain option markets, later on in 2002, the rule was refined to include the same prohibitions to security futures~\cite{finra_2002}, which then in 2012 with the new amendment, FINRA Rule 5270, the front-running rule was extended to cover trading in an option, derivative, or other financial instruments overlying a security with some exceptions~\cite{sec2012frontrunning, finra_2012}. 
 
 
-\subsection{Recent Literature on Blockchain front-running}
+\subsection{Literature on Blockchain Front-running}
 %NOTE (ASK JEREMY): decentral or decentralized?
-There are only a few research carried out on the front-running subject in the context of blockchain and decentral ledgers. 
+There are only a few research carried out on the front-running subject in the context of blockchain and decentral ledgers. \\
+
 Aune~\etal discuss how the lack of time priority between broadcasting a transaction and its validation by miners on a blockchain based system would lead to the market information leakage~\cite{aune2017footprints}. As mentioned in Section~\ref{sec:What is front-running?}, the information leakage results the entire system to be vulnerable to the front-running. They also propose a cryptographic approach to prevent any decentralized system from front-running. In this approach, which is similar to commit and reveal, a transaction hash (fingerprint) is broadcast to the network to secure time priority while not revealing the information. Once the hash is processed and assigned an index and timestamp, the transaction details are broadcast. This makes the transaction and its hash to be executed at their reserved time priority and not vulnerable to front-running.
 
 Malinova and Park discuss different design settings for financial markets and trading platforms on decentral ledgers ~\cite{malinova2017market}.  They argue that blockchain brings a new options of transparency which affects traders behaviour, specially in the presence of intermediary front-runners. They model indirect trading costs and use the economic literature on search and trading at decentralized exchanges in their design settings to make front-running costly and inefficient.
@@ -62,57 +64,27 @@ Malinova and Park discuss different design settings for financial markets and tr
 Breidenbach~\etal ~\cite{breidenbach2018enter} face the front-running issue in the context of automating bug bounties for smart contracts. Upon submitting the bug bounty to the Hydra smart contract, one can front-run the bug report and claim the bounty instead of the original reporter. They propose \textit{Submarine Commitments} which is to conceal the bounty claim and the participatory factor. They claim submarine commitments ``are a stronger form of a commit-reveal scheme''. 
 
  
-Some researchers have discussed the double spending attack on the Bitcoin blockchain. In this attack, as the name implies, the adversary spends a coin more than one time. To do so, he would use the coin as an input of a transaction and broadcast it to the network, before the transaction gets validated and executed, he broadcasts another transaction associated with a higher transaction fee which spends the same input ~\cite{bamert2013have, karame2012double}. This adversarial behaviour is similar to the front-running attack where the attacker would front-run other users by paying a higher gas price when broadcasting his transactions to the network.  As mentioned above, this leads to the faster execution of the transaction on the Ethereum blcokchain.
-
-
-% Double spend papers: ~\cite{bamert2013have} ~\cite{karame2012double}
-
-
-% NOTE: use double-spend paper (first)
-% talk about double-spend one kind of front-running (relationship between front-running vs double spend) rushing actors. 
-% Double-spending fast payments in bitcoin.pdf
+One of the properties of Blockchain technology was to overcome double-spend, however this does not apply for fast payments and zero-confirmation transactions. \textit{Double-spend attack}, as the name implies, the adversary spends a coin more than one time. To do so, he would use the coin as an input of a transaction and broadcast it to the network, before the transaction gets validated and executed, he broadcasts another transaction associated with a higher transaction fee which spends the same input ~\cite{bamert2013have, karame2012double}. This adversarial behaviour is similar to the front-running attack where the attacker would front-run other users by paying a higher transaction fee when broadcasting his transactions to the network, hence a higher priority transaction for miners to include in the block they mine.  
 
 
 %______________________________________________________________%
 
 
-\section{(On) Blockchain Front-running}
+\section{On Blockchain Front-running}
 
 \subsection{Who Can Front-run?}
 \label{sec:who can front-run?}
 
-In general, all the network participants have the ability to front run specific transactions that are sent to the network. However, miners can include any transactions they like into the block they attempt to mine. Thus, they possess special power in terms of front running as opposed to other users of the network. In the following, we discuss and compare the two groups of blockchain potential front-runners.
+In general, all the network participants have the ability to front-run specific transactions that are sent to the network. However, miners can include any transactions they like into the block they attempt to mine. Thus, they possess special power in terms of front-running as opposed to other users of the network. In the following, we discuss and compare the two groups of blockchain potential front-runners.
+
+\subsubsection{Blockchain Participants}
+Any regular (miner or non-miner) user can front-run other transactions in the network. For regular users to front-run others on the blockchain, they need to be well connected to other nodes on the network. Doing so, they are able to listen to the network and monitor all transactions that are broadcast. On the Ethereum blockchain, users have to pay for the computations in small amount of Ether called \textit{gas}~\cite{AccountT67:online}. The price that users pay for transactions (a.k.a. transaction fees) can increase or decrease how quickly miners will execute them and include them within the blocks they mine. This is because the Ethereum miners consume resources to process the transactions and so receive the transaction fees after creating the blocks. Once seeing two identical transactions with different transaction fees,  a rational miner will prioritize the transaction that pays higher gas price per unit of gas --gasPrice--, this is due to limited space in the blocks while maximizes their profit in the block they mine. Therefore, any regular users who run a full-node Ethereum client can front-run pending transactions by sending similar transaction with higher gas price. For example, in a decentral exchange, he can monitor the network and once seeing a pending \textit{buy} transaction which will further increase the price of the asset, a front-runner can send a transaction with a higher gas price and hope to have his transaction mined ahead of the original pending transaction. By doing so, he achieves a better rate from the buyer. Note that in this case, blockchain front-runners are visible to the network as they broadcast their transactions to all the network participants. 
+
 
 \subsubsection{Miners}
-As mentioned above, since the Blockchain miners are the only parties who can decide on the order of transactions within a block they mine, they can easily intercept and reorder the pending transactions sitting in the mempool, this is known as \textbf{transaction reordering} attack. Miners could use this power to attack any smart contract with transaction-ordering dependence vulnerability~\cite{luu2016making}.  For example in an Ethereum based application, a miner learns about the pending \textit{buy} transaction of 1000 units of a token, i.e. TKN, presumably if this transaction goes through, it causes the price the purchased token to increase. So the dishonest miner can step in front of this transaction and  place his own buy order ahead of it. He would simply create his \textit{buy} of 1000 TKN and include it within a block and now he mines the previous \textit{buy} transaction of 1000 TKN. Doing so, he would receive a better rate than other network users, and can sell the assets he has received and gain a price advantage at the expense of others. Similarly, a dishonest miner can sell his tokens in front, if he sees a pending \textit{sell} transaction. In an open source blockchain application, there is no rules on how transactions must be ordered and miners are free to send transactions in the order they prefer. However, miners can only front run other transactions (by reordering them) within the block they happen to mine. They could do this also by not broadcasting their own transactions to the network, this makes the miners to be less noticeable to the network when front running.
-Another example here is in the case of decentral exchanges and order cancellation. Every exchange should have the functionality to cancel the orders, especially for a volatile market. In this case, when user decides that her order is not profitable anymore, she would send a cancelation transaction. Here the miner sees the cancelation transaction and puts his own order before the cancellation transaction --transaction reordering-- to fill the order, potentially profiting from the order. They can also include the canceled transaction in their block to collect the full gas limit used by that transaction~\cite{CostofDecentralization:online}.
+Blockchain miners are the only parties who can decide on the order of transactions within a block they mine, they can easily intercept and reorder the transactions in their blocks, this is known as \textbf{transaction reordering} attack.  For example in an Ethereum based application, a miner learns about the pending \textit{buy} transaction of 1000 units of a token, i.e. TKN, presumably if this transaction goes through, it causes the price of the purchased token to increase. So the dishonest miner can step in front of this transaction and place his own buy order ahead. He would simply create his \textit{buy} of 1000 TKN and include it in front of the previous \textit{buy} transaction of 1000 TKN in the block he mines. Doing so, he would receive a better rate than other network users, and afterwards can sell the assets he has bought and gain a price advantage at the expense of others. Similarly, a dishonest miner can sell his tokens in front, if he sees a pending \textit{sell} transaction. In an open source blockchain application, there is no rules on how transactions must be ordered and miners are free to mine transactions in any order they prefer. However, miners can only front-run transactions within the blocks they happen to mine. They could do this also by not broadcasting their own transactions to the network, this makes the miners to be less noticeable to the network when front-running.
+Another example here is in the case of decentral exchanges and order cancellation. Every exchange should have the functionality to cancel the orders, especially for a volatile market. In this case, when user decides that her order is not profitable anymore, she would send a cancelation transaction. Here the miner sees the cancelation transaction and puts his own order in front of the cancellation transaction --transaction reordering-- to fill the order, potentially profiting from the order. They can also include the canceled transaction in their block to collect the full gas limit used by that transaction~\cite{CostofDecentralization:online}. Front-running can also occur in non-financial smart contracts. As an example, smart contract which adds all the participants to a party invite list, could only be closed by the smart contract owner. In this case when the owner sends the transaction to close the list, a miner can include his own list of participants before the close transaction in the block he mines. This is an issue with the design of the smart contracts and is known as transaction-ordering dependence vulnerability~\cite{luu2016making}. 
 
-
-\subsubsection{Blockchain users/nodes}
-Any regular (non-miner or miner) user can also front-run other transactions in the network. For regular users to front run others on the blockchain, they need to be fully/well connected to other nodes on the network. Doing so, they are able to listen to the network and monitor all transactions that are broadcast. On the Ethereum blockchain users have to pay for the computations in small amount of Ether called \textit{gas}~\cite{AccountT67:online}. The price that users pay for transactions (a.k.a. transaction fees) can increase or decrease how quickly miners will execute them and include them within the block they mine. This is because the Ethereum miners consume resources to process the transactions and so receive the transaction fees after creating the blocks. Once seeing two identical transactions with different transaction fees, 
-%Given the limited space in the blocks, a rational miner will prioritize transactions that pay higher gas price per unit of gas, this maximizes their profit in the block they mine.
-miners act to maximize their profit and are free to mine the transaction which offers the highest fee. Therefore, any regular users who run a full-node Ethereum client can modify the order of pending transactions by paying with a higher gas price\ie by monitoring the network, upon seeing a  pending \textit{buy} transaction which will further increase the price of the asset, a font-runner user can pay a higher gas price and hope to have his transaction a head of the other one mined. By doing so, he achieves a better rate from the other network users. Note that in this case, blockchain front-runners are more visible to the network as they broadcast their transactions to all the network participants. 
-
-
-%\subsubsection{Blockchain users/nodes}:
-%\begin{itemize}
-%\item{\textbf{Higher GasPrice}: Monitor transactions, rebroadcast with higher GasPrice}
-%\item{\textbf{Fully/well connected nodes}: Similar to HFT situation of faster connections to other nodes, for a higher chance of transaction inclusion, also Sybil attacks?} 
-%\item{\textbf{Noticable by the network}: More visible to the network as both transactions are broadcast to all the nodes}
-%\end{itemize}
-%
-%
-%\subsubsection{Miners}
-%
-%
-%\begin{itemize}
-%\item{\textbf{Their own mined blocks}: The can only front-run transactions within the block they mine. This could be done by reordering the transactions within the blocks.}
-%%^ If a miner or user sees an unconfirmed transaction in the mempool they could squeeze their own transaction to come in front and profit from that. Essentially, profitting from reordering the transactions.
-%
-%\item{\textbf{Less Noticable by the network}: Miners can include transactions within the blocks they happen to mine without broadcasting the transactions, hence less chance of being detected by the network participants.} 
-%%Should the following be included? 
-%%\item{\textbf{Incentivized mitigation methods}: applications could pay the fees to the miners to incentives them to behave } 
-%\end{itemize}
 
 
 \subsection{Historical evidence in the Blockchain}
@@ -245,6 +217,8 @@ In the case of decentral exchanges, user can send a commit transaction which wil
 
 \item{\textbf{Application logic specific solution}: Depending on the use case of  the Dapp or the application, it could be designed in a way to deincentives some actors to front-run the transactions or prevent them from doing so. As an example on desiging a decentral orderbook, it could be said that a miner could front run orders for financial gain on price improvement, however if the fees of the orders are sent to the miner of the block, it deincentiveses the miner to front run the orders as they already gain enough financial benefit from including the correct order of transactions. 
 Another example for decentral orderbook design could be using call market design instead of  time-sensitive orderbooks. In such design the arrival time of the order does not matter as they are executed in batches. }
+% talk about Incentivized mitigation method designs to prevent front running. 
+
 
 %Proof of burn methods ? 
 
