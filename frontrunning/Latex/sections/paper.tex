@@ -14,7 +14,7 @@
 
 
 
-\subsection{Front Running on the Blockchains}
+\subsection{How are Blockchain Applications Vulnarable to Frontrunning?}
 \label{sec:Front Running on the Blockchains}
 
 Blockchain technology has received an exceptional amount of attention since it was first introduced as the underlying technology of the cryptocurrency Bitcoin in Satoshi Nakamoto's (pseudonymous) 2008 white paper \cite{nakamoto2008bitcoin}. Many decentralized applications that are nowadays built on top of this technology represent the significance of the blockchain as it completely eliminates the single points of failures within any systems. However, blockchains have some inherent characteristic that leave them vulnerable to \emph{front running} behaviour. Although this data structure is known to be publicly visible to every network participants, information is layered  and some of them are accessed only by insiders. Any network participants that runs a full node on the blockchain is able to obtain those information and as mentioned in Section~\ref{sec:What is frontrunning?}, this leaves the application vulnerable to front running. Decentralized exchanges are a group of blockchain financial applications where front running can be executed. Bancor \cite{hertzog2017bancor} is an example of such systems in which front runners benefit from potential price increase of the market stocks (details are provided in Section ...). Decentralized namespaces, as blockchain non-financial applications, are another example. Ghazal \cite{moosavighazal} is such system in which upon seeing a transaction from Alice to register \texttt{alice.com}, front runner can go ahead of her and register this domain name. He can later sell \texttt{alice.com} to Alice for a higher price and benefit from the price increase.
@@ -53,9 +53,18 @@ Initially the frontrunning policies only applied to certain option markets, late
 
 \subsection{Recent Literature on Blockchain frontrunning}
 
-~\cite{malinova2017market}
+
+There are a few papers discussing frontrunning in the context of blockchain and decentral ledgers. 
+
+Malinova and Park discuss different design settings for financial markets and trading platforms on decentral ledgers ~\cite{malinova2017market}.  They argue that blockchain brings a new options of transparency which effects traders identity behaviour, specially in the presence of intermediately front runners. They model indirect trading costs and use the economic literature on search and trading at decentralized exchanges in their design settings to make frontrunning costly and inefficient.
+
+
+ 
 ~\cite{aune2017footprints}
 ~\cite{breidenbach2018enter}
+
+
+% Double spend papers: ~\cite{bamert2013have} ~\cite{karame2012double}
 
 
 % NOTE: use double-spend paper (first)
