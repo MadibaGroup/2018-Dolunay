@@ -51,7 +51,10 @@ Further reading on the early details on the history and challenges of detecting 
 Initially the frontrunning policies only applied to certain option markets, later on in 2002, the rule was refined to include the same prohibitions to security futures~\cite{finra_2002}, which then in 2012 with the new amendment, FINRA Rule 5270, the frontrunning rule was extended to cover trading in an option, derivative, or other financial instruments overlying a security with some exceptions~\cite{sec2012frontrunning, finra_2012}. 
 
 
-\subsection{Recent Literature on Blockchain frontrunning}
+\subsection{Recent Literature on Blockchain front-running}
+
+Aune~\etal\cite{aune2017footprints} discuss how the lack of time priority between broadcasting a transaction and its validation by miners on a blockchain based system would lead to the market information leakage. As mentioned in Section~\ref{sec:What is frontrunning?}, the information leakage results the entire system to be vulnerable to the front-running. They also propose a cryptographic approach to prevent any decentralized system from front-running. In this approach, which is similar to commit and reveal, a transaction hash (fingerprint) is broadcast to the network to secure time priority while not revealing the information. Once the hash is processed and assigned an index and timestamp, the transaction details are broadcast. This makes the transaction and its has to be executed at their reserved time priority and not vulnerable to the front-running.
+
 
 ~\cite{malinova2017market}
 ~\cite{aune2017footprints}
