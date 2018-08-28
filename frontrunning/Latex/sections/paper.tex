@@ -14,7 +14,7 @@
 
 
 
-\subsection{How are Blockchain Applications Vulnarable to Front-running?}
+\subsection{How are Blockchain Applications Vulnerable to Front-running?}
 \label{sec:Front Running on the Blockchains}
 
 Blockchain technology has received an exceptional amount of attention since it was first introduced as the underlying technology of the cryptocurrency Bitcoin in Satoshi Nakamoto's (pseudonymous) 2008 white paper \cite{nakamoto2008bitcoin}. Many decentralized applications that are nowadays built on top of this technology represent the significance of the blockchain as it completely eliminates the single points of failures within any systems. However, blockchains have some inherent characteristic that leave them vulnerable to \emph{front running} behaviour. Although this data structure is known to be publicly visible to every network participants, information is layered  and some of them are accessed only by insiders. Any network participants that runs a full node on the blockchain is able to obtain those information and as mentioned in Section~\ref{sec:What is front-running?}, this leaves the application vulnerable to front running. Decentralized exchanges are a group of blockchain financial applications where front running can be executed. Bancor \cite{hertzog2017bancor} is an example of such systems in which front-runners benefit from potential price increase of the market stocks (details are provided in Section ...). Decentralized namespaces, as blockchain non-financial applications, are another example. Ghazal \cite{moosavighazal} is such system in which upon seeing a transaction from Alice to register \texttt{alice.com}, front runner can go ahead of her and register this domain name. He can later sell \texttt{alice.com} to Alice for a higher price and benefit from the price increase.
@@ -168,30 +168,34 @@ Although this incident does not involve transaction reordering in the blocks, it
 
 
 
-\section{How to stop front-running?}
+\section{How to stop Front-running?}
 In the traditional markets, front-running is considered unethical and also illegal. In the blockchain space, the designers of the decentral applications cannot rely on the justice system for unethical behaviour, and they must assume that each participant in the network acts rationally in their own self interest, the application will be operating in an adversarial environment~\cite{0xfrontrunning:online}.
 A few decentral exchange projects such as \textit{EtherDelta} and \textit{0xProject}~\cite{warren20170x}, have proposed solutions for front-running, which is off-chain orderbooks. The methods discussed within these projects prevent blockchain network participants from front running the orders as the orders are private and not known to the network and will not be broadcasted. However they are introducing third parties, \eg relayers in 0xproject, to be managing the orders with the promise not to reorder or front-run other orders. 
 
-\emph{Traditional front-running Prevention Methods}. regulations/enforcement/broker education/sealed order
+\emph{Traditional Front-running Prevention Methods}. regulations/enforcement/broker education/sealed order
 %@shayan: ^
 
 
 \emph{Blockchain front-running mitigation/prevention}. The traditional methods of preventing front-running are based on regulation and restrictions applied to the brokers and actors within the markets, such methods do not apply to blockchains, no enforcement methods, ... 
 
-There are two main approaches to prevent front running, one to design a blockchain that is front-run-resistent , and the other to design the application logics in a way that front running is not possible. 
+There are two main approaches to prevent front running, one to design a blockchain that is front-run resistant , and the other to design the application logics in a way that front running is not possible. 
 
 
-\subsection{front-run-resistent Blockchain}
-What does this mean to have a front-run-resistent blockchain?  There are technical difficulties to achieve such solutions as there are unknown factors within such network designs (corner/edge cases).
-
-\emph{Fixed transaction ordering}: One possible solution to fix current blockchains in regards to transaction reordering by miners has been proposed by da Silva~\etal~\cite{fixedordering2018silva}, which consist of an algorithm, Fixed Transaction Ordering and Admission (FTOA) algorithm, in the consensus protocol that enforces the order of the transactions. 
+\subsection{Front-run Resistant Blockchain}
+What does this mean to have a front-run resistant blockchain?  There are technical difficulties to achieve such solutions as there are unknown factors within such network designs (corner/edge cases).
 
 
-\begin{itemize}
-\item{\textbf{Privacy Preserving Blockchians}: Shielded transactions in ZCash do not reveal the sender, receiver, the amount and the data included in the transactions, hence they cannot be seen by network participants to be front-runned. Although this limites the functionality of the blockchain/smartcontracts/dapps }
-\item{textbf{Loopring/Dual Athoring}: Talk about this possible solution}
+\subsubsection{Design Decision \#1: Fixed Transaction Ordering\newline}
 
-\end{itemize}
+One possible solution to fix current blockchains in regards to transaction reordering by miners has been proposed by da Silva~\etal~\cite{fixedordering2018silva}, which consist of an algorithm, Fixed Transaction Ordering and Admission (FTOA) algorithm, in the consensus protocol that enforces the order of the transactions. 
+
+\subsubsection{Design Decision \#2:Privacy Preserving Blockchian\newline}
+Shielded transactions in ZCash do not reveal the sender, receiver, the amount and the data included in the transactions, hence they cannot be seen by network participants to be front-runned. Although this limits the functionality of the blockchain/smartcontracts/dapps 
+
+\subsubsection{Design Decision \#3: Loopring/Dual Authoring\newline}
+Talk about this possible solution
+
+%TODO: research on more proposed solutions! 
 
 
 \subsection{Application Design to Prevent Front-running}
@@ -199,8 +203,10 @@ What does this mean to have a front-run-resistent blockchain?  There are technic
 Another way of preventing the front-running activities is to design the applications, whether they are decentralized (Dapps) or centralized, in such a way that no information would be available to the malicious parties which enables them to front-run the other users.
 Followings discuss the two techniques which can be used by the Apps/DApps developers while designing the systems to prevent front-running activities.
 
-\begin{itemize}
-\item{\textbf{Commitment scheme}: Also known as \textit{Commit and Reveal}, is a cryptographic primitive that enables one to commit to a value (\eg statement, document, \etc}) while keeping it a secret and on a later time reveal the committed value~\cite{brassard1988minimum}. Commitment scheme is a good method to prevent information leakage from the sensitive transactions. This could be done by simply broadcasting the hash value of the committed data and later on revealing the values that would be hashed to the committed hash. 
+
+
+\subsubsection{Design Decision \#1: Commitment Scheme\newline}
+Also known as \textit{Commit and Reveal}, is a cryptographic primitive that enables one to commit to a value (\eg statement, document, \etc) while keeping it a secret and on a later time reveal the committed value~\cite{brassard1988minimum}. Commitment scheme is a good method to prevent information leakage from the sensitive transactions. This could be done by simply broadcasting the hash value of the committed data and later on revealing the values that would be hashed to the committed hash. 
 In the case of decentral exchanges, user can send a commit transaction which will be cryptic to network participants but will act as a placeholder in the queue for the user, after the transaction is mined, user sends reveal transaction revealing the order details which will be executed in a fair order. Another use of such commitment scheme, is in decentralized naming systems, such as Ghazal or ENS. In this case, a user would send a commit transaction similar to a sealed bid, once the transaction is confirmed and the grace period is over, user would send a reveal transaction revealing the bid and also the details of the requested domain. Using this scheme, one is able to hide information from the adversarial parties in the system and prevent them from front-running.
 
 %TODO: commit and reveal : partcipation factor and no collatorization 
@@ -213,17 +219,20 @@ In the case of decentral exchanges, user can send a commit transaction which wil
 
 
 %TODO: also fixes collatorize the commit, but what about no collatorization cases but hide the participation (not really a front-running case)
-\item{\textbf{Submarine Commitments}: describe. General solution similar to commit and reveal. This is to solve the participatory factor of the commit and reveal solution.}
+\subsubsection{Design Decision \#2: Submarine Commitments\newline}
+describe. General solution similar to commit and reveal. This is to solve the participatory factor of the commit and reveal solution.
 
-\item{\textbf{Application logic specific solution}: Depending on the use case of  the Dapp or the application, it could be designed in a way to deincentives some actors to front-run the transactions or prevent them from doing so. As an example on desiging a decentral orderbook, it could be said that a miner could front run orders for financial gain on price improvement, however if the fees of the orders are sent to the miner of the block, it deincentiveses the miner to front run the orders as they already gain enough financial benefit from including the correct order of transactions. 
-Another example for decentral orderbook design could be using call market design instead of  time-sensitive orderbooks. In such design the arrival time of the order does not matter as they are executed in batches. }
+\subsubsection{Design Decision \#3: Logic Specific Solution\newline}
+Depending on the use case of  the Dapp or the application, it could be designed in a way to deincentives some actors to front-run the transactions or prevent them from doing so. As an example on desiging a decentral orderbook, it could be said that a miner could front run orders for financial gain on price improvement, however if the fees of the orders are sent to the miner of the block, it deincentiveses the miner to front run the orders as they already gain enough financial benefit from including the correct order of transactions. 
+Another example for decentral orderbook design could be using call market design instead of  time-sensitive orderbooks. In such design the arrival time of the order does not matter as they are executed in batches. 
 % talk about Incentivized mitigation method designs to prevent front running. 
 
 
 %Proof of burn methods ? 
 
-\end{itemize}
 
+
+%TODO: research on more possible solutions! 
 
 
 %______________________________________________________________%
