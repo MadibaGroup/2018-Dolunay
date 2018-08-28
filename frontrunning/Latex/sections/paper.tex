@@ -14,7 +14,7 @@
 
 
 
-\subsection{How are Blockchain Applications Vulnarable to front-running?}
+\subsection{How are Blockchain Applications Vulnarable to Front-running?}
 \label{sec:Front Running on the Blockchains}
 
 Blockchain technology has received an exceptional amount of attention since it was first introduced as the underlying technology of the cryptocurrency Bitcoin in Satoshi Nakamoto's (pseudonymous) 2008 white paper \cite{nakamoto2008bitcoin}. Many decentralized applications that are nowadays built on top of this technology represent the significance of the blockchain as it completely eliminates the single points of failures within any systems. However, blockchains have some inherent characteristic that leave them vulnerable to \emph{front running} behaviour. Although this data structure is known to be publicly visible to every network participants, information is layered  and some of them are accessed only by insiders. Any network participants that runs a full node on the blockchain is able to obtain those information and as mentioned in Section~\ref{sec:What is front-running?}, this leaves the application vulnerable to front running. Decentralized exchanges are a group of blockchain financial applications where front running can be executed. Bancor \cite{hertzog2017bancor} is an example of such systems in which front-runners benefit from potential price increase of the market stocks (details are provided in Section ...). Decentralized namespaces, as blockchain non-financial applications, are another example. Ghazal \cite{moosavighazal} is such system in which upon seeing a transaction from Alice to register \texttt{alice.com}, front runner can go ahead of her and register this domain name. He can later sell \texttt{alice.com} to Alice for a higher price and benefit from the price increase.
@@ -109,8 +109,8 @@ As shown in figure  ~\ref{fig:Transactions_miners_while_status_ico_cut}, most of
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.7\linewidth]{figures/Transactions_miners_while_status_ico_cut.png}
-\caption{This chart shows the miner behaviour on the time window that Status.im ICO was running. \label{fig:Transactions_miners_while_status_ico_cut}} 
+\includegraphics[width=0.7\linewidth]{figures/Transactions_miners_while_status_ico_cut_only_icotx.png}
+\caption{This chart shows the miners behaviour on the time window that Status.im ICO was running. \textit{Successful Transactions} are the transactions that led to deposit and generation of Status.im tokens and \textit{Failed Transactions} are the transactions to the token sale smart contract that failed to retrieve any tokens, for varias reasons.  It is clear that the number of successful transactions mined by F2Pool do not follow the random homogeneous pattern of the rest of the network. \label{fig:Transactions_miners_while_status_ico_cut}} 
 \end{figure}
 
 %TODO: make pie charts for each mining pool, all non-status-ico transactions vs success-ico-transactions vs failed-ico=transactions
