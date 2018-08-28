@@ -208,23 +208,20 @@ Followings discuss the two techniques which can be used by the Apps/DApps develo
 
 
 \subsubsection{Design Decision \#1: Commitment Scheme\newline}
-Also known as \textit{Commit and Reveal}, is a cryptographic primitive that enables one to commit to a value (\eg statement, document, \etc) while keeping it a secret and on a later time reveal the committed value~\cite{brassard1988minimum}. Commitment scheme is a good method to prevent information leakage from the sensitive transactions. This could be done by simply broadcasting the hash value of the committed data and later on revealing the values that would be hashed to the committed hash. 
-In the case of decentral exchanges, user can send a commit transaction which will be cryptic to network participants but will act as a placeholder in the queue for the user, after the transaction is mined, user sends reveal transaction revealing the order details which will be executed in a fair order. Another use of such commitment scheme, is in decentralized naming systems, such as Ghazal or ENS. In this case, a user would send a commit transaction similar to a sealed bid, once the transaction is confirmed and the grace period is over, user would send a reveal transaction revealing the bid and also the details of the requested domain. Using this scheme, one is able to hide information from the adversarial parties in the system and prevent them from front-running.
+Also known as \textit{Commit and Reveal}, is a cryptographic primitive that enables one to commit to a value --binding-- (\eg statement, document, data, \etc) while keeping it a secret and reveal the committed value on a later time~\cite{brassard1988minimum}. Commitment scheme is a good method to prevent information leakage from the sensitive transactions. This could be done by simply broadcasting the hash value of the committed data and later on revealing the values that would be hashed to the committed hash. 
+In the case of decentral exchanges, user can send a commit transaction which will be cryptic to network participants but will act as a placeholder in the queue for the user, after the transaction is mined, user sends reveal transaction revealing the order details which will be executed in a fair order. Depending on the Dapp design, either the order is collateralized, which means the commitment transaction includes the funds required for fulfilling the order, which will leak some information about the order, or is not collateralized and opens up the possibility of user never revealing the commitment, which will be considered as a DoS attack. 
+Another use of such commitment scheme, is in decentralized naming systems, such as Ghazal or ENS. In this case, a user would send a commit transaction similar to a sealed bid, once the transaction is confirmed and the grace period is over, user would send a reveal transaction revealing the bid and also the details of the requested domain. Using this scheme, one is able to hide information from the adversarial parties in the system and prevent them from front-running. Similar approach applies to on-chain voting as well ~\cite{adChainPLCRVoting}, using sealed votes, voters can make sure their votes are hidden until a later date, however their participation and weight of the vote are publicly known. 
+Other than the collateralization issue for the commit and reveal scheme, another obvious issue is the participatory factor. As there will be a direct transaction from the user to the DApp, It will be obvious that a specific address has participated in the auction or the DApp using a commit and reveal scheme, but the details are hidden through the scheme. Both these issues, albeit hiding the details of the order and preventing direct front-running, leak information to other participants which could lead to more sophisticated front-running attacks depending on the application design.
 
-%TODO: commit and reveal : partcipation factor and no collatorization 
+%TODO: a figure for commit and reveal?  @Mahsa
 
-
-%TODO: a figure for commit and reveal? 
-
-%although it does not hide the participatory factor (it shows the actor participated in the application but hides the details, obvious participation(commit))}
-% discussion about Anonymity-set ?
-
-
-%TODO: also fixes collatorize the commit, but what about no collatorization cases but hide the participation (not really a front-running case)
 \subsubsection{Design Decision \#2: Submarine Commitments\newline}
+Submarine Commitments~\cite{breidenbach2018enter, submarinesendHD} are similar to Commitment Schemes with some key differences, such as hiding participatory factor and being fully collateralized. However, they could be design in other ways to suit the need of the DApp. With submarine send, it is possible to hide sender, receiver, value and data, the commitment transaction is identical to a transaction to a newly generated address. Submarine sends could be a solution for sealed-bid auctions on the blockchain to hide the existence of the bids for other participants. 
+
 describe. General solution similar to commit and reveal. This is to solve the participatory factor of the commit and reveal solution.
 
 \subsubsection{Design Decision \#3: Logic Specific Solution\newline}
+<<<<<<< HEAD
 To prevent from front-running, one can design the application in a way that it is not possible to be front-run:
 
 \begin{itemize}
@@ -243,6 +240,13 @@ To prevent from front-running, one can design the application in a way that it i
 
 
 
+=======
+Depending on the use case of  the Dapp or the application, it could be designed in a way to deincentives some actors to front-run the transactions or prevent them from doing so. As an example on desiging a decentral orderbook, it could be said that a miner could front run orders for financial gain on price improvement, however if the fees of the orders are sent to the miner of the block, it deincentiveses the miner to front run the orders as they already gain enough financial benefit from including the correct order of transactions. 
+Another example for decentral orderbook design could be using call market design instead of  time-sensitive orderbooks. In such design the arrival time of the order does not matter as they are executed in batches. 
+
+
+Designs similar to Malinova~\cite{Malinova} uses economic models in their trading market design to make front-running expensive and more costly than profitable.
+>>>>>>> c42f57173f81384422048e0549c375ae9b15fd3c
 
 % talk about Incentivized mitigation method designs to prevent front running. 
 
