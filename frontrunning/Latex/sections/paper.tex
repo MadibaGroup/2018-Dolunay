@@ -182,6 +182,7 @@ There are two main approaches to prevent front running, one to design a blockcha
 
 
 \subsection{Front-run Resistant Blockchain}
+%%start with this: !!PARAPHRIZE!! ::::: The inherent architecture of the blockchain makes the task of frontrunning a decentralized order book trivial as a miner.
 What does this mean to have a front-run resistant blockchain?  There are technical difficulties to achieve such solutions as there are unknown factors within such network designs (corner/edge cases).
 
 
@@ -190,6 +191,7 @@ What does this mean to have a front-run resistant blockchain?  There are technic
 One possible solution to fix current blockchains in regards to transaction reordering by miners has been proposed by da Silva~\etal~\cite{fixedordering2018silva}, which consist of an algorithm, Fixed Transaction Ordering and Admission (FTOA) algorithm, in the consensus protocol that enforces the order of the transactions. 
 
 \subsubsection{Design Decision \#2:Privacy Preserving Blockchian\newline}
+Market participants are concerned about revealing information on their past trades, pur- chases, income, or liquidity needs (forget about market participants >> this leads to frontrunning)
 Shielded transactions in ZCash do not reveal the sender, receiver, the amount and the data included in the transactions, hence they cannot be seen by network participants to be front-runned. Although this limits the functionality of the blockchain/smartcontracts/dapps 
 
 \subsubsection{Design Decision \#3: Loopring/Dual Authoring\newline}
@@ -223,8 +225,25 @@ In the case of decentral exchanges, user can send a commit transaction which wil
 describe. General solution similar to commit and reveal. This is to solve the participatory factor of the commit and reveal solution.
 
 \subsubsection{Design Decision \#3: Logic Specific Solution\newline}
-Depending on the use case of  the Dapp or the application, it could be designed in a way to deincentives some actors to front-run the transactions or prevent them from doing so. As an example on desiging a decentral orderbook, it could be said that a miner could front run orders for financial gain on price improvement, however if the fees of the orders are sent to the miner of the block, it deincentiveses the miner to front run the orders as they already gain enough financial benefit from including the correct order of transactions. 
-Another example for decentral orderbook design could be using call market design instead of  time-sensitive orderbooks. In such design the arrival time of the order does not matter as they are executed in batches. 
+To prevent from front-running, one can design the application in a way that it is not possible to be front-run:
+
+\begin{itemize}
+
+\item{Disincentives Front-running Actors:} This solution, which is economic rather than technical, is to disincentives the miners by paying them. As mentioned, the main reasons for miners to front-run the other orders is the financial gain they receive on the price improvement. However, if the application is designed in a way that the fees of the orders are sent to the miner of the block, he would have no incentive to front-run the orders as he already gains enough financial benefit from acting fairly and executing the transactions on their correct order.
+
+\item{Eliminating the Time-Order Dependency:} The applications can be designed to not rely on the time for the orders to be executed. For example when designing a decentral exchange, one can use \emph{the call market design} instead of a time-sensitive order book. In a call market design, the arrival time of the orders do not matter as they are executed in batches. 
+
+\item{Eliminating the Price Dynamics:} In the context of decentralized exchanges where orderly and fair execution of the orders (transactions) cannot be guaranteed,  another solution is to replace the order book with the \emph{limit order book}. In such design, orders are not executed automatically and an auction process helps the users to choose the orders they want to execute against. By doing so, even if the orders are front-run by other users or miners, there would be no price improvement and financial benefits as the orders are limited. 
+
+\end{itemize}
+
+
+
+
+
+
+
+
 % talk about Incentivized mitigation method designs to prevent front running. 
 
 
