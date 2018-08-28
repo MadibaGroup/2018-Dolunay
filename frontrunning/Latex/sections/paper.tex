@@ -227,28 +227,23 @@ The details of how Submarine commitments work is outside the scope of this paper
 \end{figure}
 
 
-\subsubsection{Design Decision \#3: Logic Specific Solution\newline}
-To prevent from front-running, one can design the application in a way that it is not possible to be front-run:
+\subsubsection{Design Decision \#3: Logic Specific Solutions\newline}
+To prevent front-running, one can design the application in a way that it is not possible to be front-run:
 
-\begin{itemize}
+\textbf{Disincentives Front-running Actors:} This solution, which is economic rather than technical, is to disincentives the miners by paying them. As mentioned, the main reasons for miners to front-run the other orders is the financial gain they receive on the price improvement. However, if the application is designed in a way that the fees of the orders are sent to the miner of the block, he would have no incentive to front-run the orders as he already gains enough financial benefit from acting fairly and executing the transactions on their correct order.
 
-\item{Disincentives Front-running Actors:} This solution, which is economic rather than technical, is to disincentives the miners by paying them. As mentioned, the main reasons for miners to front-run the other orders is the financial gain they receive on the price improvement. However, if the application is designed in a way that the fees of the orders are sent to the miner of the block, he would have no incentive to front-run the orders as he already gains enough financial benefit from acting fairly and executing the transactions on their correct order.
+\textbf{Eliminating the Time-Order Dependency:} The applications can be designed to not rely on the time for the orders to be executed. For example when designing a decentral exchange, one can use \emph{the call market design} instead of a time-sensitive order book. In a call market design, the arrival time of the orders do not matter as they are executed in batches. 
 
-\item{Eliminating the Time-Order Dependency:} The applications can be designed to not rely on the time for the orders to be executed. For example when designing a decentral exchange, one can use \emph{the call market design} instead of a time-sensitive order book. In a call market design, the arrival time of the orders do not matter as they are executed in batches. 
+\textbf{Eliminating the Price Dynamics:} In the context of decentralized exchanges where orderly and fair execution of the orders (transactions) cannot be guaranteed,  another solution is to replace the order book with the \emph{limit order book}. In such design, orders are not executed automatically and an auction process helps the users to choose the orders they want to execute against. By doing so, even if the orders are front-run by other users or miners, there would be no price improvement and financial benefits as the orders are limited. 
 
-\item{Eliminating the Price Dynamics:} In the context of decentralized exchanges where orderly and fair execution of the orders (transactions) cannot be guaranteed,  another solution is to replace the order book with the \emph{limit order book}. In such design, orders are not executed automatically and an auction process helps the users to choose the orders they want to execute against. By doing so, even if the orders are front-run by other users or miners, there would be no price improvement and financial benefits as the orders are limited. 
+Note that depending on the applications plans, there might exist design decisions which cause the system to be front-run resistant. For example, Malinova~\cite{Malinova} proposes a design for a decentral exchange which uses economic models in their trading market design to make front-running expensive and more costly than profitable.
 
-\end{itemize}
 
-Designs similar to Malinova~\cite{Malinova} uses economic models in their trading market design to make front-running expensive and more costly than profitable.
 
-% talk about Incentivized mitigation method designs to prevent front running. 
+
 
 
 %Proof of burn methods ? 
-
-
-
 %TODO: research on more possible solutions! 
 
 
