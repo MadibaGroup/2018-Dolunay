@@ -220,6 +220,12 @@ Submarine Commitments~\cite{breidenbach2018enter, submarinesendHD} are similar t
 
 The details of how Submarine commitments work is outside the scope of this paper, however in summary, using the way Ethereum transactions are constructed and ECDSA ECRecover functionality it is possible to generate one outgoing transaction from an address in which no private key exists. By constructing a transaction from that address to the DApp and funding that address we fulfil the commitment phase and by revealing the details and broadcasting the constructed transaction we reveal the commitment ~\cite{libsubmarine}. 
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{figures/LibSubmarine.png}
+\caption{ Submarine implementation~\cite{libsubmarine}. User generates an Unlock transaction from which the commitment address is retrieved. By funding the commitment address, user is commited to the unlock transaction. After the commitment transaction, in the reveal phase, user sends the reveal transaction to the DApp and then after she can broadcast the Unlock transaction to unlock the funds in the commitment address. Finally after the ``Auction'' is over, anyone can call Finalize function to finilize the process.  \label{fig:LibSubmarine}}
+\end{figure}
+
 
 \subsubsection{Design Decision \#3: Logic Specific Solution\newline}
 To prevent from front-running, one can design the application in a way that it is not possible to be front-run:
