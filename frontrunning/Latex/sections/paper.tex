@@ -2,17 +2,9 @@
 
 \section{Introduction}
 
-<<<<<<< HEAD
 Have a small discussion about arbitrage and censorship just to show that they orbit around front-running.
 For the FC: \textbf{CASE STUDY} should be used in here, also in abstract, also at the end of intro section.
-=======
  
-
-
-
-\textbf{CASE STUDY} should be used in here, also in abstract, also at the end of intro section 
->>>>>>> 958b188eacd79e39e326c5b4aea896a40e3ace37
-
 % Why is this important.
 % PAPER BEING SOLD HERE
 %______________________________________________________________%
@@ -27,6 +19,10 @@ For the FC: \textbf{CASE STUDY} should be used in here, also in abstract, also a
 
 \subsection{What is Front-running?} %Definition of front-running
 \label{sec:What is front-running?}
+
+%TODO:  do this on top 10 Dapps, based on gas usage or a website. we wanted to look through the popular dapps but there's no such a list . therefor we used different examples as we could came up with. 
+%maybe look into cryptokitties breed() if it is possible to front run any section
+%possible : maybe top 25 active daily usage DApps from dappradar.com 
 
 \emph{Front-running} is analogous to any course of action during which a person benefits from prior access to inside or confidential market information about upcoming transactions and trades. This problem can occur in both financial and non-financial systems, however, it is more noticeable within the trading and exchange systems as it was originated back in stock markets. In the old times, all the trades were executed on papers, so in case of receiving a large order from a client, the broker might say this loud and other people around the table could be informed. Therefore, a malicious trader would now run in front of that order and put his own transaction in-between (before the trade was executed) and profit from the price increase of the stock. In other words, a group of market participants obtain non-public market information which allows them to front-run other users trades by putting their orders a head of those trades and benefit from advance knowledge of pending client orders. The two significant factors which cause the front-running practice to happen within the financial markets are (i) imperfect competition and (ii) liquidity uncertainty~\cite{liang2005distressed}. Any sort of front-running activity within the financial markets is considered as an unethical and illegal practice as it is unfairly beneficial for a few market participants who have the privilege of acting on this information and taking advantages at the expense of the investors. 
 
@@ -53,12 +49,9 @@ As the traditional front-running was originated to trading financial instruments
 
 
 \subsection{Literature on Traditional Front-running}
-<<<<<<< HEAD
 
 % talk about the AMF frontrunning.
 
-=======
->>>>>>> 958b188eacd79e39e326c5b4aea896a40e3ace37
 As traditional frontrunning has been the subject of discussion for decades, there are many literatures on this subject. Here we focus on the historical context and how the regulations evolved to be what they are today.\\
 Front-running was first appeared on the Chicago Board Options Exchange ( \textit{CBoE}) ~\cite{markham1988front}, and was identified by \textit{Securities Exchange Commission} in 1977 as the following:
 \begin{quote}
@@ -140,6 +133,7 @@ As blockchain records are immutably recorded, there is enough historical data to
 \subsection{Status ICO} \hfill\\ 
 \noindent As discussed in ~\ref{sec:Front Running on the Blockchains}, capped ICOs are a good application for front-running attacks.  In June 2017, Status.im~\cite{statuswhitepaper} started their ICO and within 3 hours they reached their cap, resulted in close to 300,000 Ether of funding. They used a \textit{fair} token distribution method called \textit{Dynamic ceiling}, which was in place to prevent large investments to take place early and limited the amount of Ether deposited, this was an attempt to increase the time window for smaller investors. They implemented multiple caps --ceiling-- which each would have a maximum amount that can be deposited. In this case every deposit would be checked by the smart contract and the exceeding amount would be refunded to the sender while the accepted amount would be sent to the Status.im wallet ~\cite{statusicoanalysis}. 
 On the time of the ICO there were reports of Ethereum network being unusable and transactions were not confirming. Further study showed that some mining pools might have been manipulating the network for their own profit.
+
 
 \begin{figure}[h]
 \centering
@@ -304,7 +298,6 @@ To prevent front-running, one can design the application in a way that it is not
 %\noindent\emph{Eliminating Price Dynamics:} In the context of decentralized exchanges where orderly and fair execution of the orders (transactions) cannot be guaranteed,  another solution is to replace the order book with the \emph{limit order book}. In such design, orders are not executed automatically and an auction process helps the users to choose the orders they want to execute against. By doing so, even if the orders are front-run by other users or miners, there would be no price improvement and financial benefits as the orders are limited. 
 
 Note that depending on the applications plans, there might exist design decisions which cause the system to be front-run resistant. For example, Malinova~\cite{Malinova} proposes a design for a decentral exchange which uses economic models in their trading market design to make front-running expensive and more costly than profitable.
-
 
 
 
