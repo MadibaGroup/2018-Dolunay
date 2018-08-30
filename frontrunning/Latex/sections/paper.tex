@@ -188,16 +188,16 @@ There are two main approaches to prevent front running, one to design a blockcha
 
 
 \subsection{Front-run Resistant Blockchain}
-%%start with this: !!PARAPHRIZE!! ::::: The inherent architecture of the blockchain makes the task of frontrunning a decentralized order book trivial as a miner.
-What does this mean to have a front-run resistant blockchain?  There are technical difficulties to achieve such solutions as there are unknown factors within such network designs (corner/edge cases).
-
+What does this mean to have a front-run resistant blockchain?  There are technical difficulties to achieve such solutions as there are unknown factors within such network designs (corner/edge cases). In this section, we describe the potential solutions using which, one can design and implement a decentral application that is resistant to front-running.
 
 \subsubsection{Design Decision \#1: Fixed Transaction Ordering\newline}
 
-One possible solution to fix current blockchains in regards to transaction reordering by miners has been proposed by da Silva~\etal~\cite{fixedordering2018silva}, which consist of an algorithm, Fixed Transaction Ordering and Admission (FTOA) algorithm, in the consensus protocol that enforces the order of the transactions. 
+One possible solution to fix current blockchains in regards to transaction reordering by miners has been proposed by da Silva~\etal~\cite{fixedordering2018silva}. This solution consists of an algorithm, known as Fixed Transaction Ordering and Admission (FTOA) algorithm, in the consensus protocol that enforces the order of the transactions. 
 
 \subsubsection{Design Decision \#2:Privacy Preserving Blockchian\newline}
-Market participants are concerned about revealing information on their past trades, pur- chases, income, or liquidity needs (forget about market participants >> this leads to frontrunning)
+
+%NEEDS TO BE DONE:
+Market participants are concerned about revealing information on their past trades, purchases, income, or liquidity needs (forget about market participants >> this leads to frontrunning)
 Shielded transactions in ZCash do not reveal the sender, receiver, the amount and the data included in the transactions, hence they cannot be seen by network participants to be front-runned. Although this limits the functionality of the blockchain/smartcontracts/dapps 
 
 \subsubsection{Design Decision \#3: Loopring/Dual Authoring\newline}
