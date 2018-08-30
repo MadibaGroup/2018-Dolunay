@@ -2,8 +2,8 @@
 
 \section{Introduction}
 
- 
-\textbf{CASE STUDY} should be used in here, also in abstract, also at the end of intro section 
+Have a small discussion about arbitrage and censorship just to show that they orbit around front-running.
+For the FC: \textbf{CASE STUDY} should be used in here, also in abstract, also at the end of intro section.
 
 % Why is this important.
 % PAPER BEING SOLD HERE
@@ -18,8 +18,11 @@
 
 
 
-\subsection{How are Blockchain Applications Vulnerable to Front-running?}
-\label{sec:Front Running on the Blockchains}
+\subsection{How are Blockchain Applications Vulnerable to Front-running?} %which blockchain applications?
+\label{sec:Front Running on the Blockchains}t
+
+
+%Jeremy's Comments: Find some examples; you have to justify why you talked about only a specific group of examples. Need to have a criteria for what is vulnerable to frontrunning: like top ten dapps from specific blogs. Have a criteria.
 
 Blockchain technology has received an exceptional amount of attention since it was first introduced as the underlying technology of the cryptocurrency Bitcoin in Satoshi Nakamoto's (pseudonymous) 2008 white paper \cite{nakamoto2008bitcoin}. Many decentralized applications that are nowadays built on top of this technology represent the significance of the blockchain as it completely eliminates the single points of failures within any systems. However, blockchains have some inherent characteristic that leave them vulnerable to \emph{front running} behaviour. Although this data structure is known to be publicly visible to every network participants, information is layered  and some of them are accessed only by insiders. Any network participants that runs a full node on the blockchain is able to obtain those information and as mentioned in Section~\ref{sec:What is front-running?}, this leaves the application vulnerable to front running. Decentralized exchanges are a group of blockchain financial applications where front running can be executed. Bancor \cite{hertzog2017bancor} is an example of such systems in which front-runners benefit from potential price increase of the market stocks (details are provided in Section ...). Decentralized namespaces, as blockchain non-financial applications, are another example. Ghazal \cite{moosavighazal} is such system in which upon seeing a transaction from Alice to register \texttt{alice.com}, front runner can go ahead of her and register this domain name. He can later sell \texttt{alice.com} to Alice for a higher price and benefit from the price increase.
 Another application that is vulnerable to front running is Initial Coin Offering, ICO, smart contracts. ICO is a method to distribute tokens based on the deposits of the native coin, Ether in the case of Ethereum. After a few hacking incidents on high valued smart contracts~\cite{siegel2016daohack}, ICOs started to implement restrictions and capped how much funds can be gathered. This scarcity of the initial coins made for a competition to incentivize big investors to get in and buy the tokens at a discounted price and sell them to late comers on the open markets~\cite{zetzsche2018ico, li2018initial}. ICOs started to experiment with different fair capping methods, such as reverse dutch auction, dynamic ceilings, \eg ~\cite{kaal2017initial}.  This competition made ICOs a good opportunity for front-running attacks. 
@@ -31,7 +34,10 @@ Another application that is vulnerable to front running is Initial Coin Offering
 As the traditional front-running was originated to trading financial instruments most of the literature are focused on financial aspects of the markets. %TODO: expand this with something
 
 
-\subsection{Literature on Tranditional Front-running}
+\subsection{Literature on Traditional Front-running}
+
+% talk about the AMF frontrunning.
+
 As traditional frontrunning has been the subject of discussion for decades, there are many literatures on this subject. Here we focus on the historical context and how the regulations evolved to be what they are today.\\
 Front-running was first appeared on the Chicago Board Options Exchange ( \textit{CBoE}) ~\cite{markham1988front}, and was identified by \textit{Securities Exchange Commission} in 1977 as the following:
 \begin{quote}
@@ -97,7 +103,8 @@ Another example here is in the case of decentral exchanges and order cancellatio
 
 %TODO: figure for miners reordering attack. it should be just two blocks with transaction inside where the second "modified" one has the orders specifically to profit the miner.
 
-\subsection{Historical evidence in the Blockchain}
+\subsection{Historical evidence in the Blockchain}  % JEREMY's COMMENT:  try to sell it in a way that that the audience know that there are 1000 of the applications prone to the frontrunning but we picked 3 because they are different.
+
 As blockchain records are immutably recorded, there is enough historical data to analyze for possible front running detection. For examples here we research some of the events of such attacks happening in the Ethereum blockchain applications.
 
 % maybe inlcude 0xbitcoin ERC721 mineable tokens front-running!
@@ -167,6 +174,10 @@ Although this incident does not involve transaction reordering in the blocks, it
 
 %NOTE: @mahsa: is this considered a Historical evidence? should we talk about this somewhere else and maybe do a PoC on Ghazal for this section?
 \subsubsection{Domain Name Front-running} \hfill\\    %Following section talks about front-running in namespaces but limited to Ghazal. Will talk about NameCoin in the section of mitigations (commit & reveal method)
+
+%Jeremy's Comment: contrast ghazal vs ens, or try to have some historical evidence for namespace on the Ethereums. Try too make ghazal less central.
+%Jeremy's comments: also talk about the "private information retrieval" (Ian Goldberg's work at waterloo)
+
 \noindent As mentioned in Section~\ref{sec:Front Running on the Blockchains}, although front-running attacks have been more showcased in the context of decentralized exchanges and trading systems, they are are not yet limited to the financial markets. Front-running can occur within other (non-financial) blockchain applications such as naming systems. Blockchain-based domain registrar have been introduced to eliminate the role of central parties \ie domain name system (DNS) which introduce single point of failures in the entire web. One such system is Ghazal, an Ethereum-based naming and PKI system~\cite{moosavighazal}. Ghazal users rely on the Ethereum blockchain to register their \texttt{.ghazal} domain names and bind certificates to those names. In Ghazal model, a user would register domain name by executing the \textit{registerdomain} function from the Ghazal smart contract with the domain name in plain text as the function argument. As mentioned before, These transactions will sit in the mempool so that it would be mined by Ethereum miners and included in the block. During this period in which the transaction is not yet confirmed, front-running attack can occur by (i) dishonest miners and/or (ii) regular non-miner user. In the first case, a miner would intercept the \textit{registerdomain} transaction and register that name ahead of the user. A regular non-miner node in the Ethereum network can front-run other user's \textit{registerdomain} at a good profit by paying higher transaction fees. This practice allows the adversarial party  to register an unregistered domain immediately after someone searched for it, and sell the domain name to the users for a higher price. Note that, domain name front-running also occurs in the vanilla system. In this case, front-runners would monitor and identify domain names of interest, and sell it back to the other users with a higher price~\cite{sac022en33:online}.
 % PoC of front-running ghazal
 %TODO: also talk about ENS 
@@ -198,7 +209,7 @@ What does this mean to have a front-run resistant blockchain?  There are technic
 
 One possible solution to fix current blockchains in regards to transaction reordering by miners has been proposed by da Silva~\etal~\cite{fixedordering2018silva}. This solution consists of an algorithm, known as Fixed Transaction Ordering and Admission (FTOA) algorithm, in the consensus protocol that enforces the order of the transactions. 
 
-\subsubsection{Design Decision \#2:Privacy Preserving Blockchian\newline}
+\subsubsection{Design Decision \#2:Privacy Preserving Blockchain\newline}
 
 %NEEDS TO BE DONE:
 Market participants are concerned about revealing information on their past trades, purchases, income, or liquidity needs (forget about market participants >> this leads to frontrunning)
@@ -216,8 +227,9 @@ Another method to prevent front-running activities is to design the applications
 Followings discuss the two techniques which can be used by the Apps/DApps developers while designing the systems to prevent front-running activities.
 
 
-\subsubsection{Design Decision \#1: Commitment Scheme\newline}
-Commitment scheme, also known as \textit{commit and reveal}, is a cryptographic primitive that enables one to commit to a value --binding-- (\eg statement, document, data, \etc) while keeping it a secret and reveal the committed value on a later time~\cite{brassard1988minimum}. Commitment scheme is a robust method to prevent information leakage from the sensitive transactions. This could be done by simply broadcasting the hash value of the committed data and later on revealing the values that would be hashed to the committed hash, see Figure~\ref{fig:commitReveal}. 
+
+\subsubsection{Design Decision \#1: Commitment Scheme\newline} %talk about the drawbacks of this scheme: eg: you may forget to reveal. 
+Commitment scheme is a cryptographic primitive that enables one to commit to a value --binding-- (\eg statement, document, data, \etc) while keeping it a secret and reveal the committed value on a later time~\cite{brassard1988minimum}. Commitment scheme is a robust method to prevent information leakage from the sensitive transactions. This could be done by simply broadcasting the hash value of the committed data and later on revealing the values that would be hashed to the committed hash, see Figure~\ref{fig:commitReveal}. 
 In the case of decentral exchanges, user can send a commit transaction which will be cryptic to network participants but will act as a placeholder in the queue for the user, after the transaction is mined, user sends reveal transaction revealing the order details which will be executed in a fair order. Depending on the Dapp design, either the order is collateralized, which means the commitment transaction includes the funds required for fulfilling the order, which will leak some information about the order, or is not collateralized and opens up the possibility of user never revealing the commitment, which will be considered as a DoS attack. 
 Another use of such commitment scheme, is in decentralized naming systems, such as Ghazal or ENS. In this case, a user would send a commit transaction similar to a sealed bid, once the transaction is confirmed and the grace period is over, user would send a reveal transaction revealing the bid and also the details of the requested domain. Using this scheme, one is able to hide information from the adversarial parties in the system and prevent them from front-running. Similar approach applies to on-chain voting as well ~\cite{adChainPLCRVoting}, using sealed votes, voters can make sure their votes are hidden until a later date, however their participation and weight of the vote are publicly known. 
 Other than the collateralization issue for the commit and reveal scheme, another obvious issue is the participatory factor. For anyone watching the DApp address, there will be a direct transaction from the user to the DApp address, It will be obvious that a specific address has participated in the auction or the DApp using a commit and reveal scheme, but the details are hidden through the scheme. Both these issues, albeit hiding the details of the order and preventing direct front-running, leak information to other participants which could lead to more sophisticated front-running attacks depending on the application design.
@@ -246,9 +258,9 @@ The details of how Submarine commitments work is outside the scope of this paper
 \subsubsection{Design Decision \#3: Logic Specific Solutions\newline}
 To prevent front-running, one can design the application in a way that it is not possible to be front-run:
 
-\noindent\emph{Disincentivizing Front-running Actors:} This solution, which is economic rather than technical, is to disincentives the miners by paying them. As mentioned, the main reasons for miners to front-run the other orders is the financial gain they receive on the price improvement. However, if the application is designed in a way that the fees of the orders are sent to the miner of the block, he would have no incentive to front-run the orders as he already gains enough financial benefit from acting fairly and executing the transactions on their correct order.
+\noindent\emph{Eliminating Time-Order Dependency:} The applications can be designed to not rely on the time for the orders to be executed. For example when designing a decentral exchange, one can use \emph{the call market design} instead of a time-sensitive order book. In a call market design, the arrival time of the orders do not matter as they are executed in batches [cite Jeremy's prediction markets paper]. 
 
-\noindent\emph{Eliminating Time-Order Dependency:} The applications can be designed to not rely on the time for the orders to be executed. For example when designing a decentral exchange, one can use \emph{the call market design} instead of a time-sensitive order book. In a call market design, the arrival time of the orders do not matter as they are executed in batches. 
+\noindent\emph{Disincentivizing Front-running Actors:} This solution, which is economic rather than technical, is to disincentives the miners by paying them. As mentioned, the main reasons for miners to front-run the other orders is the financial gain they receive on the price improvement. However, if the application is designed in a way that the fees of the orders are sent to the miner of the block, he would have no incentive to front-run the orders as he already gains enough financial benefit from acting fairly and executing the transactions on their correct order.
 
 \noindent\emph{Eliminating Price Dynamics:} In the context of decentralized exchanges where orderly and fair execution of the orders (transactions) cannot be guaranteed,  another solution is to replace the order book with the \emph{limit order book}. In such design, orders are not executed automatically and an auction process helps the users to choose the orders they want to execute against. By doing so, even if the orders are front-run by other users or miners, there would be no price improvement and financial benefits as the orders are limited. 
 
