@@ -213,6 +213,17 @@ Although this incident does not involve transaction reordering in the blocks, it
 %TODO: ian goberg: private information retrieval . talk about domain name frontrunning in the traditional sense and how goDaddy can steal the domain when queried for availablity. however in blockchain the queiry is private and does not reveal the intention that you want to buy the domain. View only / solidity code on how to enable this
 
 
+\subsection{Crypto-Collectibles auctions} \hfill\\ 
+Crypto-Collectibles, also known as ERC-721 Non-Fungible Token Standard~\cite{erc721} , are one of the applications of Ethereum blockchain. Cryptokitties is known to be the most popular applications of ERC721 tokens~\cite{cryptokitties}. The main usage of these Cryptokitties is that users can breed them with each other and make new unique Cryptokitties, also they can buy or sell them through their main interface\footnote{Cryptokitties website \url{https://www.cryptokitties.co/}}. See Figure~\ref{cryptokittie}.
+To buy a cryptokitty, user sends a bid transaction \textit{bid(uint256 \_tokenId)} containing the cryptokittties ID which can be found either on their website or on the ERC721 token smart contract. This transaction is visible from any other Ethereum node and could be easily front-run by sending the same transaction with higher gasPrice. 
+%TODO: this needs a rewrite. 
+% https://etherscan.io/tx/0x62a76b7e345e8abd463487d0348c118a9314b197024e090fee7b1fbce434da40
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.4\linewidth]{figures/cryptokittie842912.png}
+\caption{ Cryptokitty Number 842912 \label{fig:cryptokittie}}
+\end{figure}
 
 %______________________________________________________________%
 
