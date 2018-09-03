@@ -36,7 +36,7 @@ For the FC: \textbf{CASE STUDY} should be used in here, also in abstract, also a
 
 %TODO:  do this on top 10 Dapps, based on gas usage or a website. we wanted to look through the popular dapps but there's no such a list . therefor we used different examples as we could came up with. 
 %maybe look into cryptokitties breed() if it is possible to front run any section
-%possible : maybe top 25 active daily usage DApps from dappradar.com 
+%possible : maybe top 25 active daily usage DApps from https://dappradar.com/dapps 
 
 Blockchain technology has received an exceptional amount of attention since it was first introduced as the underlying technology of the cryptocurrency Bitcoin in Satoshi Nakamoto's (pseudonymous) 2008 white paper \cite{nakamoto2008bitcoin}. Many decentralized applications that are nowadays built on top of this technology represent the significance of the blockchain as it completely eliminates the single points of failures within any systems. However, blockchains have some inherent characteristic that leave them vulnerable to \emph{front running} behaviour. Although this data structure is known to be publicly visible to every network participants, information is layered  and some of them are accessed only by insiders. Any network participants that runs a full node on the blockchain is able to obtain those information and as mentioned in Section~\ref{sec:What is front-running?}, this leaves the application vulnerable to front running. Decentralized exchanges are a group of blockchain financial applications where front running can be executed. Bancor \cite{hertzog2017bancor} is an example of such systems in which front-runners benefit from potential price increase of the market stocks (details are provided in Section ...). Decentralized namespaces, as blockchain non-financial applications, are another example. Ghazal \cite{moosavighazal} is such system in which upon seeing a transaction from Alice to register \texttt{alice.com}, front runner can go ahead of her and register this domain name. He can later sell \texttt{alice.com} to Alice for a higher price and benefit from the price increase.
 Another application that is vulnerable to front running is Initial Coin Offering, ICO, smart contracts. ICO is a method to distribute tokens based on the deposits of the native coin, Ether in the case of Ethereum. After a few hacking incidents on high valued smart contracts~\cite{siegel2016daohack}, ICOs started to implement restrictions and capped how much funds can be gathered. This scarcity of the initial coins made for a competition to incentivize big investors to get in and buy the tokens at a discounted price and sell them to late comers on the open markets~\cite{zetzsche2018ico, li2018initial}. ICOs started to experiment with different fair capping methods, such as reverse dutch auction, dynamic ceilings, \eg ~\cite{kaal2017initial}.  This competition made ICOs a good opportunity for front-running attacks. 
@@ -117,12 +117,8 @@ Another example here is in the case of decentral exchanges and order cancellatio
 
 %TODO: figure for miners reordering attack. it should be just two blocks with transaction inside where the second "modified" one has the orders specifically to profit the miner.
 
-<<<<<<< HEAD
 \subsection{Historical evidence in the Blockchain}  % JEREMY's COMMENT:  try to sell it in a way that that the audience know that there are 1000 of the applications prone to the frontrunning but we picked 3 because they are different.
 
-=======
-\section{Historical evidence in the Blockchain}
->>>>>>> 958b188eacd79e39e326c5b4aea896a40e3ace37
 As blockchain records are immutably recorded, there is enough historical data to analyze for possible front running detection. For examples here we research some of the events of such attacks happening in the Ethereum blockchain applications.
 
 %TODO: talk about why these three. just for emprical /theorical examples, there are tons of examples of front-running, here's three that we chose that are way different. one is emprical that we had to build tools to 
@@ -132,7 +128,7 @@ As blockchain records are immutably recorded, there is enough historical data to
 
 \subsection{Status ICO} \hfill\\ 
 \noindent As discussed in ~\ref{sec:Front Running on the Blockchains}, capped ICOs are a good application for front-running attacks.  In June 2017, Status.im~\cite{statuswhitepaper} started their ICO and within 3 hours they reached their cap, resulted in close to 300,000 Ether of funding. They used a \textit{fair} token distribution method called \textit{Dynamic ceiling}, which was in place to prevent large investments to take place early and limited the amount of Ether deposited, this was an attempt to increase the time window for smaller investors. They implemented multiple caps --ceiling-- which each would have a maximum amount that can be deposited. In this case every deposit would be checked by the smart contract and the exceeding amount would be refunded to the sender while the accepted amount would be sent to the Status.im wallet ~\cite{statusicoanalysis}. 
-On the time of the ICO there were reports of Ethereum network being unusable and transactions were not confirming. Further study showed that some mining pools might have been manipulating the network for their own profit.
+On the time of the ICO there were reports of Ethereum network being unusable and transactions were not confirming. Further study showed that some mining pools might have been manipulating the network for their own profit. On the other note, There were many transactions sent with higher gasPrice to front-run other transactions, however these transactions failed due to the restriction in place in the ICO smart contract to reject any transactions with higher than 50GWei gasPrice in an attempt to prevent this kind of front-running.
 
 
 \begin{figure}[h]
@@ -168,14 +164,8 @@ Involvement of F2Pool in this action becomes obvious when the transactions from 
 \end{figure}
 
 
-Although this incident does not involve transaction reordering in the blocks, it shows how miners can modify their code to behave in certain way to front-run other transactions and result in monetary profit. 
+Although this incident does not involve transaction reordering in the blocks, it shows how miners can modify their code to behave in certain way to front-run other transactions and result in monetary profit. The dataset used for this analysis can be found on our github repository\footnote{Frontrunning Status.im ICO dataset: \url{http://github.com/TODO:ANONYMOUS}}
 %TODO: these might need more details and proofs. ask Jeremy about how to go on about this! 
-
-
-%TODO: this might not considered as the definition of frontrunning, but it is common to use frontrunning for this so we do the same. 
-
-%Also the ICO smart contract only accepted transactions with gas price lower than 50gwei, unless they were whitelisted before. this was for preventing high gas payers to get in front of the line. although as this was not clearly communicated to users (UX issues?), there were tons of transactions that failed due to high gas price but also clogged the ethereum network as the miners chose transactions with higher gas price to be included in their blocks.
-
 
 
 %What is Bancor and how it can be front-run:%
@@ -186,26 +176,12 @@ Although this incident does not involve transaction reordering in the blocks, it
 
 
 
-
-%\begin{itemize}
-%\item {\textbf{Miner front-running.}} As mentioned, Bancor protocol uses an algorithm that automatically calculates the price of digital assets to provide better market liquidity. In the Bancor model, essentially buy orders increase the price of the tokens while sell order decrease it. Since the Blockchain miners are the only parties who can decide on the order of transactions within a block, they can easily intercept and reorder the pending transactions sitting in the mempool and profit from a guaranteed price-rise. For example, a miner learns about the pending \textit{buy} transaction of 1000 Ether, based on the Bancor design, if this transaction goes through, it causes the price of Ether to increase. So the dishonest miner can step in front of this transaction and  place his own buy order ahead of it. So he would simply create his \textit{buy} of 1000 Ether and include it within a block and now he mines the previous \textit{buy} transaction of 1000 Ether. Doing so, he would receive a better rate than other Bancor user, can sell the tokens he has received and gain a price advantage at the expense of others. Similarly, a dishonest miner can sell his tokens in front, if he sees a pending \textit{sell} transaction.
-%
-%
-%\item {\textbf{Non-miner front-running.}} Researchers have also shown that a regular non-miner user can also front-run Bancor. In order for the Bancor transactions to be executed on the Ethereum Virtual Machine (EVM),  users have to pay for the computations in small amount of Ether called \textit{gas}~\cite{AccountT67:online}. The price that users pay for transactions (a.k.a. transaction fees) can increase or decrease how quickly they are executed and included within the blocks by the miners.  This is because the Ethereum miners consume resources to process the transactions and so receive the transaction fees after creating the blocks. Once seeing two identical transactions with different transaction fees, profit maximizers miners are free to mine select the transaction which offers the highest fee. Therefore, any regular non-miner users who run a full-node Ethereum client can modify the order of pending transactions by paying a more amount of gas \ie by monitoring the network, upon seeing a  pending \textit{buy} transaction which will further increase the price of the asset, a font-runner user can pay a higher gas price and send his transaction a head of that. By doing so, he achieves a better rate from any other Bancor users.
-%
-%\end{itemize}
-
-
 %NOTE: @mahsa: is this considered a Historical evidence? should we talk about this somewhere else and maybe do a PoC on Ghazal for this section?
-<<<<<<< HEAD
 \subsubsection{Domain Name Front-running} \hfill\\    %Following section talks about front-running in namespaces but limited to Ghazal. Will talk about NameCoin in the section of mitigations (commit & reveal method)
 
 %Jeremy's Comment: contrast ghazal vs ens, or try to have some historical evidence for namespace on the Ethereums. Try too make ghazal less central.
 %Jeremy's comments: also talk about the "private information retrieval" (Ian Goldberg's work at waterloo)
 
-=======
-\subsection{Domain Name Front-running} \hfill\\    %Following section talks about front-running in namespaces but limited to Ghazal. Will talk about NameCoin in the section of mitigations (commit & reveal method)
->>>>>>> 958b188eacd79e39e326c5b4aea896a40e3ace37
 \noindent As mentioned in Section~\ref{sec:Front Running on the Blockchains}, although front-running attacks have been more showcased in the context of decentralized exchanges and trading systems, they are are not yet limited to the financial markets. Front-running can occur within other (non-financial) blockchain applications such as naming systems. Blockchain-based domain registrar have been introduced to eliminate the role of central parties \ie domain name system (DNS) which introduce single point of failures in the entire web. One such system is Ghazal, an Ethereum-based naming and PKI system~\cite{moosavighazal}. Ghazal users rely on the Ethereum blockchain to register their \texttt{.ghazal} domain names and bind certificates to those names. In Ghazal model, a user would register domain name by executing the \textit{registerdomain} function from the Ghazal smart contract with the domain name in plain text as the function argument. As mentioned before, These transactions will sit in the mempool so that it would be mined by Ethereum miners and included in the block. During this period in which the transaction is not yet confirmed, front-running attack can occur by (i) dishonest miners and/or (ii) regular non-miner user. In the first case, a miner would intercept the \textit{registerdomain} transaction and register that name ahead of the user. A regular non-miner node in the Ethereum network can front-run other user's \textit{registerdomain} at a good profit by paying higher transaction fees. This practice allows the adversarial party  to register an unregistered domain immediately after someone searched for it, and sell the domain name to the users for a higher price. Note that, domain name front-running also occurs in the vanilla system. In this case, front-runners would monitor and identify domain names of interest, and sell it back to the other users with a higher price~\cite{sac022en33:online}.
 % PoC of front-running ghazal
 %TODO: also talk about ENS 
