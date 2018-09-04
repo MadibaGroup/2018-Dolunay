@@ -117,11 +117,15 @@ Another example here is in the case of decentral exchanges and order cancellatio
 
 %TODO: figure for miners reordering attack. it should be just two blocks with transaction inside where the second "modified" one has the orders specifically to profit the miner.
 
-\subsection{Historical evidence in the Blockchain}  % JEREMY's COMMENT:  try to sell it in a way that that the audience know that there are 1000 of the applications prone to the frontrunning but we picked 3 because they are different.
+\subsection{Evidence of Front-running on the Blockchain}  
 
-As blockchain records are immutably recorded, there is enough historical data to analyze for possible front running detection. For examples here we research some of the events of such attacks happening in the Ethereum blockchain applications.
+As blockchain records are immutably recorded, there is enough historical data to analyze for possible front running detection. There is no perfect criteria to list top DApps on Ethereum blockchain, for the purpose of this research we analyzed the top 25 DApps based on recent user activities\footnote{List of decentralized applications \url{https://dappradar.com/dapps}}. 
 
-%TODO: talk about why these three. just for emprical /theorical examples, there are tons of examples of front-running, here's three that we chose that are way different. one is emprical that we had to build tools to 
+%TODO: fix the table! 
+\input{setup/table}
+
+From these DApps we looked at one example per category, most of which had front-running issues, some more severe than the other. Although none of these DApps are ICO smart contracts, we believe with the number of ICOs done on Ethereum it is worth to mention one instance of front-running on these applications as well. 
+
 
 % maybe inlcude 0xbitcoin ERC721 mineable tokens front-running!
 % mint: https://etherscan.io/tx/0x9883bc3ad018fd2b649982f88fbad7dc5abcb8f11c4f1d87ef814ba30c2b3428
@@ -186,7 +190,7 @@ Although this incident does not involve transaction reordering in the blocks, it
 
 %Some edits required here!
 
-Ethereum Naming Service (ENS)\footnote{\url{https://ens.domains/}}, the most popular decentral naming service uses a sealed auction to purchase new domains with \textit{.eth} extension which can be resolved using any Ethereum web3 compatible browser. Although the implementation uses a sealed auction, the deposit should be equal or bigger than the bid, this information leakage could be used to front-run the transaction with the same bid amount. By doing so the front-runner invalidates the original bid.
+Ethereum Naming Service (ENS)\footnote{\url{https://ens.domains/}}, the most popular decentral naming service uses a sealed auction to purchase new domains with \textit{.eth} extension which can be resolved using any Ethereum web3 compatible browser. Although the implementation uses a sealed auction, \textit{startAuctionsAndBid}, the deposit should be equal or bigger than the bid, this information leakage could be used to front-run the transaction with the same bid amount. By doing so the front-runner invalidates the original bid.
 %e.g: https://etherscan.io/enslookup?q=handshaker.eth
 %TODO: ian goberg: private information retrieval . talk about domain name frontrunning in the traditional sense and how goDaddy can steal the domain when queried for availablity. however in blockchain the queiry is private and does not reveal the intention that you want to buy the domain. View only / solidity code on how to enable this
 
@@ -291,7 +295,21 @@ To prevent front-running, one can design the application in a way that it is not
 
 Note that depending on the applications plans, there might exist design decisions which cause the system to be front-run resistant. For example, Malinova~\cite{Malinova} proposes a design for a decentral exchange which uses economic models in their trading market design to make front-running expensive and more costly than profitable.
 
+Going back to table~\ref{tab:top25dapps}, some DApps facilitate different methods to mitigate frontrunning issues. As an example LocalEthereum, a escrow-based exchange, uses challenge random values from the website to be included in the signature of the transaction (See ~\ref{code:localethereum}), hence removing any possibility of replay attack or possibility of any other address sending the similar order.
 
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily,caption={Code snippet from LocalEthereum smart contract. Values V,R and S are set by LocalEtherem to have a valid signature, also the tradeHash uses buyer and seller addresses, mitigating the possibility of front-running by a third party.},label={code:localethereum},float]
+    function createEscrow(bytes16 _tradeID, address _seller, address _buyer, uint256 _value, uint16 _fee,
+					uint32 _paymentWindowInSeconds, uint32 _expiry, uint8 _v, bytes32 _r, bytes32 _s) 
+        payable external {
+        bytes32 _tradeHash = keccak256(abi.encodePacked(_tradeID, _seller, _buyer, _value, _fee));
+	...
+        // A signature (v, r and s) must come from localethereum to open an escrow
+        bytes32 _invitationHash = keccak256(abi.encodePacked(
+            _tradeHash,
+            _paymentWindowInSeconds,
+            _expiry
+        )); 
+\end{lstlisting}
 
 %Proof of burn methods ? 
 %TODO: research on more possible solutions! 
