@@ -1,17 +1,13 @@
 % !TEX root = ../main.tex
 
 \section{Introduction}
-The concept of the \emph{front-running} goes back to the decades ago when financial instrument markets first started. Initially the trades required to be physically available in the exchange office to deliver the bids and offers, and traders, in the knowledge of future market change, would run in front of the others to get their orders in before the change in the market to profit from the change. Clearly in such scenarios front-running was possible yet not detectable as a damaging activity. However with the rapid advances of the technology in the last few decades, trading is not happening in person anymore and a greater number of applications are now vulnerable to front-running. Furthermore, Blockchain technology has introduced transparency and open markets which led to a new threat of front-running and it inherently affects all decentral applications, whether financial or non-financial. Arbitrage and Censorship, are also issues that had been linked to front-running attacks on blockchain. However, the goal of this paper is to provide a complete look at the front-running issues and thus the aforementioned will remain out of the scope of this research study. There has been little quantitative analysis and research of the front-running issue in decentralized applications, we aim to take a thorough look into the history of the front-running, discuss multiple existing issues in the eco-system and systematize the proposed solutions, and eventually match these solutions to their suitable use cases.\footnote{A note to the reviewer, this paper falls under `Case Studies (e.g., of adoption, attacks, forks, scams, …)
-` and also mentions methods for `Fraud Detection and Financial Crime Prevention` }
+The concept of the \emph{front-running} goes back to the decades ago when financial instrument markets first started. Initially the trades required to be physically available in the exchange office to deliver the bids and offers, and traders, in the knowledge of future market change, would run in front of the others to get their orders in before the change in the market to profit from the change. Clearly in such scenarios front-running was possible yet not detectable as a damaging activity. However with the rapid advances of the technology in the last few decades, trading is not happening in person anymore and a greater number of applications are now vulnerable to front-running. Furthermore, Blockchain technology has introduced transparency and open markets which led to a new threat of front-running and it inherently affects all decentral applications, whether financial or non-financial. Arbitrage and Censorship, are also issues that had been linked to front-running attacks on blockchain. However, the goal of this paper is to provide a complete look at the front-running issues and thus the aforementioned will remain out of the scope of this research study. There has been little quantitative analysis and research of the front-running issue in decentralized applications, we aim to take a thorough look into the history of the front-running, discuss multiple existing issues in the eco-system and systematize the proposed solutions, and eventually match these solutions to their suitable use cases.\footnote{A note to the reviewer: this paper falls under "Case Studies (\eg of adoption, attacks, forks, scams \etc)" and also mentions methods for "Fraud Detection and Financial Crime Prevention". }
 
 
 %For the FC: \textbf{CASE STUDY} should be used in here, also in abstract, also at the end of intro section.
- 
 % Why is this important.
 % PAPER BEING SOLD HERE
 %______________________________________________________________%
-
-
 %TODO: Censorship vs frontrunning ! can withholding a transaction be considered as frontrunning? 
 %using frontrunning losely, we do not want to defining what exactly front running is, but talking about possibiities of attacks in this nature and also how to prevent these from happening .
 
@@ -45,7 +41,7 @@ As the traditional front-running was originated to trading financial instruments
 % talk about the AMF frontrunning.
 
 As traditional frontrunning has been the subject of discussion for decades, there are many literatures on this subject. Here we focus on the historical context and how the regulations evolved to be what they are today.\\
-Front-running was first appeared on the Chicago Board Options Exchange ( \textit{CBoE}) ~\cite{markham1988front}, and was identified by \textit{Securities Exchange Commission} in 1977 as the following:
+Front-running was first appeared on the Chicago Board Options Exchange (\textit{CBoE})~\cite{markham1988front}, and was identified by \textit{Securities Exchange Commission} in 1977 as the following:
 \begin{quote}
 The practice of effecting an options transaction based upon non-public information regarding an impending block transaction\footnote{Block in the stock market is large number of shares, 10\,000 or more, to sell which will heavily changes the price} in the underlying stock, in order to obtain a profit when the options market adjusts to the price at which the block trades. ~\cite{sec1978optionsmarket}
 \end{quote} 
@@ -77,7 +73,7 @@ Aune~\etal discuss how the lack of time priority between broadcasting a transact
 Malinova and Park discuss different design settings for financial markets and trading platforms on decentral ledgers ~\cite{malinova2017market}.  They argue that blockchain brings a new options of transparency which affects traders behaviour, specially in the presence of intermediary front-runners. They model indirect trading costs and use the economic literature on search and trading at decentralized exchanges in their design settings to make front-running costly and inefficient.
 
 
-Breidenbach~\etal ~\cite{breidenbach2018enter} face the front-running issue in the context of automating bug bounties for smart contracts. Upon submitting the bug bounty to the Hydra smart contract, one can front-run the bug report and claim the bounty instead of the original reporter. They propose \textit{Submarine Commitments} which is to conceal the bounty claim and the participatory factor. They claim submarine commitments ``are a stronger form of a commit-reveal scheme''. 
+Breidenbach~\etal~\cite{breidenbach2018enter} face the front-running issue in the context of automating bug bounties for smart contracts. Upon submitting the bug bounty to the Hydra smart contract, one can front-run the bug report and claim the bounty instead of the original reporter. They propose \textit{Submarine Commitments} which is to conceal the bounty claim and the participatory factor. They claim submarine commitments ``are a stronger form of a commit-reveal scheme''. 
 
  
 One of the properties of Blockchain technology was to overcome double-spend, however this does not apply for fast payments and zero-confirmation transactions. \textit{Double-spend attack}, as the name implies, the adversary spends a coin more than one time. To do so, he would use the coin as an input of a transaction and broadcast it to the network, before the transaction gets validated and executed, he broadcasts another transaction associated with a higher transaction fee which spends the same input ~\cite{bamert2013have, karame2012double}. This adversarial behaviour is similar to the front-running attack where the attacker would front-run other users by paying a higher transaction fee when broadcasting his transactions to the network, hence a higher priority transaction for miners to include in the block they mine.  
@@ -134,7 +130,7 @@ On the time of the ICO there were reports of Ethereum network being unusable and
 \end{figure}
 
 F2Pool, an Ethereum mining pool that had around 23\% of the mining hash rate at the time (Figure ~\ref{fig:mining_pool_ratio}), sent 100 Ether to 30 new Ethereum addresses before Status.im ICO started. On the time the ICO started F2Pool constructed 31 transactions from the addresses they controlled to the ICO token sale smart contract --without broadcasting these transactions to the network-- and focused their mining power to mine their own transactions.
-As shown in figure  ~\ref{fig:Transactions_miners_while_status_ico_cut}, most of the top miners in the mentioned time frame, have mined almost the same number of failed and successful transactions which were directed toward Status.im token sale, however F2Pool's transactions indicate their successful transactions were equivalent to 10\% of the failed transactions, hence maximizing the mining rewards, on gas, while censoring other transactions to the token sale smart contract.
+As shown in Figure~\ref{fig:Transactions_miners_while_status_ico_cut}, most of the top miners in the mentioned time frame, have mined almost the same number of failed and successful transactions which were directed toward Status.im token sale, however F2Pool's transactions indicate their successful transactions were equivalent to 10\% of the failed transactions, hence maximizing the mining rewards, on gas, while censoring other transactions to the token sale smart contract.
 
 %TODO: talk about the tools made to figure this out , it's ok to use jargons and technical terms. maybe a paragraph or two on this, with interfaces and service. ethereum-etl, google bigquery, ...
 
@@ -150,7 +146,7 @@ As shown in figure  ~\ref{fig:Transactions_miners_while_status_ico_cut}, most of
 
 
 
-Involvement of F2Pool in this action becomes obvious when the transactions from these 30 addresses are traced. As shown in figure ~\ref{fig:f2poolfront-run}, the funds deposited by F2Pool in these addresses where sent to Status.im ICO and mined by F2Pool. Once the dynamic ceiling algorithm refunded a portion of the sent funds back to these addresses, these funds were again sent back to F2Pool main address. 
+Involvement of F2Pool in this action becomes obvious when the transactions from these 30 addresses are traced. As shown in Figure~\ref{fig:f2poolfront-run}, the funds deposited by F2Pool in these addresses where sent to Status.im ICO and mined by F2Pool. Once the dynamic ceiling algorithm refunded a portion of the sent funds back to these addresses, these funds were again sent back to F2Pool main address. 
 
 
 \begin{figure}[h]
@@ -191,8 +187,8 @@ Ethereum Naming Service (ENS)\footnote{\url{https://ens.domains/}}, the most pop
 
 
 \subsection{Crypto-Collectibles auctions} \hfill\\ 
-Crypto-Collectibles, also known as ERC-721 Non-Fungible Token Standard~\cite{erc721} , are one of the applications of Ethereum blockchain. Cryptokitties is known to be the most popular applications of ERC721 tokens~\cite{cryptokitties}. The main usage of these Cryptokitties is that users can breed them with each other and make new unique Cryptokitties, also they can buy or sell them through their main interface\footnote{Cryptokitties website \url{https://www.cryptokitties.co/}}. See Figure~\ref{cryptokittie}.
-To buy a cryptokitty, user sends a bid transaction \textit{bid(uint256 \_tokenId)} containing the cryptokittties ID which can be found either on their website or on the ERC721 token smart contract. This is similar to open auctions and everyone can see the bid value and what is the bid for, this transaction is visible from any other Ethereum node and could be easily front-run by sending the same transaction with higher gasPrice. 
+Crypto-Collectibles, also known as ERC-721 Non-Fungible Token Standard~\cite{erc721}, are one of the applications of Ethereum blockchain. Cryptokitties is known to be the most popular applications of ERC721 tokens~\cite{cryptokitties}. The main usage of these Cryptokitties is that users can breed them with each other and make new unique Cryptokitties, also they can buy or sell them through their main interface\footnote{Cryptokitties website \url{https://www.cryptokitties.co/}}. See Figure~\ref{cryptokittie}.
+To buy a cryptokittie, user sends a bid transaction \textit{bid(uint256 \_tokenId)} containing the cryptokittties ID which can be found either on their website or on the ERC721 token smart contract. This is similar to open auctions and everyone can see the bid value and what is the bid for, this transaction is visible from any other Ethereum node and could be easily front-run by sending the same transaction with higher gasPrice. 
 %TODO: this needs a rewrite. 
 % https://etherscan.io/tx/0x62a76b7e345e8abd463487d0348c118a9314b197024e090fee7b1fbce434da40
 
@@ -209,7 +205,7 @@ To buy a cryptokitty, user sends a bid transaction \textit{bid(uint256 \_tokenId
 
 \section{How to stop Front-running?}
 In the traditional markets, front-running is considered unethical and also illegal. In the blockchain space, the designers of the decentral applications cannot rely on the justice system for unethical behaviour, and they must assume that each participant in the network acts rationally in their own self interest, the application will be operating in an adversarial environment~\cite{0xfrontrunning:online}.
-A few decentral exchange projects such as \textit{EtherDelta} and \textit{0xProject}~\cite{warren20170x}, have proposed solutions for front-running, which is off-chain orderbooks. The methods discussed within these projects prevent blockchain network participants from front running the orders as the orders are private and not known to the network and will not be broadcasted. However they are introducing third parties, \eg relayers in 0xproject, to be managing the orders with the promise not to reorder or front-run other orders. 
+A few decentral exchange projects such as \textit{EtherDelta} and \textit{0xProject}~\cite{warren20170x}, have proposed solutions for front-running, which is off-chain order books. The methods discussed within these projects prevent blockchain network participants from front running the orders as the orders are private and not known to the network and will not be broadcasted. However they are introducing third parties, \eg relayers in 0xproject, to be managing the orders with the promise not to reorder or front-run other orders. 
 
 \emph{Traditional Front-running Prevention Methods}. regulations/enforcement/broker education/sealed order
 %@shayan: ^
@@ -231,7 +227,7 @@ One possible solution to fix current blockchains in regards to transaction reord
 
 %NEEDS TO BE DONE:
 Market participants are concerned about revealing information on their past trades, purchases, income, or liquidity needs (forget about market participants >> this leads to frontrunning)
-Shielded transactions in ZCash do not reveal the sender, receiver, the amount and the data included in the transactions, hence they cannot be seen by network participants to be front-runned. Although this limits the functionality of the blockchain/smartcontracts/dapps 
+Shielded transactions in ZCash do not reveal the sender, receiver, the amount and the data included in the transactions, hence they cannot be seen by network participants to be front-run. Although this limits the functionality of the blockchain/smartcontracts/dapps 
 
 \subsubsection{Design Decision \#3: Loopring/Dual Authoring\newline}
 Talk about this possible solution
@@ -270,7 +266,7 @@ The details of how Submarine commitments work is outside the scope of this paper
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.5\linewidth]{figures/LibSubmarine.png}
-\caption{ Submarine Send~\cite{libsubmarine}. User generates an \textit{Unlock} transaction from which the commitment address is retrieved. By funding the \textit{commitment address}, user is committed to the unlock transaction. After the commitment transaction, in the reveal phase, user sends the \textit{reveal transaction} to the DApp and then after she can broadcast the Unlock transaction to unlock the funds in the commitment address. Finally after the ``Auction'' is over, anyone can call \textit{Finalize} function to finalize the process.  \label{fig:LibSubmarine}}
+\caption{ Submarine Send~\cite{libsubmarine}. User generates an \textit{Unlock} transaction from which the commitment address is retrieved. By funding the \textit{commitment address}, user is committed to the unlock transaction. After the commitment transaction, in the reveal phase, user sends the \textit{reveal transaction} to the DApp and then after she can broadcast the Unlock transaction to unlock the funds in the commitment address. Finally after the "Auction'' is over, anyone can call \textit{Finalize} function to finalize the process.  \label{fig:LibSubmarine}}
 \end{figure}
 %https://www.lucidchart.com/invitations/accept/3a259b74-1162-4fb5-8023-eb0311018295
 
@@ -287,7 +283,7 @@ To prevent front-running, one can design the application in a way that it is not
 
 Note that depending on the applications plans, there might exist design decisions which cause the system to be front-run resistant. For example, Malinova~\cite{Malinova} proposes a design for a decentral exchange which uses economic models in their trading market design to make front-running expensive and more costly than profitable.
 
-Going back to table~\ref{tab:top25dapps}, some DApps facilitate different methods to mitigate frontrunning issues. As an example LocalEthereum, a escrow-based exchange, uses challenge random values from the website to be included in the signature of the transaction (See ~\ref{code:localethereum}), hence removing any possibility of replay attack or possibility of any other address sending the similar order.
+Going back to Table~\ref{tab:top25dapps}, some DApps facilitate different methods to mitigate front-running issues. As an example LocalEthereum, a escrow-based exchange, uses challenge random values from the website to be included in the signature of the transaction (See ~\ref{code:localethereum}), hence removing any possibility of replay attack or possibility of any other address sending the similar order.
 
 \begin{lstlisting}[basicstyle=\scriptsize\ttfamily,caption={Code snippet from LocalEthereum smart contract. Values V,R and S are set by LocalEtherem to have a valid signature, also the tradeHash uses buyer and seller addresses, mitigating the possibility of front-running by a third party.},label={code:localethereum},float]
     function createEscrow(bytes16 _tradeID, address _seller, address _buyer, uint256 _value, uint16 _fee,
