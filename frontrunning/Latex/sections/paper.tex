@@ -183,15 +183,20 @@ Although this incident does not involve transaction reordering in the blocks, it
 %Jeremy's comments: also talk about the "private information retrieval" (Ian Goldberg's work at waterloo)
 
 \noindent As mentioned in Section~\ref{sec:Front Running on the Blockchains}, although front-running attacks have been more showcased in the context of decentralized exchanges and trading systems, they are are not yet limited to the financial markets. Front-running can occur within other (non-financial) blockchain applications such as naming systems. Blockchain-based domain registrar have been introduced to eliminate the role of central parties \ie domain name system (DNS) which introduce single point of failures in the entire web. One such system is Ghazal, an Ethereum-based naming and PKI system~\cite{moosavighazal}. Ghazal users rely on the Ethereum blockchain to register their \texttt{.ghazal} domain names and bind certificates to those names. In Ghazal model, a user would register domain name by executing the \textit{registerdomain} function from the Ghazal smart contract with the domain name in plain text as the function argument. As mentioned before, These transactions will sit in the mempool so that it would be mined by Ethereum miners and included in the block. During this period in which the transaction is not yet confirmed, front-running attack can occur by (i) dishonest miners and/or (ii) regular non-miner user. In the first case, a miner would intercept the \textit{registerdomain} transaction and register that name ahead of the user. A regular non-miner node in the Ethereum network can front-run other user's \textit{registerdomain} at a good profit by paying higher transaction fees. This practice allows the adversarial party  to register an unregistered domain immediately after someone searched for it, and sell the domain name to the users for a higher price. Note that, domain name front-running also occurs in the vanilla system. In this case, front-runners would monitor and identify domain names of interest, and sell it back to the other users with a higher price~\cite{sac022en33:online}.
-% PoC of front-running ghazal
-%TODO: also talk about ENS 
 
+%Some edits required here!
+
+Ethereum Naming Service (ENS)\footnote{\url{https://ens.domains/}}, the most popular decentral naming service uses a sealed auction to purchase new domains with \textit{.eth} extension which can be resolved using any Ethereum web3 compatible browser. Although the implementation uses a sealed auction, the deposit should be equal or bigger than the bid, this information leakage could be used to front-run the transaction with the same bid amount. By doing so the front-runner invalidates the original bid.
+%e.g: https://etherscan.io/enslookup?q=handshaker.eth
 %TODO: ian goberg: private information retrieval . talk about domain name frontrunning in the traditional sense and how goDaddy can steal the domain when queried for availablity. however in blockchain the queiry is private and does not reveal the intention that you want to buy the domain. View only / solidity code on how to enable this
+
+
+% PoC of front-running ghazal
 
 
 \subsection{Crypto-Collectibles auctions} \hfill\\ 
 Crypto-Collectibles, also known as ERC-721 Non-Fungible Token Standard~\cite{erc721} , are one of the applications of Ethereum blockchain. Cryptokitties is known to be the most popular applications of ERC721 tokens~\cite{cryptokitties}. The main usage of these Cryptokitties is that users can breed them with each other and make new unique Cryptokitties, also they can buy or sell them through their main interface\footnote{Cryptokitties website \url{https://www.cryptokitties.co/}}. See Figure~\ref{cryptokittie}.
-To buy a cryptokitty, user sends a bid transaction \textit{bid(uint256 \_tokenId)} containing the cryptokittties ID which can be found either on their website or on the ERC721 token smart contract. This transaction is visible from any other Ethereum node and could be easily front-run by sending the same transaction with higher gasPrice. 
+To buy a cryptokitty, user sends a bid transaction \textit{bid(uint256 \_tokenId)} containing the cryptokittties ID which can be found either on their website or on the ERC721 token smart contract. This is similar to open auctions and everyone can see the bid value and what is the bid for, this transaction is visible from any other Ethereum node and could be easily front-run by sending the same transaction with higher gasPrice. 
 %TODO: this needs a rewrite. 
 % https://etherscan.io/tx/0x62a76b7e345e8abd463487d0348c118a9314b197024e090fee7b1fbce434da40
 
