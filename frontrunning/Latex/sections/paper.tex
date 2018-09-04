@@ -182,13 +182,12 @@ Although this incident does not involve transaction reordering in the blocks, it
 
 %Some edits required here!
 
-Ethereum Naming Service (ENS)\footnote{\url{https://ens.domains/}}, the most popular decentral naming service uses a sealed auction to purchase new domains with \textit{.eth} extension which can be resolved using any Ethereum web3 compatible browser. Although the implementation uses a sealed auction, \textit{startAuctionsAndBid}, the deposit should be equal or bigger than the bid, this information leakage could be used to front-run the transaction with the same bid amount. By doing so the front-runner invalidates the original bid.
+Ethereum Naming Service (ENS)\footnote{\url{https://ens.domains/}}, the most popular decentral naming service uses a sealed auction to purchase new domains with \textit{.eth} extension which can be resolved using any Ethereum web3 compatible browser. Although the implementation uses a sealed auction, \textit{startAuctionsAndBid}, the deposit should be equal or bigger than the bid, this information leakage could be used to front-run the transaction with the same bid amount. By doing so the front-runner invalidates the original bid. This is similar to traditional domain squatting where the service provider maliciously buys the domains upon domain availably check and before the user gets the chance to finish his order. Although the exact same attack is not feasible on blockchain naming services as querying already registered domains are instant and without leaking any information of the intention of the user to the network.
 %e.g: https://etherscan.io/enslookup?q=handshaker.eth
 %TODO: ian goberg: private information retrieval . talk about domain name frontrunning in the traditional sense and how goDaddy can steal the domain when queried for availablity. however in blockchain the queiry is private and does not reveal the intention that you want to buy the domain. View only / solidity code on how to enable this
 
 
 % PoC of front-running ghazal
-
 
 \subsection{Crypto-Collectibles auctions} \hfill\\ 
 Crypto-Collectibles, also known as ERC-721 Non-Fungible Token Standard~\cite{erc721} , are one of the applications of Ethereum blockchain. Cryptokitties is known to be the most popular applications of ERC721 tokens~\cite{cryptokitties}. The main usage of these Cryptokitties is that users can breed them with each other and make new unique Cryptokitties, also they can buy or sell them through their main interface\footnote{Cryptokitties website \url{https://www.cryptokitties.co/}}. See Figure~\ref{cryptokittie}.
