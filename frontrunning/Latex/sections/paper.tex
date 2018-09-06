@@ -106,9 +106,11 @@ During the time the ICO was open for participation, there were reports of Ethere
 
 According to the analysis we carried out, it was discovered that the F2Pool, an Ethereum mining pool that had around 23\% of the mining hash rate at the time (Figure ~\ref{fig:mining_pool_ratio}), sent 100 Ether to 30 new Ethereum addresses before Status.im ICO started. On the time the ICO was opened for participation, F2Pool constructed 31 transactions to the ICO token sale smart contract from the addresses they controlled --without broadcasting these transactions to the network-- and used their entire mining power to mine their own transactions.
 
+Ethereum blockchain contains all transaction ever made on Ethereum, however, it is not easy to see the behaviour of the participants and miners solely using the default clients nor online blockchain explorers. In order to get the required data, Ethereum blockchain data should be converted to a queryable format. For this case study, we used open source projects such as Go Ethereum implementation\footnote{Official Go implementation of the Ethereum protocol\url{https://github.com/ethereum/go-ethereum}, python script for extracting, transforming and loading ethereum blocks, named \texttt{ethereum-etl}~\cite{ethereumetl} and Google BigQuery\footnote{A fast, highly scalable, cost-effective, and fully managed cloud data warehouse for analytics \url{https://cloud.google.com/bigquery/}}. Using this software stack, we were able to query for all the transactions and blocks within the window of Status.im ICO for further analysis which was mainly done by data analysis tool \texttt{Tableau}\footnote{Tableau is a data visualization software that is used for data science and business intelligence.\url{https://www.tableau.com/}}. A copy of this dataset and the findings can be found in \texttt{github.com / ANONYMOUS}. 
+
+
 As shown in Figure~\ref{fig:Transactions_miners_while_status_ico_cut}, most of the top miners in the mentioned time frame, have mined almost the same number of failed and successful transactions which were directed toward Status.im token sale, however F2Pool's transactions indicate their successful transactions were equivalent to 10\% of the failed transactions, hence maximizing the mining rewards, on gas, while censoring other transactions to the token sale smart contract.
 
-%TODO: talk about the tools made to figure this out , it's ok to use jargons and technical terms. maybe a paragraph or two on this, with interfaces and service. ethereum-etl, google bigquery, ...
 
 \begin{figure}[h]
 \centering
@@ -133,10 +135,6 @@ By tracing the transactions from these 30 addresses, we found a explicit Interfe
 
 
 Although this incident does not involve transaction reordering in the blocks, it shows how miners can modify their code to behave in a certain way to front-run other transactions and take advantage of the monetary profit. The dataset used for this analysis can be found on our GitHub repository.\footnote{Frontrunning Status.im ICO dataset: \url{http://github.com/TODO:ANONYMOUS}}
-%TODO: these might need more details and proofs. ask Jeremy about how to go on about this! 
-
-
-
 
 
 
@@ -172,7 +170,7 @@ Another example here is in the case of decentral exchanges and order cancellatio
 
 
 
-\subsection{OCase Studies}  
+\subsection{Case Studies}  
 
 As blockchain records are immutably recorded, there is enough historical data to analyze for possible front running detection. There is no perfect criteria to list top DApps on Ethereum blockchain, for the purpose of this research we analyzed the top 25 DApps based on recent user activities\footnote{List of decentralized applications \url{https://dappradar.com/dapps}}. 
 %ICO is only in use when the time window is happenig.  this is based on the last 24hours activities 
