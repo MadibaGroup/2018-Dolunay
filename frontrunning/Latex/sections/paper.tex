@@ -92,10 +92,52 @@ One of the properties of Blockchain technology was to overcome double-spend, how
 
 
 %______________________________________________________________%
-\section{Front-running on Bancor}
 
-Bancor is an Ethereum-based application that allows users to exchange their tokens without any counter-party risk. This protocol aims to solve the cryptocurrency liquidity issue by introducing \textit{Smart Tokens}~\cite{hertzog2017bancor}-- ERC20 compatible tokens with a built-in liquidity mechanism that are always available to users. Smart Tokens can be bought and sold through the users smart contract at an automatically calculated price which displays supply and demand. Doing so, Bancor protocol provides continuous liquidity for digital assets without relying on an order book as there is no requirement to match sellers and buyers.
-Recently, researchers have shown that Bancor is vulnerable to front running attacks. Implemented on the Ethereum blockchain, when Bancor transactions are broadcast to the network, they sit in a pending transaction pool known as \textit{mempool} waiting for the miners to mine them. Since Bancor handles all the trades and exchanges on the Ethereum blockchain (unlike other existing decentralized exchanges), these transactions are all visible to the public for 16s (the average Ethereum blocktime) before being included within a block. This leaves this blockchain-based decentralized exchange vulnerable to the blockchain race condition attack as attackers are given enough time to front-run other transactions and gain favourable profits~\cite{BancorIs7:online}. As mentioned in Section~\ref{sec:who can front-run?} and same as every other Ethereum based application, Bancor transactions can be front run by miners and other regular (non-miner) users. There is an implementation of a Bancor front running attack in the Python programming language which represent how a non-miner user can front run other network participants \cite{NewTab13:online}.
+\section{Status ICO} 
+As discussed in~\ref{sec:Front Running on the Blockchains}, capped ICOs are considerable applications to be investigated in terms of the front-running attacks, Status ICO is such application. In June 2017, Status.im~\cite{statuswhitepaper} started its ICO and reached its cap within 3 hours, resulted in close to 300,000 Ether of funding. In order to prevent large investments to take place early and limit the amount of Ether deposited in an investment, the team at the Status ICO used a \textit{fair} token distribution method called \textit{dynamic ceiling} as an attempt to increase the time window for smaller investors. They implemented multiple caps --ceiling-- which each had a maximum amount that could be deposited. In this case, every deposit was checked by the smart contract and the exceeding amount was refunded to the sender while the accepted amount was sent to the Status.im wallet ~\cite{statusicoanalysis}. 
+
+During the time the ICO was open for participation, there were reports of Ethereum network being unusable and transactions were not confirming. Further study showed that some mining pools might have been manipulating the network for their own profit. In addition, there were many transactions sent with higher gas price to front-run other transactions, however these transactions were failed due to the restriction in the ICO smart contract to reject any transactions with higher than 50GWei gas price (as an attempt to prevent the aforementioned front-running).
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\linewidth]{figures/Mining_pool_ratio.png}
+\caption{The percentage of Ethereum blocks mined between block 3903900 and 3908029, this is the time frame in which Status.im ICO was running. This percentage roughly shows the hashing power ratio each miner had at that time. \label{fig:mining_pool_ratio}} % IS THIS STATEMENT CORRECT?
+\end{figure}
+
+According to the analysis we carried out, it was discovered that the F2Pool, an Ethereum mining pool that had around 23\% of the mining hash rate at the time (Figure ~\ref{fig:mining_pool_ratio}), sent 100 Ether to 30 new Ethereum addresses before Status.im ICO started. On the time the ICO was opened for participation, F2Pool constructed 31 transactions to the ICO token sale smart contract from the addresses they controlled --without broadcasting these transactions to the network-- and used their entire mining power to mine their own transactions.
+
+As shown in Figure~\ref{fig:Transactions_miners_while_status_ico_cut}, most of the top miners in the mentioned time frame, have mined almost the same number of failed and successful transactions which were directed toward Status.im token sale, however F2Pool's transactions indicate their successful transactions were equivalent to 10\% of the failed transactions, hence maximizing the mining rewards, on gas, while censoring other transactions to the token sale smart contract.
+
+%TODO: talk about the tools made to figure this out , it's ok to use jargons and technical terms. maybe a paragraph or two on this, with interfaces and service. ethereum-etl, google bigquery, ...
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{figures/Transactions_miners_while_status_ico_cut_only_icotx.png}
+\caption{This chart shows the miners behaviour on the time window that Status.im ICO was running. \textit{Successful Transactions} are the transactions that led to deposit and generation of Status.im tokens and \textit{Failed Transactions} are the transactions to the token sale smart contract that failed to retrieve any tokens, for varias reasons.  It is clear that the number of successful transactions mined by F2Pool do not follow the random homogeneous pattern of the rest of the network. \label{fig:Transactions_miners_while_status_ico_cut}} 
+\end{figure}
+
+%TODO: make pie charts for each mining pool, all non-status-ico transactions vs success-ico-transactions vs failed-ico=transactions
+
+%TODO: describe failed/ successful transactions, what they mean! 
+
+
+
+By tracing the transactions from these 30 addresses, we found a explicit Interference of the F2Pool in this scenario. As shown in Figure~\ref{fig:f2poolfront-run}, the funds deposited by F2Pool in these addresses were sent to Status.im ICO and mined by F2Pool. Once the dynamic ceiling algorithm refunded a portion of the sent funds back to these addresses, these funds were again sent back to F2Pool main address. 
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{figures/F2Pool_transactions_to_StatusICO_and_Refunds.png}
+\caption{F2Pool prior to Status.im ICO deposited 100 Ether in multiple new Ethereum addresses. On the time of the ICO they sent these deposits to Status ICO smart contract and prioritized mining of these transactions in their mining pool, this was to overcome the dynamic ceiling algorithm of the token sale smart contract. Later on they sent the refunded Ether back to their own address. [Graph made using Blockseer.com] \label{fig:f2poolfront-run}}
+\end{figure}
+
+
+Although this incident does not involve transaction reordering in the blocks, it shows how miners can modify their code to behave in a certain way to front-run other transactions and take advantage of the monetary profit. The dataset used for this analysis can be found on our GitHub repository.\footnote{Frontrunning Status.im ICO dataset: \url{http://github.com/TODO:ANONYMOUS}}
+%TODO: these might need more details and proofs. ask Jeremy about how to go on about this! 
+
+
+
 
 
 
@@ -146,49 +188,10 @@ From these DApps we looked at one example per category, most of which had front-
 % maybe inlcude 0xbitcoin ERC721 mineable tokens front-running!
 % mint: https://etherscan.io/tx/0x9883bc3ad018fd2b649982f88fbad7dc5abcb8f11c4f1d87ef814ba30c2b3428
 
-\subsection{Status ICO} \hfill\\ 
-\noindent As discussed in ~\ref{sec:Front Running on the Blockchains}, capped ICOs are a good application for front-running attacks.  In June 2017, Status.im~\cite{statuswhitepaper} started their ICO and within 3 hours they reached their cap, resulted in close to 300,000 Ether of funding. They used a \textit{fair} token distribution method called \textit{Dynamic ceiling}, which was in place to prevent large investments to take place early and limited the amount of Ether deposited, this was an attempt to increase the time window for smaller investors. They implemented multiple caps --ceiling-- which each would have a maximum amount that can be deposited. In this case every deposit would be checked by the smart contract and the exceeding amount would be refunded to the sender while the accepted amount would be sent to the Status.im wallet ~\cite{statusicoanalysis}. 
-On the time of the ICO there were reports of Ethereum network being unusable and transactions were not confirming. Further study showed that some mining pools might have been manipulating the network for their own profit. On the other note, There were many transactions sent with higher gasPrice to front-run other transactions, however these transactions failed due to the restriction in place in the ICO smart contract to reject any transactions with higher than 50GWei gasPrice in an attempt to prevent this kind of front-running.
 
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.5\linewidth]{figures/Mining_pool_ratio.png}
-\caption{The percentage of Ethereum blocks mined between block 3903900 and 3908029, this is the time frame in which Status.im ICO was running. This percentage roughly shows the hashing power ratio each miner had at that time. \label{fig:mining_pool_ratio}} % IS THIS STATEMENT CORRECT?
-\end{figure}
-
-F2Pool, an Ethereum mining pool that had around 23\% of the mining hash rate at the time (Figure ~\ref{fig:mining_pool_ratio}), sent 100 Ether to 30 new Ethereum addresses before Status.im ICO started. On the time the ICO started F2Pool constructed 31 transactions from the addresses they controlled to the ICO token sale smart contract --without broadcasting these transactions to the network-- and focused their mining power to mine their own transactions.
-As shown in Figure~\ref{fig:Transactions_miners_while_status_ico_cut}, most of the top miners in the mentioned time frame, have mined almost the same number of failed and successful transactions which were directed toward Status.im token sale, however F2Pool's transactions indicate their successful transactions were equivalent to 10\% of the failed transactions, hence maximizing the mining rewards, on gas, while censoring other transactions to the token sale smart contract.
-
-%TODO: talk about the tools made to figure this out , it's ok to use jargons and technical terms. maybe a paragraph or two on this, with interfaces and service. ethereum-etl, google bigquery, ...
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.7\linewidth]{figures/Transactions_miners_while_status_ico_cut_only_icotx.png}
-\caption{This chart shows the miners behaviour on the time window that Status.im ICO was running. \textit{Successful Transactions} are the transactions that led to deposit and generation of Status.im tokens and \textit{Failed Transactions} are the transactions to the token sale smart contract that failed to retrieve any tokens, for varias reasons.  It is clear that the number of successful transactions mined by F2Pool do not follow the random homogeneous pattern of the rest of the network. \label{fig:Transactions_miners_while_status_ico_cut}} 
-\end{figure}
-
-%TODO: make pie charts for each mining pool, all non-status-ico transactions vs success-ico-transactions vs failed-ico=transactions
-
-%TODO: describe failed/ successful transactions, what they mean! 
-
-
-
-Involvement of F2Pool in this action becomes obvious when the transactions from these 30 addresses are traced. As shown in Figure~\ref{fig:f2poolfront-run}, the funds deposited by F2Pool in these addresses where sent to Status.im ICO and mined by F2Pool. Once the dynamic ceiling algorithm refunded a portion of the sent funds back to these addresses, these funds were again sent back to F2Pool main address. 
-
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.7\linewidth]{figures/F2Pool_transactions_to_StatusICO_and_Refunds.png}
-\caption{F2Pool prior to Status.im ICO deposited 100 Ether in multiple new Ethereum addresses. On the time of the ICO they sent these deposits to Status ICO smart contract and prioritized mining of these transactions in their mining pool, this was to overcome the dynamic ceiling algorithm of the token sale smart contract. Later on they sent the refunded Ether back to their own address. [Graph made using Blockseer.com] \label{fig:f2poolfront-run}}
-\end{figure}
-
-
-Although this incident does not involve transaction reordering in the blocks, it shows how miners can modify their code to behave in certain way to front-run other transactions and result in monetary profit. The dataset used for this analysis can be found on our github repository\footnote{Frontrunning Status.im ICO dataset: \url{http://github.com/TODO:ANONYMOUS}}
-%TODO: these might need more details and proofs. ask Jeremy about how to go on about this! 
-
-
-
+\subsubsection{Bancor}
+Bancor is an Ethereum-based application that allows users to exchange their tokens without any counter-party risk. This protocol aims to solve the cryptocurrency liquidity issue by introducing \textit{Smart Tokens}~\cite{hertzog2017bancor}-- ERC20 compatible tokens with a built-in liquidity mechanism that are always available to users. Smart Tokens can be bought and sold through the users smart contract at an automatically calculated price which displays supply and demand. Doing so, Bancor protocol provides continuous liquidity for digital assets without relying on an order book as there is no requirement to match sellers and buyers.
+Recently, researchers have shown that Bancor is vulnerable to front running attacks. Implemented on the Ethereum blockchain, when Bancor transactions are broadcast to the network, they sit in a pending transaction pool known as \textit{mempool} waiting for the miners to mine them. Since Bancor handles all the trades and exchanges on the Ethereum blockchain (unlike other existing decentralized exchanges), these transactions are all visible to the public for 16s (the average Ethereum blocktime) before being included within a block. This leaves this blockchain-based decentralized exchange vulnerable to the blockchain race condition attack as attackers are given enough time to front-run other transactions and gain favourable profits~\cite{BancorIs7:online}. As mentioned in Section~\ref{sec:who can front-run?} and same as every other Ethereum based application, Bancor transactions can be front run by miners and other regular (non-miner) users. There is an implementation of a Bancor front running attack in the Python programming language which represent how a non-miner user can front run other network participants \cite{NewTab13:online}.
 
 
 
