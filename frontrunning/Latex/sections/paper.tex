@@ -2,14 +2,14 @@
 
 \section{Introduction}
 
+
+
 The concept of the \emph{front-running} goes back to the decades ago when financial instrument markets first started. Initially the trades required to be physically available in the exchange office to deliver the bids and offers, and traders, in the knowledge of future market change, would run in front of the others to get their orders in before the change in the market to profit from the change. Clearly in such scenarios front-running was possible yet not detectable as a damaging activity. However with the rapid advances of the technology in the last few decades, trading is not happening in person anymore and a greater number of applications are now vulnerable to front-running. Furthermore, Blockchain technology has introduced transparency and open markets which led to a new threat of front-running and it inherently affects all decentral applications, whether financial or non-financial. Arbitrage and Censorship, are also issues that had been linked to front-running attacks on blockchain. However, the goal of this paper is to provide a complete look at the front-running issues and thus the aforementioned will remain out of the scope of this research study. There has been little quantitative analysis and research of the front-running issue in decentralized applications, we aim to take a thorough look into the history of the front-running, discuss multiple existing issues in the eco-system and systematize the proposed solutions, and eventually match these solutions to their suitable use cases. \footnote{A note to the reviewer: this paper falls under "Case Studies (\eg of adoption, attacks, forks, scams \etc)" and also mentions methods for "Fraud Detection and Financial Crime Prevention". }
 
 %For the FC: \textbf{CASE STUDY} should be used in here, also in abstract, also at the end of intro section.
 % Why is this important.
 % PAPER BEING SOLD HERE
 %\textbf{Note to Change the structure of the paper: to pitch this paper as a case study, we can polish it as a Bancor case study: 1) here is the bancor project that we look at 2) we find that the issue is mostly the frontrunning 3) So we take a deep look into what is frontrunning 4) we find other case studies that are vulnerable and go through each case}
-
-
 
 
 %Decentral applications are on the rise with Turing complete blockchains maturing to handle high monetary value transactions. Tokenization mushroomed to a whole ecosystem of tokenized applications on the blockchain, these applications inherently become a market as tokens are in the core of them. We started looking at some of these applications, in specific \textit{Bancor}~\cite{hertzog2017bancor}, to look into possible issues rising from these new models. Transparency of blockchains, although being a good feature of them, opens up these markets to some attack vectors that might not be visible on the time of the application design, one main attack is known as \textbf{front-running}, whether financial or non-financial. Arbitrage and Censorship, are also issues arises from the designs on the blockchain technology and had been linked to front-running attacks, hence we use the term \textit{front-running] losely to talk about any transaction manupulation with the intention of getting other transactions in before the original transaction takes place. In this paper, our focus is to have a complete overview of front-running on the blockchain while analysing Bancor issues. While looking at the possibility of front-running on other applications, we found interesting case studies that affects most of the top 25 decentral applications on Ethereum blockchain.
@@ -21,14 +21,13 @@ The concept of the \emph{front-running} goes back to the decades ago when financ
 %using frontrunning losely, we do not want to defining what exactly front running is, but talking about possibiities of attacks in this nature and also how to prevent these from happening .
 
 
-
 \section{Preliminaries}
 
 \subsection{What is Front-running?} %Definition of front-running
 \label{sec:What is front-running?}
 
 \emph{Front-running} is analogous to any course of action during which a person benefits from prior access to inside or confidential market information about upcoming transactions and trades.  The idea of front-running was originated back in stock markets. In the old times, all the trades were executed on papers, so in case of receiving a large order from a client, the broker might say this loud and other people around the table could be informed. Therefore, a malicious trader would now run in front of that order and put his own transaction in-between (before the trade was executed) and profit from the price increase of the stock. This problem occurs when a group of market participants obtain non-public market information which allows them to front-run other users trades by putting their orders a head of those trades and benefit from advance knowledge of pending client orders
-Nowadays, there are a wide range of decentral applications implemented on the blockchain. Built on the blockchain infrastructure, there is no trusted third party within any of the decentralized applications and there is no central version of information that is vulnerable to security attacks. However, due to the inherent nature of the blockchain data structure, these applications are open to what is called \emph{front-running}. One such application is \textbf{Bancor} -- an Ethereum-based application that allows users to exchange their tokens without any counter-party risk. Researchers have shown that this financial blcokchain application is open to a simple front-running attack.  However, front-running vulnerability is not limited to the financial application and it can happen in other types of blockchain applications as well. 
+Nowadays, there are a wide range of decentral applications implemented using blockchain technology. Being decentralized, there is no central version of information to be attacked, however, due to the inherent nature of the blockchain infrastructure, the data flow is transparent hence these applications are open to \emph{front-running} attacks. One such application is \textbf{Bancor} -- an Ethereum-based application that allows users to exchange their tokens without any counter-party risk. Researchers have shown that this financial blockchain application is open to a simple front-running attack.  However, front-running vulnerability is not limited to the financial application and it can happen in other types of blockchain applications as well. 
 
 
 %The two significant factors which cause the front-running practice to happen within the financial markets are (i) imperfect competition and (ii) liquidity uncertainty~\cite{liang2005distressed}. Any sort of front-running activity wis considered as an unethical and illegal practice as it is unfairly beneficial for a few system participants who have the privilege of acting on this information and taking advantages at the expense of the investors. 
@@ -176,6 +175,9 @@ Another example here is in the case of decentral exchanges and order cancellatio
 \subsection{OCase Studies}  
 
 As blockchain records are immutably recorded, there is enough historical data to analyze for possible front running detection. There is no perfect criteria to list top DApps on Ethereum blockchain, for the purpose of this research we analyzed the top 25 DApps based on recent user activities\footnote{List of decentralized applications \url{https://dappradar.com/dapps}}. 
+%ICO is only in use when the time window is happenig.  this is based on the last 24hours activities 
+%justify why started with ICO and go to other apps 
+
 
 %TODO: fix the table!  %mahsa: add MISC back to the table! %%%% put a seperate cell for name services and put the ENS
 % Mention that the categories were taken from that website (Dapp.com) OR recategorize categorize the table
@@ -223,6 +225,9 @@ To buy a cryptokittie, user sends a bid transaction \textit{bid(uint256 \_tokenI
 \includegraphics[width=0.4\linewidth]{figures/cryptokittie842912.png}
 \caption{ Cryptokitty Number 842912 \label{fig:cryptokittie}}
 \end{figure}
+
+
+% Talk about how cryptokitties are similar to any other auctions . 
 
 %______________________________________________________________%
 
@@ -328,6 +333,9 @@ Going back to Table~\ref{tab:top25dapps}, some DApps facilitate different method
 
 %Proof of burn methods ? 
 %TODO: research on more possible solutions! 
+
+
+%TODO: inline talk about what these solutions are good for and if they fit Status ICO
 
 
 %______________________________________________________________%
