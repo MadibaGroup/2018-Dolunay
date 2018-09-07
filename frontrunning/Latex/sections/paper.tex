@@ -259,11 +259,9 @@ One possible solution to fix current blockchains in regards to transaction reord
 
 \subsubsection{Design Decision \#2:Privacy Preserving Blockchain\newline}
 
-%@shayan TODO
+Market participants are concerned about revealing information on their past trades, purchases, income, or liquidity needs. Privacy is a basic human right, that being said, there are limitations with the functionality of a system designed to preserve full privacy. However other than past transactions, real time transactions could leak informations about the sender or the intention of the order that could lead to front-running attacks. Privacy preserving blockchains try to solve the initial issue by keeping all the details of the transactions private, in some extent~\cite{miller2017empirical, kappos2018empirical}. 
+As an example, ZCash~\cite{hopwood2016zcash}, uses two distinct type of addresses, transparent addresses and shielded addresses. Transparent addresses work similar to Bitcoin transactions, fully transparent about the sender and receiver addresses, the amount and included data. However shielded addresses are private and do not leak any information, this is great for privacy but not good for smart contracts capabilities. Smart contract functionality requires verification by the miners which require to know the input, functionality and output of smart contracts to be able to determine if the transaction is valid. Albeit by using cryptographic primitives such as zero-knowledge proofs this issue could also be resolved~\cite{kosba2016hawk}. 
 
-%NEEDS TO BE DONE:
-Market participants are concerned about revealing information on their past trades, purchases, income, or liquidity needs (forget about market participants >> this leads to frontrunning)
-Shielded transactions in ZCash do not reveal the sender, receiver, the amount and the data included in the transactions, hence they cannot be seen by network participants to be front-run. Although this limits the functionality of the blockchain/smartcontracts/dapps 
 
 \subsubsection{Design Decision \#3: Loopring/Dual Authoring\newline}
 Talk about this possible solution
