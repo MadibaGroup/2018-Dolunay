@@ -254,38 +254,20 @@ As an example, ZCash~\cite{hopwood2016zcash}, uses two distinct type of addresse
 
 \subsubsection{Design Decision \#3: Dual Authoring\newline}
 
-Loopring is an open protocol proposed by Wang~\etal to build decentralized exchanges~\cite{wang2018loopring}. This protocol operates a hybrid model with off-chain order management and communication and merely the order matching takes place on the chain. To solve the front-running issue within the decentralized exchanges, Loopring protocol proposes \emph{dual-authoring} scheme.To achieve high liquidity and price improvement, Loopring ordered are grouped in \emph{ring order}. After the required signatures are provided by miner a and owner of the order, the miner sends the \emph{submitRing transaction} to the Loopring Smart Contract (LSC) for verification and settlement, see Figure~\ref{vulnerable_loopring}. While the \emph{submitRing transaction} sits unconfirmed in the mempool, any front-runner can create the a copy of this transaction with his address instead of the miner address and the signature of the hash of the ring using his own address. By paying a higher gasprice, block mines choose this transaction instead of the original \emph{submitRing transaction}. Using the dual authority scheme, the new version of Loopring protocol solves this issue.
-
-
-
-
-
-
-
-
-This solution set two levels of authorization for orders - one for settlement, and one for order matching. In summary, in this scheme a wallet generates a pair of public key (auth-address) and private key (auth-key) for the user, these keys are different from the user's address and its corresponding private key. The address of order's owner, order parameters, and the auth-address are hashed. The hash value, which is called the order-hashed then is signed using the owner's private key. The signature of the ring-hash together with the auth-key are sent to the  miner for matching. In this stage, orders are added to various rings; 
-?each ring encapsulates all the fields and data of its containing orders (a ring can have 2 to 10 orders). Once a ring is established, the ring miner uses each order's auth-key to sign the hash of the ring, together with his own address, and the mining parameters. He also needs to sign the hash of the ring together with the mining parameters using his own private key. The miner then sends all the signatures to the Loopring smart contract (LPSC). Eventually, the Loopring protocol verifies each signatures against their corresponding auth-key of each order and does not accept the ring if the signatures are not valid. Doing so, it is assured that (i) the orders are be modified (because they are signed using the owner's private key), (ii) no other miner can mine the ring (because the miner's address is signed using his private key), and no user can front-run the orders within the ring (because other users do not have access to the auth-keys and hence are not able to generate new transactions with auth-keys signatures on them).
-
+Loopring is an open protocol proposed by Wang~\etal to build decentralized exchanges~\cite{wang2018loopring}. This protocol operates a hybrid model with off-chain order management and communication and merely the order matching takes place on the chain. To solve the front-running issue within the decentralized exchanges, Loopring protocol proposes \emph{dual-authoring} scheme.To achieve high liquidity and price improvement, Loopring orders are grouped in \emph{ring order}. After the required signatures are provided by miner a and owner of the order, see Figure~\ref{vulnerable_loopring}, the ring miner sends the \emph{submitRing transaction} to the Loopring Smart Contract (LPSC) for verification and settlement. While the \emph{submitRing transaction} sits unconfirmed in the mempool, any front-runner can create a copy of this transaction with his address instead of the ring miner's address and the sign the hash of the ring using his own private key. By paying a higher gasprice, block miners choose the front-runner's transaction instead of the original \emph{submitRing transaction}. However, Loopring's team solves this issue using the dual authority scheme in the new version of the Loopring protocol. This solution sets two levels of authorization for orders - one for settlement, and one for order matching. As it can be seen in Figure~\ref{not_vulnerable_loopring}, each owner of any order generates a pair of public key (auth-address) and private key (auth-key), which are different from his address and its corresponding private key. These auth-keys are used to sign the hash of the ring and will further prevent anyone from regenerating the same \emph{submitRing transaction}. The reason is that the auth-keys are only known to the miner of the ring as they are not part of on-chain transaction. Doing so, it is assured that (i) the orders are be modified (because they are signed using the owner's private key), (ii) no other miner can mine the ring (because the miner's address is signed using his private key), and no user can front-run the \emph{submitRing transaction} (because other users do not have access to the auth-keys and hence are not able to generate new transactions with auth-keys signatures on them).
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.8\linewidth]{figures/Vulnerable_Loopring.png}
-\caption{Payload of submitRing Function. \label{fig:vulnerable_loopring}}
+\includegraphics[width=0.7\linewidth]{figures/Vulnerable_Loopring.png}
+\caption{\emph{submitRing} Transaction in the old version of the Loopring protocol. Any user can regenerate this transaction by replacing the miner's address with his address and signing the hash of the ring using his private key. \label{fig:vulnerable_loopring}}
 \end{figure}
-
-
-
-
-The major scheme of front-running in Loopring (and any protocol for order-matching) are order-filch and ring-filch. Order-filch is when a front-runner steals one or more orders from a pending ring settlement transaction; and ring-filch is when a front-runner steals the entire ring from the pending transaction.
-
-
-%Using Loopring functionality, the users do not need to host their assets on the exchange and instead they keep their assets in their blockchain wallet. For example, if user A wants to exchange \emph{token A} with \emph{token B}, she keeps \emph{token A}  safe in her wallet and the Loopring protocol automatically broadcasts the order to the network after user's authorization. If user B wants to exchange, there would be match making miners on the Loopring protocol who matches the orders and swaps the tokens through a smart contract. 
-
-
-
-
-
-
+%https://www.lucidchart.com/invitations/accept/33d38ce9-4660-4743-806d-45c72f7e8393
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{figures/Dual_Authoring_Loopring.png}
+\caption{\emph{submitRing} Transaction in the new version of the Loopring protocol. Other users cannnot regenerate this transaction as they do not access auth-keys and hence are not able to create the signatures. \label{fig:not_vulnerable_loopring}}
+\end{figure}
+%https://www.lucidchart.com/invitations/accept/8dee869c-482c-433f-a901-8d041a1dc526
 %______________________________________________________________%
 \subsection{Application Design to Prevent Front-running}
 
