@@ -1,0 +1,14 @@
+
+frontrunning/Latex/main.aux
+*.log
+frontrunning/Latex/main.synctex.gz
+frontrunning/Latex/main.log
+frontrunning/Latex/main.log
+frontrunning/Latex/main.log
+frontrunning/Latex/main.log
+*.twbr
+*.bbl
+*.blg
+
+
+*.out
