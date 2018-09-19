@@ -12,3 +12,6 @@ frontrunning/Latex/main.log
 
 
 *.out
+auditing/Latex/main.aux
+auditing/Latex/main.pdf
+auditing/Latex/main.synctex.gz
