@@ -59,8 +59,6 @@ We note that while this cryptographic proof is necessary, it is not sufficient. 
 \paragraph{Takeaway:} In order for auditors to validate ownership, they must rely on cryptographic proofs as a first step. However, in order to avoid double-counting of keys, an industry standard common date should be arranged to provide a generally agreed upon ``state of the world'' where keyholders can demonstrate ownership. 
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
-
 \section{Key Issue: Valuation}
 When values are reported on financial statements, they must be reported in the functional currency of the firm, meaning the primary governmental currency used. A challenge for blockchain entities is to determine the valuation of cryptoassets on the financial statement date or the conversion rate for sales and expenditures made throughout the year. Auditors must be satisfied that the values reported in the financial statements are accurate and represent the underlying economic reality. While fair valuation is important for establishing a firm\textquotesingle s financial health, it is also important for auditors to use in determining what to focus on during the audit itself. The objective of an audit is to certify that the financial statements are free of material misstatement. This does not mean that the statements are free of all errors; it merely means that the statements are free of errors that could substantially change the opinion of an informed user. 
 
@@ -88,13 +86,13 @@ When values are reported on financial statements, they must be reported in the f
 %---------+++++++++++++++++++-----------------
 \paragraph{Takeaway:} While the valuation of cryptoassets with large trading volumes like Bitcoin and Ether would be fairly straightforward by referring to values in an active market, the valuation of coins with low liquidity may be more difficult. However, by using financial modelling using different assumptions for volatility, this challenge is not insurmountable.  
 
-
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 \section{Other Auditing Issues}
 
 \paragraph{Issue: Reliability of Blockchain Records.} Another challenge for auditors is determining what type of evidence or records constitute sufficient and appropriate audit evidence. In other words, an auditor must be satisfied that the records on the blockchain are reliable. How can we satisfy auditors that blockchain records are reliable
  
 \begin{enumerate}
-\item How can we rely on blockchain? Has anyone tested it? For example, maybe Bitcoin is reliable due to large user base but what about more niche blockchain? How can I validate accuracy of mining procedures? Reliability of transaction records? How do I know that changes to blockchain code made and not undermine reliability?
+\item[$\bullet$] How can we rely on blockchain? Has anyone tested it? For example, maybe Bitcoin is reliable due to large user base but what about more niche blockchain? How can I validate accuracy of mining procedures? Reliability of transaction records? How do I know that changes to blockchain code made and not undermine reliability?
 \end{enumerate}
 \todo{there are some comments on the google docs regarding this subsection that should be addressed?}
 Traditionally, auditors depend on obtaining audit evidence from external parties as it is deemed as more objective or trustworthy than internal firm documents. For example, auditors will obtain confirmation from a bank of the amount of cash held at year end (a third party) rather than rely on internal records of banking transactions. Auditors traditionally rely on banks, investment companies, and lawyers as conventional sources of external confirmations.  However, a risk always exists that there is fraud or error at these institutions. 
@@ -121,16 +119,20 @@ Traditionally, auditors depend on obtaining audit evidence from external parties
 \paragraph{Issue: Detection of Fraud.} An auditor conducting an audit in accordance with GAAS is responsible for obtaining reasonable assurance that the financial statements taken as a whole are free from material misstatement, whether caused by fraud or error. Owing to the inherent limitations of an audit, there is an unavoidable risk that some material misstatements or fraud may not be detected, even though the audit is properly planned and performed in accordance with GAAS. Due to the complex and rapidly changing nature of this sector, auditors are especially weary of fraud risk in this area. 
 However, not all frauds that occur this space are new kinds of fraud. For instance, Ponzi schemes which have existed since they were perfected by Charles Ponzi in the early twentieth century~\cite{ponzi2001rise}. In 2017, OneCoin was found to have raised over \$350M of funds from investors for an ICO that was a Ponzi scheme~\cite{atlanticCryptoPonzi2017}. Stories like this only reinforce the perception in the auditing community of the dangers of operating in this space. However, auditors can protect themselves by ensuring that they only work with reputable clients. Managers can demonstrate their commitment to sound business practices by adopting controls that ensure KYC and AML rules are adhered to.
 
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+\section{Discussion and Research Agenda}
+\todo{Check out the notes on the google docs regarding this section}
 
+Overall, this paper has demonstrated that, in comparison to traditional audits, audits of clients that hold material amounts of cryptoassets are complex but not impossible. For instance, while current accounting standards result in the presentation of an accounting fiction that is not always linked to the underlying use of crypto, adequate note disclosure can provide financial statement users with sufficient information in order to understand the underlying crypto operations. 
 
+From our discussions with practitioners, existence, valuation and ownership were often cited as the three main stumbling blocks to providing an audit opinion. However, we argue that these issues are not insurmountable if industry guidelines are put into place to allow auditors to verify their client’s cryptographic keys against a “state of the world” at a generally accepted point in time. Verifying existence and ownership largely hinges on an auditor’s ability to verify the contents of a client’s cryptographic keys. However, the auditor must be certain that these keys in fact belong to the client and do not simply represent access to an account. Once ownership has been proven, the auditor can rely on the immutable properties of the blockchain to verify existence as the blockchain provides the entire record of transactions since the blockchain’s inception. The issue of key sharing is important but is not unlike a situation in the real world where a related party could give the entity under audit a large sum of cash to hold at year end and report on their financial statement to buoy their financial performance. 
 
+Volatility does complicate the valuation of alt-coins and other coins with low trading volumes. However, many other exotic securities exist where accountants rely on complex financial modelling to determine a price. 
 
+In sum, this paper argues that although auditors are right to be cautious to enter a new sector where clients not be initiated to the importance of internal controls and where numerous frauds have recently been perpetrated, audits are possible. Audit risk can be reduced through proper vetting of clients and management teams. Alternatively, accounting firms can provide advisory services to clients in anticipation of going public in order to ensure that these clients implement robust internal controls to support their financial reporting function. 
 
+% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+\section{Concluding Remarks}
 
-
-
-
-
-
-
+\todo{Check out the notes on the google docs regarding this section}
 
