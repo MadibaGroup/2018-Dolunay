@@ -1,26 +1,43 @@
 % !TEX root = ../main.tex
 \section{Key Issue: Existence of Assets and Occurence of Transactions}
 
-Blah blah blah.
+Auditors need to establish that assets and liabilities reported at a point in time are real and that the transactions reported over the year did, in fact, take place. The auditor must also ensure that the transactions were neither fraudulent nor illegal and had a legitimate business purpose.  
 
+%---------+++++++++++++++++++-----------------
+\paragraph{Issue: Meta-information.} Assets and liabilities that are transacted on a publicly readable blockchain record basic details, like times and values, but auditors require further information to validate the nature of a transaction. For example, assume an employee\textquotesingle s salary is paid in Bitcoin. Bitcoin\textquotesingle s blockchain shows that a transaction occurred but it does not specify it as a salary; nor does it confirm basic details like the number of hours paid, if the nominal amount is BTC or a spot conversion from a governmental currency, and what deductions for tax or benefits were applied. Most importantly, it does not confirm the amount the employee was paid accurately reflects the number of hours worked at the authorized pay rate. Therefore, the company either requires a verbose secondary ledger to track these details or a Decentralized Application (DApp). This issue also underscores how, despite the immutability of the blockchain, the auditor remains necessary to validate the legitimacy of transactions.
+
+%---------+++++++++++++++++++-----------------
+\paragraph{Issue: Off-Blockchain Transactions.} Transactions may involve the exchange of cryptoassets for off-blockchain assets. For instance, a company may pay its supplier in Bitcoin for a shipment of raw materials. Although the Bitcoin is blockchain-native and that side of the transaction benefits from the consensus algorithm, the blockchain cannot verify that the right quantity or quality of raw materials were received in exchange for the consideration paid. Therefore, given that half of this transaction occurred off-blockchain, it would need to be audited like a traditional raw materials purchase. 
+
+Given that financial statements report the summary of a company\textquotesingle s activities at a point in time or over the course of a certain period, the cutoff of transactions is also an important consideration. For instance, in the example above, if the auditor is verifying a company\textquotesingle s transactions for the year ended December 31, 2017, they must ensure that the Bitcoin was paid and the raw material was received before the end of the year to record the purchase in the 2017 fiscal year. Although the blockchain confirms the date the Bitcoin was paid, it cannot guarantee when the merchandise was received as this happens off-blockchain. Therefore, the cutoff of the transaction would be subject to traditional auditing methods. 
+
+%---------+++++++++++++++++++-----------------
+\paragraph{Issue: Finality.} While blockchains are touted as immutable, the finality property (like all security properties) is subject to assumptions. Immutability of a blockchain is subject to consensus taken across miners according to computational ability. Consensus is not instant: a transaction might be included and then quickly dropped as consensus forms between different proposed chains. And it is never guaranteed to be final: an agreement within the computational majority of miners can unroll past transactions, For example, Ethereum\textquotesingle s miners branched the main blockchain to modify some past transactions~\cite{dupont2017experiments}. The challenge of finality was an important design consideration in the Bank of Canada\textquotesingle s Project Jasper which sought to establish a Distributed Wholesale Payment Systems. ``Project Jasper was structured so that a transfer of [digital currency] was equivalent to a full and irrevocable transfer of the underlying claim on central bank deposits.” Given that on the Ethereum blockchain, transactions can be reversed, the work around for Project Jasper was to implement a “design feature (which) relates to the issuance of (digital currency) and is therefore independent of the platforms upon which Jasper was built.''~\cite{chapman2017project}.
+
+The issue of revocability is not uncommon for accountants. In many cases, sales agreements provide customers with the option to return merchandise within a pre-established period. When recording revenue, the accountant much estimate the percentage of returns and factor this into the amount of revenue to be recorded. The same concept could be applied for the issue of finality. The firm could estimate the amount of returns or reversals that are likely to occur and factor this into their transaction recognition. Alternatively, auditors could establish a generally accepted threshold (for instance, number of days) after which a transaction would be considered final. 
+
+%---------+++++++++++++++++++-----------------
+\paragraph{Issue: Completeness.} Firms generally do not hide assets as this undermines their reported financial health, however a firm might hide an asset to shift its acquisition forward in time. Additionally, hiding liabilities promotes a firm\textquotesingle s solvency. Therefore, auditors are charged with determining that they have obtained the full measure of a firm\textquotesingle s transactions to ensure the completeness of the information under analysis.
+
+In a blockchain-enabled world, the blockchain contains the record of all transactions carried out during the year. If the auditor has a list of all the keys that belong to the entity under audit, they can easily obtain an account of all the transactions carried out on the blockchain during the period. However, this still raises the issue that the client may possess other, unreported keys, or have entered into side-arrangements with related parties. This risk is also present in traditional audits. While these challenges are magnified on a blockchain is magnified due to the pseudo-anonymity of this environment, the underlying challenge remains the same as it would in a traditional audit.
+
+There is always the possibility that, for instance, a client has not reported all keys in his possession to the auditor. Therefore, transactions on those keys would not be part of the known set of information under audit. However, this situation is not unlike a traditional audit. The client may have unreported bank accounts at a different bank than their usual institution that the auditor would not know about. 
+
+%---------+++++++++++++++++++-----------------
+\paragraph{Issue: Transaction Complexity.} Bitcoin and Ethereum transact native currency according to established protocols, and Ethereum-based tokens gravitate toward standards as well. However nothing prevents DApps from transacting in complex ways. For example, one proposed DApp for crowdfunding projects would allow stakeholders to split off into a smaller DApp, taking a share of the assets from the parent DApp with it~\cite{dupont2017experiments}. Another example would be the Lightning Network~{poon2016bitcoin} which is second layer, off blockchain payment network that was implemented for scaling Bitcoin to increase throughput. The Lightning Network is more complex than simple Bitcoin payments and involves payment channels and routings.
  
+While firms may complicate their transactions either for economic benefits in order to obfuscate the true nature of their transactions, the onus is on the firm under audit to operate in an auditable fashion. In other words, while it is the auditor\textquotesingle s responsibility to design procedures to gain comfort over an entity\textquotesingle s operations, it is the responsibility of management to implement controls and procedures to ensure that the entity is audit-ready. Therefore, some complex operations, while economically sound, may be avoided to ensure the audibility of operations. 
+
+%---------+++++++++++++++++++-----------------
+\paragraph{Issue: Transaction Pointers.} Blockchain transactions need to be uniquely identified to be pointed at by secondary financial records. Due to an implementation fault in Bitcoin, transactions broadcasted with one identifier might end up in the blockchain with a different identifier, which could lead a firm to conclude a transaction did not take place when in fact it did, but under an unexpected identifier~\cite{andrychowicz2015malleability} Some firms went bankrupt when their automated system kept honouring refund requests from a malicious entity claiming the refunds were not going through~\cite{trautman2014virtual,decker2014bitcoin}. The larger lesson here is that auditors cannot always safely abstract away low level implementation details.   
+
+%---------+++++++++++++++++++-----------------
+\paragraph{Issue: Occurrence.} In order to validate that cryptoasset transactions actually took place during the year, auditors will look to reproduce the transactions carried out. By obtaining a listing of the client\textquotesingle s cryptographic keys, the blockchain can provide a complete history of the transactions that occurred during the year. Due to the immutable nature of the blockchain, the auditor can be assured that the transaction did take place as described. However, the auditor will still need to validate meta-information surrounding the transaction (see above) to validate the transaction\textquotesingle s reasonability. 
+
+%---------+++++++++++++++++++-----------------
+\paragraph{Takeaway:} This section demonstrates that due to the immutable nature of the blockchain and its ability to report the totality of transactions conducted during the period, this technology provides a record upon which the auditor can obtain evidence to ascertain the occurrence of transactions. However, the auditor will continue to need to rely on external sources such as a verbose secondary ledger to validate the legitimacy and business purpose of those transactions. 
+
+
 % = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-%\paragraph{Scope.} 
-%Blah blah blah.
-%
-% = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-%
-%\paragraph{Contributions.} 
-%Our primary contributions are as follows.
-%
-%\begin{enumerate}
-%
-%\item Blah blah blah.
-%
-%\item Blah blah blah. 
-%
-%\item Blah blah blah. 
-%
-%\end{enumerate}
-%
+
