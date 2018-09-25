@@ -34,7 +34,7 @@ Aune~\etal discuss how the lack of time priority between broadcasting a transact
 
 Double-spending attacks in Bitcoin have been studied~\cite{bamert2013have, karame2012double} where a user broadcasts a transaction and is able to obtain some off-blockchain good or service before the transaction has actually been (fully) confirmed. The user can then broadcast a competing transaction that sends the same unspent coins to herself, perhaps using higher transaction fees, arrangements with miners, or artefacts of the network topology to have the second transaction confirmed instead of the first. We think of this as a type of front-running.
 
-In the cryptographic literature, front-running attacks are modelled by allowing a `rushing' adversary to interact with the protocol. In particular, ideal functionalities of blockchains (such as those used in simulation-based proofs) need to capture this adversarial capability, assuming the real blockchain does not address front-running. \textblue{Literature like the Bitcoin Backbone~\cite{} and Hawk~\cite{} capture this.}
+In the cryptographic literature, front-running attacks are modelled by allowing a `rushing' adversary to interact with the protocol. In particular, ideal functionalities of blockchains (such as those used in simulation-based proofs) need to capture this adversarial capability, assuming the real blockchain does not address front-running. See \eg \textblue{the Bitcoin Backbone~\cite{}} and Hawk~\cite{kosba2016hawk}.
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = %
 % = = = TOP 25
@@ -159,41 +159,25 @@ As shown in Figure~\ref{fig:Transactions_miners_while_status_ico_cut}, most of t
 By tracing the transactions from these 30 addresses, we found explicit interference by the F2Pool\footnote{F2Pool Ethereum address was identified by their mining reward deposit address \url{https://etherscan.io/address/0x61c808d82a3ac53231750dadc13c777b59310bd9}} in this scenario. As shown in Figure~\ref{fig:f2poolfront-run}, the funds deposited by F2Pool in these addresses were sent to Status.im ICO and mined by F2Pool themselves, where the dynamic ceiling algorithm refunded a portion of the deposited funds back to these addresses, these funds were sent back to F2Pool main address a few days after. Although this incident does not involve transaction reordering in the blocks, it shows how miners can modify their mining software to behave in a certain way to front-run other transactions and gain monetary profit.
 
 
-
-
-
-%______________________________________________________________%
-
-
 % = = = = = = = = = = = = = = = = = = = = = = = = = = %
 % = = = Mitigations
 % = = = = = = = = = = = = = = = = = = = = = = = = = = %
+
 
 \section{How to stop Front-running?} %We have the applicability of the solutions inline.
 
 There are two main approaches to mitigating front-running on blockchains: one is to design a blockchain that is front-run resistant, and the other to design the application logic in a way that front-running is not profitable. This can be done in addition to any legal remedies that might be enforceable. We note, but consider out-of-scope, approaches that introduce trusted parties to centralize time-sensitive functionalities (\eg exchanges \textit{EtherDelta} and \textit{0xProject} use off-chain order books~\cite{warren20170x,0xfrontrunning:online}). 
 
-%In the traditional markets, front-running is considered unethical and illegal. In the blockchain space, the designers of the decentral applications cannot rely on the justice system for preventing unethical behavior, and they must assume that each participant in the network acts rationally in their own self-interest, the application will be operating in an adversarial environment.
 
-%A few decentral exchange projects such as \textit{EtherDelta} and \textit{0xProject}~\cite{warren20170x}, have proposed solutions for front-running, which is off-chain order books. The methods discussed within these projects prevent blockchain network participants from front-running the orders as the orders are private and not known to the network and will not be broadcasted. However they are introducing third parties, \eg relayers in 0xproject, to be managing the orders with the promise not to reorder or front-run other orders. 
+% = = =
 
+\subsection{Front-Running Resistant Blockchains}
+There are technical difficulties to achieve such solutions as there are unknown factors within such network designs and requires testing every corner and edge case scenarios. In this section, we describe the potential solutions using which, one can design and implement a decentralized application that is resistant to front-running.
 
+\paragraph{Design Decision \#1: Fixed Transaction Ordering.} da Silva~\etal~\cite{fixedordering2018silva} proposes an algorithm, known as Fixed Transaction Ordering and Admission (FTOA) algorithm, in the consensus protocol that enforces the order of the transactions in the mined blocks to eliminate transaction reordering by miners. \textblue{How exactly does this fix front-running?}
 
-
-%______________________________________________________________%
-\subsection{Front-run Resistant Blockchain}
-There are technical difficulties to achieve such solutions as there are unknown factors within such network designs and requires testing every corner and edge case scenarios. In this section, we describe the potential solutions using which, one can design and implement a decentral application that is resistant to front-running.
-
-\subsubsection{Design Decision \#1: Fixed Transaction Ordering\newline}
-One possible solution to fix current blockchains in regards to transaction reordering by miners has been proposed by da Silva~\etal~\cite{fixedordering2018silva}. This solution consists of an algorithm, known as Fixed Transaction Ordering and Admission (FTOA) algorithm, in the consensus protocol that enforces the order of the transactions in the mined blocks.
-
-\subsubsection{Design Decision \#2:Privacy-Preserving Blockchain\newline}
-Market participants are concerned about revealing information on their past trades, purchases, income, or liquidity needs. Privacy is a basic human right, that being said, there are limitations to the functionality of a system designed to preserve full privacy. However other than past transactions, real-time transactions would leak information about the sender or the intention of the order that could lead to front-running attacks. Privacy-preserving blockchains try to solve the initial issue by keeping all the details of the transactions private (in some extent~\cite{miller2017empirical, kappos2018empirical}). 
-As an example, ZCash~\cite{hopwood2016zcash}, uses two distinct type of addresses, transparent addresses and shielded addresses. Transparent addresses work similar to Bitcoin transactions, fully transparent about the sender and receiver addresses, the amount and included data. However shielded addresses are private and do not leak any information, this is great for privacy but not good for smart contracts capabilities. Smart contract functionality requires verification by the miners which require to know the input, functionality, and output of smart contracts to be able to determine if the transaction is valid. Albeit by using cryptographic primitives such as zero-knowledge proofs this issue could also be resolved~\cite{kosba2016hawk}. 
-
-\subsubsection{Design Decision \#3: Dual Authoring\newline} Loopring is an open protocol proposed by Wang~\etal to build decentralized exchanges~\cite{wang2018loopring}. This protocol operates a hybrid model with off-chain order management and communication while only the order matching takes place on the chain. In this protocol, the orders are grouped in \emph{ring orders} immediately after they are sent by the users. Next, the required signatures are provided by a miner and owner of the order, see Figure~\ref{fig:vulnerable_loopring}. Eventually, the ring miner sends the \emph{submitRing transaction} to the Loopring Smart Contract (LPSC) for verification and settlement. While the \emph{submitRing transaction} sits unconfirmed in the mempool, any front-runner can create a copy of this transaction with his address instead of the ring miner's address and then sign the hash of the ring using his own private key. By paying a higher gasPrice, block miners choose the front-runner's transaction instead of the original \emph{submitRing transaction}. 
-To solve this issue, the new version of Loopring protocol uses the \emph{dual-authoring} scheme. This solution sets two levels of authorization for orders - one for settlement, and one for order matching. As it can be seen in Figure~\ref{fig:not_vulnerable_loopring}, each owner of an order generates a pair of public key (auth-address) and private key (auth-key), which are different from his address and its corresponding private key. These auth-keys are used to sign the hash of the ring and will further prevent anyone from regenerating the same \emph{submitRing transaction}. The reason is that the auth-keys are only known to the miner of the ring as they are not part of the on-chain transaction. Doing so, it is assured that (i) the orders are not modified (because they are signed by the owner), (ii) no other miner can mine the ring (because the miner's address is signed by the initial miner), and no user can front-run the \emph{submitRing transaction} (because other users do not have access to the auth-keys and hence are not able to generate new transactions with auth-keys signatures on them).
-
+\paragraph{Design Decision \#2:Privacy-Preserving Blockchains.} %Market participants are concerned about revealing information on their past trades, purchases, income, or liquidity needs. Privacy is a basic human right, that being said, there are limitations to the functionality of a system designed to preserve full privacy. However other than past transactions, real-time transactions would leak information about the sender or the intention of the order that could lead to front-running attacks. 
+Privacy-preserving blockchains strive (to some extent~\cite{miller2017empirical, kappos2018empirical}) to keep all details of transactions private, including participants and amounts. As an example, ZCash~\cite{hopwood2016zcash}, uses two distinct type of addresses, transparent addresses and shielded addresses. Transparent addresses work similar to Bitcoin transactions, fully transparent about the sender and receiver addresses, the amount and included data. However shielded addresses are private and do not leak any of this information. While this works for simple transactions, building similar shields for DApps is subject to on-going research~\cite{kosba2016hawk}. \textblue{How exactly does this fix front-running?}
 
 \begin{figure}[t]
 \centering
@@ -207,26 +191,21 @@ To solve this issue, the new version of Loopring protocol uses the \emph{dual-au
 \caption{\scriptsize \emph{submitRing} Transaction in the new version of the Loopring protocol. Other users cannnot regenerate this transaction as they do not access auth-keys and hence are not able to create the signatures. \label{fig:not_vulnerable_loopring}}
 \end{figure}
 %https://www.lucidchart.com/invitations/accept/8dee869c-482c-433f-a901-8d041a1dc526
-%______________________________________________________________%
+
+\paragraph{Design Decision \#3: Dual Authoring.} Loopring is an open protocol proposed by Wang~\etal to build decentralized exchanges~\cite{wang2018loopring}. This protocol operates a hybrid model with off-chain order management and communication while only the order matching takes place on the chain. In this protocol, the orders are grouped in \emph{ring orders} immediately after they are sent by the users. Next, the required signatures are provided by a miner and owner of the order, see Figure~\ref{fig:vulnerable_loopring}. Eventually, the ring miner sends the \emph{submitRing transaction} to the Loopring Smart Contract (LPSC) for verification and settlement. While the \emph{submitRing transaction} sits unconfirmed in the mempool, any front-runner can create a copy of this transaction with his address instead of the ring miner's address and then sign the hash of the ring using his own private key. By paying a higher gasPrice, block miners choose the front-runner's transaction instead of the original \emph{submitRing transaction}. 
+To solve this issue, the new version of Loopring protocol uses the \emph{dual-authoring} scheme. This solution sets two levels of authorization for orders - one for settlement, and one for order matching. As it can be seen in Figure~\ref{fig:not_vulnerable_loopring}, each owner of an order generates a pair of public key (auth-address) and private key (auth-key), which are different from his address and its corresponding private key. These auth-keys are used to sign the hash of the ring and will further prevent anyone from regenerating the same \emph{submitRing transaction}. The reason is that the auth-keys are only known to the miner of the ring as they are not part of the on-chain transaction. Doing so, it is assured that (i) the orders are not modified because they are signed by the owner, (ii) no other miner can mine the ring because the miner's address is signed by the initial miner, and (iii) no user can front-run the \emph{submitRing transaction} because other users do not have access to the auth-keys and hence are not able to generate new transactions with auth-keys signatures on them.
+
+% = = =
+
 \subsection{Application Design to Prevent Front-running}
 
-Another method to prevent front-running activities is to design the applications in such a way that there is no information leakage to the malicious parties to enable them to front-run other users.
-Followings discuss a few techniques which can be used by the DApp developers while designing the systems to mitigate front-running issues.
+Front-running can be tackled at the blockchain layer, as seen in the previous section, or mitigations can be build at the DApp level as seen here. 
 
-\subsubsection{Design Decision \#1: Commitment Scheme\newline} \label{CommitmentScheme}
-The commitment scheme is a cryptographic primitive that enables one to commit to a value --binding-- (\eg statement, document, data, \etc) while keeping it a secret and reveal the committed value on a later time~\cite{brassard1988minimum}. The commitment scheme is a robust method to prevent information leakage from the sensitive transactions. This could be done by simply submitting the hash value of the committed data to a smart contract and later on revealing the values linked to the committed hash, see Figure~\ref{fig:commitReveal}. 
-In the case of decentral exchanges, the user can send a commit transaction which will be cryptic to network participants but will act as a placeholder in the queue for the user, after the transaction is mined, the user sends reveal transaction revealing the order details which will be executed in a fair order. This method is not perfect, depending on the DApp design, either the order is collateralized, that means the commitment transaction includes the funds required for fulfilling the order, which will leak some information about the order, or is not collateralized and opens up the possibility of user never revealing the commitment, which will be vulnerable to Denial-of-Service attacks. 
+\paragraph{Design Decision \#1: Commit / Reveal.} \label{CommitmentScheme}
+A commitment scheme is a cryptographic primitive that enables one to commit to a value (\eg a statement, document, data, \etc) while keeping it a secret and open it (and only it) at a later time of the commiter's choosing~\cite{brassard1988minimum}. The commitment scheme is a robust method to prevent information leakage from the sensitive transactions. This could be done by simply submitting the hash value of the committed data to a smart contract and later on revealing the values linked to the committed hash, see Figure~\ref{fig:commitReveal}. 
+In the case of decentralized exchanges, the user can send a commit transaction which will be cryptic to network participants but will act as a placeholder in the queue for the user, after the transaction is mined, the user sends reveal transaction revealing the order details which will be executed in a fair order. This method is not perfect, depending on the DApp design, either the order is collateralized, that means the commitment transaction includes the funds required for fulfilling the order, which will leak some information about the order, or is not collateralized and opens up the possibility of user never revealing the commitment, which will be vulnerable to Denial-of-Service attacks. 
 Another use of such a commitment scheme is in decentralized naming systems, such as Namecoin, Ethereum Name Service (ENS). In this case, a user sends a commit transaction, which commits to the name hash, similar to a sealed bid. Once the transaction is confirmed and the grace period is over, the user sends a reveal transaction revealing the bid and also the details of the requested domain~\cite{kalodner2015empirical}. Using this scheme, one is able to hide information from the adversarial parties in the system and prevent them from front-running. A similar approach applies to on-chain voting as well ~\cite{adChainPLCRVoting}, using sealed votes, voters can make sure their votes are hidden until a later date, however, their participation and weight of the vote are publicly known. 
-Other than the collateralization issue for the commit and reveal scheme, another obvious issue is the participatory factor. For anyone watching the DApp address, there will be a direct transaction from the user to the DApp address, It will be obvious that a specific address has participated in the auction or the DApp using a commit and reveal scheme, but the details are hidden through the scheme. Both these issues, albeit hiding the details of the order and preventing direct front-running, leak information to other participants which could lead to more sophisticated front-running attacks depending on the application design. On the other note, these method has some drawbacks, the user experience is not smooth and one might forget to reveal the committed transaction. In the ENS commit-reveal process, if one forgets to reveal in the reveal phase, the committed funds are burnt and inaccessible thereafter. Also, this scheme means two transactions are required for a functionality which makes it more expensive to run.
-
-\textblue{Cite Princeton paper on Namecoin for frontrunning mitigation using commit/reveal.}
-
-\subsubsection{Design Decision \#2: Submarine Commitments\newline}\label{submarineCommits}
-Submarine Commitments~\cite{breidenbach2018enter, submarinesendHD} are similar to the commitment schemes with some key differences such as hiding participatory factor and being fully collateralized. With submarine send, it is possible to hide sender, receiver, value, and data, the commitment transaction is identical to a transaction to a newly generated address. Submarine sends could be a solution for sealed-bid auctions on the blockchain to hide the existence of the bids for other participants. 
-
-The details of how Submarine commitments work is outside the scope of this paper, however in short, using the way Ethereum transactions are constructed and ECDSA ECRecover functionality it is possible to generate one outgoing transaction from an address of which no private key exists. By constructing a transaction from that address to the DApp and funding that address we fulfill the commitment phase and by revealing the details and broadcasting the constructed transaction we reveal the commitment ~\cite{libsubmarine}, see Figure~\ref{fig:LibSubmarine}. However, this could be designed in other ways to suit the need of the DApp. Drawbacks of this scheme are similar to ~\ref{CommitmentScheme}, with an addition of two more transactions to finalize the functionality, which results in more cost and complicated user experience.
-
-
+Other than the collateralization issue for the commit and reveal scheme, another obvious issue is the participatory factor. For anyone watching the DApp address, there will be a direct transaction from the user to the DApp address, It will be obvious that a specific address has participated in the auction or the DApp using a commit and reveal scheme, but the details are hidden through the scheme. Both these issues, albeit hiding the details of the order and preventing direct front-running, leak information to other participants which could lead to more sophisticated front-running attacks depending on the application design. On the other note, these method has some drawbacks, the user experience is not smooth and one might forget to reveal the committed transaction. In the ENS commit-reveal process, if one forgets to reveal in the reveal phase, the committed funds are burnt and inaccessible thereafter. Also, this scheme means two transactions are required for a functionality which makes it more expensive.
 
 \begin{figure}[t]
 \centering
@@ -235,18 +214,25 @@ The details of how Submarine commitments work is outside the scope of this paper
 \end{figure}
 %https://www.lucidchart.com/invitations/accept/3a259b74-1162-4fb5-8023-eb0311018295
 
+\paragraph{Design Decision \#2: Submarine Commitments.}\label{submarineCommits}
+Submarine Commitments~\cite{breidenbach2018enter, submarinesendHD} are similar to the commitment schemes with some key differences such as hiding participatory factor and being fully collateralized. With submarine send, it is possible to hide sender, receiver, value, and data, the commitment transaction is identical to a transaction to a newly generated address. Submarine sends could be a solution for sealed-bid auctions on the blockchain to hide the existence of the bids for other participants. 
 
-\subsubsection{Design Decision \#3: Logic Specific Solutions\newline}
+The details of how Submarine commitments work is outside the scope of this paper, however in short, using the way Ethereum transactions are constructed and ECDSA ECRecover functionality it is possible to generate one outgoing transaction from an address of which no private key exists. By constructing a transaction from that address to the DApp and funding that address we fulfill the commitment phase and by revealing the details and broadcasting the constructed transaction we reveal the commitment ~\cite{libsubmarine}, see Figure~\ref{fig:LibSubmarine}. However, this could be designed in other ways to suit the need of the DApp. Drawbacks of this scheme are similar to ~\ref{CommitmentScheme}, with an addition of two more transactions to finalize the functionality, which results in more cost and complicated user experience.
+
+\paragraph{Design Decision \#3: Use-Case Specific Solutions.}
 There is no perfect generic solution to this issue as of now, however, to prevent front-running, one can design the application in a way that it is not possible to be front-run:
 
-\noindent\emph{Eliminating Time-Order Dependency:} The applications can be designed not to rely on the time for the orders to be executed. For example when designing a decentral exchange, one can use \emph{the call market} design instead of a time-sensitive order book. In a call market design, the arrival time of the orders does not matter as they are executed in batches~\cite{clark2014decentralizing}. 
+\begin{compactlist}
 
-\noindent\emph{Disincentivizing Front-running Actors:} This solution, which is economic rather than technical, is to disincentives the miners by paying them the fees. If the application is designed in a way that the fees of the orders are sent to the miner of the block, he would have less incentive to front-run the orders as he already gains enough financial benefit from acting fairly and executing the transactions on their correct order. For example, Malinova~\cite{malinova2017market} proposes a design for a decentral exchange which uses economic models in their trading market design to make front-running expensive and more costly than profitable. 
+\item \emph{Eliminating Time-Order Dependency:} The applications can be designed not to rely on the time for the orders to be executed. For example when designing a decentralized exchange, one can use \emph{the call market} design instead of a time-sensitive order book. In a call market design, the arrival time of the orders does not matter as they are executed in batches~\cite{clark2014decentralizing}. 
 
+\item \emph{Disincentivizing Front-running Actors:} This solution, which is economic rather than technical, is to disincentives the miners by paying them the fees. If the application is designed in a way that the fees of the orders are sent to the miner of the block, he would have less incentive to front-run the orders as he already gains enough financial benefit from acting fairly and executing the transactions on their correct order. For example, Malinova~\cite{malinova2017market} proposes a design for a decentralized exchange which uses economic models in their trading market design to make front-running expensive and more costly than profitable. 
+
+ \end{compactlist}
 
 % one solution could be to remove multiple actors, meaning that on each "play" (order), the smart contract would be the market maker. it does not matter if there are multiple similar orders. similar to PoC of Velocity~\cite{eskandari2017feasibility}. Although there are other concerns about this specific design but not for front-running.
 
-Going back to Table~\ref{tab:top25DApps}, some DApps facilitate different methods to mitigate front-running issues. As an example, LocalEthereum, an escrow-based exchange, uses challenge random values from the website to be included in the signature of the transaction (See Code ~\ref{code:localethereum} in Appendix~\ref{app:code}), hence removing any possibility of replay attack or the possibility of any other address sending the similar order.
+Going back to Table~\ref{tab:top25DApps}, some DApps facilitate different methods to mitigate front-running issues. As an example, LocalEthereum, an escrow-based exchange, uses challenge random values from the website to be included in the signature of the transaction (See Code ~\ref{code:localethereum} in Appendix~\ref{app:code}), hence removing any possibility of replay attack or the possibility of any other address sending the similar order. \textblue{is this not its own entry?}
 
 
 
@@ -256,8 +242,13 @@ Going back to Table~\ref{tab:top25DApps}, some DApps facilitate different method
 %TODO: inline talk about what these solutions are good for and if they fit Status ICO
 
 
-%______________________________________________________________%
-%\section{Concluding Remarks}
+% = = = = = = = = = = = = = = = = = = = = = = = = = = %
+% = = = Conc
+% = = = = = = = = = = = = = = = = = = = = = = = = = = % 
+
+\section{Concluding Remarks}
+
+Front-running is a pervasive issue in Ethereum DApps. While some DApp-level application logic could be built to mitigate these attacks, its ubiquity across different DApp categories suggests mitigations at the blockchain-level would perhaps be more effective. We highlight this as an important research area. 
 
 % Could talk about future work on a tool / a framework to detect front-running
 
