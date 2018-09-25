@@ -40,7 +40,7 @@
 \section{CryptoKitty} \label{app:cryptokitty}
 
 %Possibly remove this figure due to page limit
-\begin{figure}[t]
+\begin{figure}[!htb]
 \centering
 \includegraphics[width=0.3\linewidth]{figures/cryptokittie842912.png}
 \caption{ Cryptokitty Number 842912 \label{fig:cryptokittie}}
@@ -52,7 +52,7 @@ Figure~\ref{fig:cryptokittie} shows an example of a Cryptokitty.
 \section{LocalEthereum} \label{app:code}
 
 %Possibly remove this code snippet due to page limit . don't forget to remove the refrence to it ^
-\begin{lstlisting}[basicstyle=\scriptsize\ttfamily,caption={Code snippet from LocalEthereum smart contract. Values V,R and S are set by LocalEtherem to have a valid signature, also the tradeHash uses buyer and seller addresses, mitigating the possibility of front-running by a third party.},label={code:localethereum},float]
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily,caption={Code snippet from LocalEthereum smart contract. Values V,R and S are set by LocalEtherem to have a valid signature, also the tradeHash uses buyer and seller addresses, mitigating the possibility of front-running by a third party.},label={code:localethereum}]
     function createEscrow(bytes16 _tradeID, address _seller, address _buyer, uint256 _value, uint16 _fee,
 					uint32 _paymentWindowInSeconds, uint32 _expiry, uint8 _v, bytes32 _r, bytes32 _s) 
         payable external {
@@ -66,7 +66,9 @@ Figure~\ref{fig:cryptokittie} shows an example of a Cryptokitty.
         )); 
 \end{lstlisting}
 
-Code~\ref{code:localethereum} shows a mitigation technique employed by LocalEthereum.
+Code~\ref{code:localethereum} shows a mitigation technique employed by LocalEthereum. \\
+
+
 
 \section{Traditional Front-running Prevention Methods}
 
@@ -75,7 +77,7 @@ There are debates in traditional markets regarding the fact that front-running i
 
 \section{Commit-and-Reveal} \label{app:cr}
 
-\begin{figure}[t]
+\begin{figure}[!htb]
 \centering
 \includegraphics[width=0.5\linewidth]{figures/commit-reveal.png}
 \caption{\scriptsize Commit and Reveal. User sends a commitment transaction with the hash of the data, After the commitment period is over, user sends her reveal transaction to the DApp revealing the information that matches the commitment. \label{fig:commitReveal}}
