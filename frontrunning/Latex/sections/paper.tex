@@ -164,7 +164,7 @@ By tracing the transactions from these 30 addresses, we found explicit interfere
 
 \section{How to stop Front-running?} %We have the applicability of the solutions inline.
 
-There are two main approaches to mitigating front-running on blockchains: one is to design a blockchain that is front-run resistant, and the other to design the application logic in a way that front-running is not profitable. This can be done in addition to any legal remedies that might be enforceable. We note, but consider out-of-scope, approaches that introduce trusted parties to centralize time-sensitive functionalities (\eg exchanges \textit{EtherDelta} and \textit{0xProject} use off-chain order books~\cite{warren20170x,0xfrontrunning:online}). 
+There are two main approaches to mitigating front-running on blockchains: one is to design a blockchain that is front-run resistant, and the other to design the application logic in a way that front-running is not profitable. This can be done in addition to any legal remedies that might be enforceable (See Appendix ~\ref{app:traditionalprevention}). We note, but consider out-of-scope, approaches that introduce trusted parties to centralize time-sensitive functionalities (\eg exchanges \textit{EtherDelta} and \textit{0xProject} use off-chain order books~\cite{warren20170x,0xfrontrunning:online}). 
 
 
 % = = =
@@ -234,7 +234,7 @@ There is no perfect generic solution to this issue as of now, however, to preven
 
 
 %find a home for localethereum. explain the scenario where this actually works, how it can be front-run in original scenario, how this prevents front-running.
-\item \emph{Trusted party:} It is possible to use a central trusted party, to mitigate the risks of front-running on the DApp design. As an example, LocalEthereum, an escrow-based exchange, facilitates the website as the match making service for the exchange orders, and challenge random values from the website to be included in the signature of the transaction (See Code ~\ref{code:localethereum} in Appendix~\ref{app:code}), hence removing any possibility of replay attack or the possibility of any other address modifying key information in the order. This method prevents network observers to be able to make a new transaction with the defined values as the third party will be the final entity approving the transaction.
+\item \emph{Trusted party:} It is possible to use a central trusted party, to mitigate the risks of front-running on the DApp design. As an example, LocalEthereum, an escrow-based exchange, facilitates the website as the match making service for the exchange orders, and challenge random values from the website to be included in the signature of the transaction (See Code ~\ref{code:localethereum} in Appendix~\ref{app:localethereum}), hence removing any possibility of replay attack or the possibility of any other address modifying key information in the order. This method prevents network observers to be able to make a new transaction with the defined values as the third party will be the final entity approving the transaction.
  \end{compactlist}
 
 % one solution could be to remove multiple actors, meaning that on each "play" (order), the smart contract would be the market maker. it does not matter if there are multiple similar orders. similar to PoC of Velocity~\cite{eskandari2017feasibility}. Although there are other concerns about this specific design but not for front-running.

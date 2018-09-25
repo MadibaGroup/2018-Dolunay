@@ -1,5 +1,6 @@
 % !TEX root = ../main.tex
 
+\section{Appendix}
 \appendix
 
 \section{CryptoKitty} \label{app:cryptokitty}
@@ -14,7 +15,7 @@
 Figure~\ref{fig:cryptokittie} shows an example of a Cryptokitty.
 
 
-\section{LocalEthereum} \label{app:code}
+\section{LocalEthereum} \label{app:localethereum}
 
 %Possibly remove this code snippet due to page limit . don't forget to remove the refrence to it ^
 \begin{lstlisting}[basicstyle=\scriptsize\ttfamily,caption={Code snippet from LocalEthereum smart contract. Values V,R and S are set by LocalEtherem to have a valid signature, also the tradeHash uses buyer and seller addresses, mitigating the possibility of front-running by a third party.},label={code:localethereum}]
@@ -35,7 +36,7 @@ Code~\ref{code:localethereum} shows a mitigation technique employed by LocalEthe
 
 
 
-\section{Traditional Front-running Prevention Methods}
+\section{Traditional Front-running Prevention Methods} \label{app:traditionalprevention}
 
 There are debates in traditional markets regarding the fact that front-running is considered to be a form of insider trading which deemed to be illegal. Traditional methods to prevent front-running mainly involves after the fact investigation and legal action against the front-runners~\cite{LexisNexisLawSuit}. As mentioned in section~\ref{traditionalFrontrunning}, defining front-running and educating the employees were the first step taken to prevent such issues in traditional markets, however, front-running became less likely to happen mainly because of the high fine and lawsuits against firms who behaved in an unethical way. Other methods such as dark pools~\cite{zhu2014dark, buti2011diving} and sealed bids~\cite{radner1989sealed} were discussed and implemented in a variety of regulated trading systems. The traditional methods to prevent front-running does not apply to blockchain applications, as mainly they are based on central enforcement and limitations, also in case of blockchains the actors who are front-running could be anonymous and the fear of lawsuits would not apply. 
 
