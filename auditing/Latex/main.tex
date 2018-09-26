@@ -6,8 +6,11 @@
 
 \input{setup/packages}
 \input{setup/macros}
-
-
+\usepackage{draftwatermark}
+\SetWatermarkAngle{90}
+\SetWatermarkHorCenter{0.2\textwidth}
+\SetWatermarkColor{blue}
+\SetWatermarkText{Working Draft}
 % = = = = = Title = = = = = %
 
 \begin{document}
@@ -15,19 +18,18 @@
 \mainmatter
 
 \title{\Large \bf A first look at auditing in a blockchain world}
-\author{}
-\institute{}
-%\author{
-%	Erica Pimentel\inst{1},
-%	Emilio Boulianne\inst{1},
-%	Shayan Eskandari\inst{2},
-%	Jeremy Clark\inst{2}
-%	}
-%
-%\institute{
-%	\textsuperscript{1}JSMB,
-%	\textsuperscript{2}CIISE \\ Concordia University
-%	}
+
+\author{
+	Erica Pimentel\inst{1},
+	Emilio Boulianne\inst{1},
+	Shayan Eskandari\inst{2},
+	Jeremy Clark\inst{2}
+	}
+
+\institute{
+	\textsuperscript{1} John Molson School of Business,
+	\textsuperscript{2} Gina Cody School of Engineering and Computer Science\\ Concordia University
+	}
 
 \maketitle
 
@@ -40,6 +42,13 @@
 
 \input{sections/01-intro}
 \input{sections/02-body}
+
+% = = = = = Bibliography = = = = = %
+
+\section{Acknowledgements}
+
+The authors thank the Autorit\'e des March\'es Financiers (AMF) for sponsoring this research through the Education and Good Governance Fund (EGGF).
+
 % = = = = = Bibliography = = = = = %
 
 \bibliography{bib/auditing}
