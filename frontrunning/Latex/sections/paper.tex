@@ -61,7 +61,7 @@ To find example DApps to study, we use the top 25 DApps based on recent user act
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.7\linewidth]{figures/Miner_reorder_frontrun.png}
-\caption{\scriptsize The adversarial miner can monitor the Ethereum mempool for decentralized exchange cancel orders and upon seeing the cancellation transaction, he puts his buy order prior to the cancel transaction. Doing so, the miner can profit from the underlying trade and also get the gas included in the cancel transaction. \label{fig:MinerFrontrunning}} 
+\caption{ The adversarial miner can monitor the Ethereum mempool for decentralized exchange cancel orders and upon seeing the cancellation transaction, he puts his buy order prior to the cancel transaction. Doing so, the miner can profit from the underlying trade and also get the gas included in the cancel transaction. \label{fig:MinerFrontrunning}} 
 \end{figure}
 %https://www.lucidchart.com/invitations/accept/c8768786-4a3f-4c78-b3c8-aa04a6b81d06
 
@@ -70,7 +70,7 @@ The first category of DApp in Table~\ref{tab:top25DApps} is exchanges. Exchanges
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.7\linewidth]{figures/Regular_frontrunning.png}
-\caption{\scriptsize The Adversary up on seeing the Buy order, sends his own buy order with higher gas to front-run the first order. \label{fig:RegularFrontrunning}} 
+\caption{ The Adversary up on seeing the Buy order, sends his own buy order with higher gas to front-run the first order. \label{fig:RegularFrontrunning}} 
 \end{figure}
 %https://www.lucidchart.com/invitations/accept/f8ca2662-5269-425d-9deb-deb14af2aac7
 
@@ -131,7 +131,7 @@ During the time the ICO was open for participation, there were reports of Ethere
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.5\linewidth]{figures/Mining_pool_ratio.png}
-\caption{\scriptsize The percentage of Ethereum blocks mined between block 3903900 and 3908029, this is the time frame in which Status.im ICO was running. This percentage roughly shows the hashing power ratio each miner had at that time. \label{fig:mining_pool_ratio}} % IS THIS STATEMENT CORRECT?
+\caption{ The percentage of Ethereum blocks mined between block 3903900 and 3908029, this is the time frame in which Status.im ICO was running. This percentage roughly shows the hashing power ratio each miner had at that time. \label{fig:mining_pool_ratio}} % IS THIS STATEMENT CORRECT?
 \end{figure}
 
 \subsection{Data Collection and Analysis}
@@ -145,7 +145,7 @@ As shown in Figure~\ref{fig:Transactions_miners_while_status_ico_cut}, most of t
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.9\linewidth]{figures/Transactions_miners_while_status_ico_cut_only_icotx.png}
-\caption{\scriptsize This chart shows the miners behaviour on the time window that Status.im ICO was running. It is clear that the number of successful transactions mined by F2Pool do not follow the random homogeneous pattern of the rest of the network. \label{fig:Transactions_miners_while_status_ico_cut}} 
+\caption{ This chart shows the miners behaviour on the time window that Status.im ICO was running. It is clear that the number of successful transactions mined by F2Pool do not follow the random homogeneous pattern of the rest of the network. \label{fig:Transactions_miners_while_status_ico_cut}} 
 \end{figure}
 
 % make pie charts for each mining pool, all non-status-ico transactions vs success-ico-transactions vs failed-ico=transactions
@@ -153,7 +153,7 @@ As shown in Figure~\ref{fig:Transactions_miners_while_status_ico_cut}, most of t
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.7\linewidth]{figures/F2Pool_transactions_to_StatusICO_and_Refunds.png}
-\caption{\scriptsize F2Pool prior to Status.im ICO deposited 100 Ether in multiple new Ethereum addresses. On the time of the ICO they sent these deposits to Status ICO smart contract and prioritized mining of these transactions in their mining pool, this was to overcome the dynamic ceiling algorithm of the token sale smart contract. Later on they sent the refunded Ether back to their own address. [Graph made using Blockseer.com] \label{fig:f2poolfront-run}}
+\caption{ F2Pool prior to Status.im ICO deposited 100 Ether in multiple new Ethereum addresses. On the time of the ICO they sent these deposits to Status ICO smart contract and prioritized mining of these transactions in their mining pool, this was to overcome the dynamic ceiling algorithm of the token sale smart contract. Later on they sent the refunded Ether back to their own address. [Graph made using Blockseer.com] \label{fig:f2poolfront-run}}
 \end{figure}
 
 By tracing the transactions from these 30 addresses, we found explicit interference by the F2Pool\footnote{F2Pool Ethereum address was identified by their mining reward deposit address \url{https://etherscan.io/address/0x61c808d82a3ac53231750dadc13c777b59310bd9}} in this scenario. As shown in Figure~\ref{fig:f2poolfront-run}, the funds deposited by F2Pool in these addresses were sent to Status.im ICO and mined by F2Pool themselves, where the dynamic ceiling algorithm refunded a portion of the deposited funds back to these addresses, these funds were sent back to F2Pool main address a few days after. Although this incident does not involve transaction reordering in the blocks, it shows how miners can modify their mining software to behave in a certain way to front-run other transactions and gain monetary profit.
@@ -182,13 +182,13 @@ In this section, we describe the potential solutions using which, one can design
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.9\linewidth]{figures/Vulnerable_Loopring.png}
-\caption{\scriptsize \emph{submitRing} Transaction in the old version of the Loopring protocol. Any user can regenerate this transaction by replacing the miner's address with his address and signing the hash of the ring using his private key. \label{fig:vulnerable_loopring}}
+\caption{ \emph{submitRing} Transaction in the old version of the Loopring protocol. Any user can regenerate this transaction by replacing the miner's address with his address and signing the hash of the ring using his private key. \label{fig:vulnerable_loopring}}
 \end{figure}
 %https://www.lucidchart.com/invitations/accept/33d38ce9-4660-4743-806d-45c72f7e8393
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.7\linewidth]{figures/Dual_Authoring_Loopring.png}
-\caption{\scriptsize \emph{submitRing} Transaction in the new version of the Loopring protocol. Other users cannot regenerate this transaction as they do not access auth-keys and hence are not able to create the signatures. \label{fig:not_vulnerable_loopring}}
+\caption{ \emph{submitRing} Transaction in the new version of the Loopring protocol. Other users cannot regenerate this transaction as they do not access auth-keys and hence are not able to create the signatures. \label{fig:not_vulnerable_loopring}}
 \end{figure}
 %https://www.lucidchart.com/invitations/accept/8dee869c-482c-433f-a901-8d041a1dc526
 
@@ -218,7 +218,7 @@ The participatory factor is another issue for commitment scheme. For anyone watc
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.5\linewidth]{figures/LibSubmarine.png}
-\caption{\scriptsize Submarine Send~\cite{libsubmarine}. User generates an \textit{Unlock} transaction from which the commitment address is retrieved. By funding the \textit{commitment address}, user is committed to the unlock transaction. After the commitment transaction, in the reveal phase, user sends the \textit{reveal transaction} to the DApp and then after she can broadcast the Unlock transaction to unlock the funds in the commitment address. Finally after the "Auction'' is over, anyone can call \textit{Finalize} function to finalize the process.  \label{fig:LibSubmarine}}
+\caption{ Submarine Send~\cite{libsubmarine}. User generates an \textit{Unlock} transaction from which the commitment address is retrieved. By funding the \textit{commitment address}, user is committed to the unlock transaction. After the commitment transaction, in the reveal phase, user sends the \textit{reveal transaction} to the DApp and then after she can broadcast the Unlock transaction to unlock the funds in the commitment address. Finally after the "Auction'' is over, anyone can call \textit{Finalize} function to finalize the process.  \label{fig:LibSubmarine}}
 \end{figure}
 %https://www.lucidchart.com/invitations/accept/3a259b74-1162-4fb5-8023-eb0311018295
 
