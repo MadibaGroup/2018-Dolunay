@@ -8,6 +8,12 @@
 \input{setup/packages}
 \input{setup/macros}
 
+\usepackage{draftwatermark}
+\SetWatermarkAngle{90}
+\SetWatermarkHorCenter{0.2\textwidth}
+\SetWatermarkColor{blue}
+\SetWatermarkText{Working Draft}
+
 % = = = = = Title = = = = = %
 
 \begin{document}
@@ -15,8 +21,12 @@
 \mainmatter
 
 \title{The paper on blockchain front-running}
-\author{}
-\institute{}
+\author{Shayan Eskandari, Seyedehmahsa Moosavi, \and Jeremy Clark}
+
+\institute{
+	Gina Cody School of Engineering and Computer Science\\ Concordia University
+	}
+	
 \maketitle
 
 % = = = = = Abstract = = = = = %
@@ -26,6 +36,11 @@
 % = = = = = Main Body = = = = = %
 
 \input{sections/paper}
+
+% = = = = = Ack = = = = = %
+
+\subsubsection*{Acknowledgements.}
+The authors thank the Autorit\'e des March\'es Financiers (AMF) for sponsoring this research through the Education and Good Governance Fund (EGGF), as well as NSERC through a Discovery Grant. 
 
 % = = = = = Bibliography = = = = = %
 
