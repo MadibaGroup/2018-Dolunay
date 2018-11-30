@@ -154,6 +154,15 @@ By tracing the transactions from these 30 addresses, we found explicit interfere
 
 \section{How to stop Front-running?} %We have the applicability of the solutions inline.
 
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.9\linewidth]{figures/solutions_mindmap.png}
+\caption{ \emph{Solutions Mindmap}  \label{fig:solutions_mindmap.png}}
+\end{figure}
+%https://drive.mindmup.com/map/1u27BpAgU2CVy4BUf33cTRsOzJ01W3Gl2
+
+
 There are two main approaches to mitigating front-running on blockchains: one is to design a blockchain that is front-run resistant, and the other to design the application logic in a way that front-running is not profitable. This can be done in addition to any legal remedies that might be enforceable (See Appendix ~\ref{app:traditionalprevention}). We note, but consider out-of-scope, approaches that introduce trusted parties to centralize time-sensitive functionalities (\eg exchanges \textit{EtherDelta} and \textit{0xProject} use off-chain order books~\cite{warren20170x,0xfrontrunning:online}). 
 
 
@@ -168,17 +177,17 @@ In this section, we describe the potential solutions using which, one can design
 Privacy-preserving blockchains strive (to some extent~\cite{miller2017empirical,kappos2018empirical}) to keep all details of transactions private, including participants and amounts. As an example, ZCash~\cite{hopwood2016zcash} uses two distinct types of addresses, transparent and shielded addresses. Transparent addresses work similar to Bitcoin transactions, fully transparent about the sender and receiver addresses, the amount and included data. However, shielded addresses are private and do not leak any information. While this solution works for simple transactions, building similar shields for DApps is subject to on-going research~\cite{kosba2016hawk}. With the possibility of having private smart contracts in such a setting, it could be feasible to achieve a front-run resistance blockchain, however, the functionality of the smart contracts could be limited. 
 
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.9\linewidth]{figures/Vulnerable_Loopring.png}
-\caption{ \emph{submitRing} Transaction in the old version of the Loopring protocol. Any user can regenerate this transaction by replacing the miner's address with his address and signing the hash of the ring using his private key. \label{fig:vulnerable_loopring}}
-\end{figure}
+%\begin{figure}[t]
+%\centering
+%\includegraphics[width=0.9\linewidth]{figures/Vulnerable_Loopring.png}
+%\caption{ \emph{submitRing} Transaction in the old version of the Loopring protocol. Any user can regenerate this transaction by replacing the miner's address with his address and signing the hash of the ring using his private key. \label{fig:vulnerable_loopring}}
+%\end{figure}
 %https://www.lucidchart.com/invitations/accept/33d38ce9-4660-4743-806d-45c72f7e8393
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.7\linewidth]{figures/Dual_Authoring_Loopring.png}
-\caption{ \emph{submitRing} Transaction in the new version of the Loopring protocol. Other users cannot regenerate this transaction as they do not access auth-keys and hence are not able to create the signatures. \label{fig:not_vulnerable_loopring}}
-\end{figure}
+%\begin{figure}[t]
+%\centering
+%\includegraphics[width=0.7\linewidth]{figures/Dual_Authoring_Loopring.png}
+%\caption{ \emph{submitRing} Transaction in the new version of the Loopring protocol. Other users cannot regenerate this transaction as they do not access auth-keys and hence are not able to create the signatures. \label{fig:not_vulnerable_loopring}}
+%\end{figure}
 %https://www.lucidchart.com/invitations/accept/8dee869c-482c-433f-a901-8d041a1dc526
 
 %The first solution was to prevent front-running, but then it was attacked so they updated the solution. this new solution also could be attacked. 
