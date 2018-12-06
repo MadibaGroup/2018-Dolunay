@@ -6,6 +6,8 @@ Blockchain technology enables decentralized applications (DApps) or smart contra
 
 The mechanics of front-running works on all DApps but front-running is not necessarily beneficial, depending on the DApp's internal logic and/or as any mitigations it might implement. Therefore, DApps need to be studied individually or in categories. In this paper we draw from a scattered body of knowledge regarding front-running attacks on blockchain applications and proposed solutions, with series of case studies of DApps deployed on Ethereum (a popular blockchain supporting DApps) from each category of the top 25 most active, based on user activity.\footnote{List of decentralized applications \url{https://DAppradar.com/DApps}} We do case studies on decentralized exchanges (\eg Bancor), crypto-collectibles (\eg CryptoKitties), gambling services (\eg Fomo3D), and decentralized name services (\eg Ethereum Name Service). We also study initial coin offerings (ICOs), which by happenstance, did not appear in the top 25 on our sample day. After a few hacking incidents of high valued smart contracts~\cite{siegel2016daohack}, ICOs started to implement restrictions and capped how much funds can be gathered. This scarcity of the initial coins made for a competition to incentivize big investors to get in and buy the tokens at a discounted price and sell them to latecomers on the open markets~\cite{zetzsche2018ico,li2018initial}. ICOs started to experiment with different \textit{fair} capping methods, such as reverse dutch auction and dynamic ceilings~\cite{kaal2017initial}. We show empirical evidence of a miner purchasing tokens ahead of other users in Status.im. Finally, proposals to eliminate or mitigate front-running from DApps are scattered across forums, proposed standards (called EIPs in Ethereum) and academic papers; we systemize them in the last section. 
 
+% Developers don't have the mindset to design DApps with front-running in mind. This is an attempt to bring forward the subject and make them more aware of these type of attacks
+
 % = = = = = = = = = = = = = = = = = = = = = = = = = = %
 % = = = Preliminaries
 % = = = = = = = = = = = = = = = = = = = = = = = = = = %
@@ -155,58 +157,42 @@ By tracing the transactions from these 30 addresses, we found explicit interfere
 % = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
 
-\section{How to stop Front-running?} %We have the applicability of the solutions inline.
+\section{Key Mitigations} %We have the applicability of the solutions inline.
 
 
 \begin{figure}[t]
-\centering
+\centering 
 \includegraphics[width=0.7\linewidth]{figures/solutions_mindmap.png}
 \caption{ \emph{Solutions Mindmap}  \label{fig:solutions_mindmap.png}}
 \end{figure}
 %https://drive.mindmup.com/map/1u27BpAgU2CVy4BUf33cTRsOzJ01W3Gl2
 
 
-There are two main approaches to mitigating front-running on blockchains: one is to design a blockchain that is front-run resistant, and the other to design the application logic in a way that front-running is not profitable. This can be done in addition to any legal remedies that might be enforceable (See Appendix ~\ref{app:traditionalprevention}). We note, but consider out-of-scope, approaches that introduce trusted parties to centralize time-sensitive functionalities (\eg exchanges \textit{EtherDelta} and \textit{0xProject} use off-chain order books~\cite{warren20170x,0xfrontrunning:online}). 
+We encounter a number of main approaches to mitigate front-running attacks on blockchains: we summerize the main approaches. 
+
+
+
+one is to design a blockchain that is front-run resistant, and the other to design the application logic in a way that front-running is not profitable. This can be done in addition to any legal remedies that might be enforceable (See Appendix ~\ref{app:traditionalprevention}). We note, but consider out-of-scope, approaches that introduce trusted parties to centralize time-sensitive functionalities (\eg exchanges \textit{EtherDelta} and \textit{0xProject} use off-chain order books~\cite{warren20170x,0xfrontrunning:online}). 
 
 
 % = = =
 
-\subsection{Front-Running Resistant Blockchains}
 In this section, we describe the potential solutions using which, one can design and implement a decentralized application that is resistant to front-running. Note that, the existing technical difficulties make these solutions hard to achieve as it requires designers to test edge case scenarios. 
+
+
+%\subsection{Front-Running Resistant Blockchains}
+\subsection{Transaction Queue}
+
 
 \paragraph{Design Decision \#1: Fixed Transaction Ordering.} da Silva~\etal~\cite{fixedordering2018silva} proposes an algorithm, known as Fixed Transaction Ordering and Admission (FTOA), in the consensus protocol that enforces the order of the transactions in the mined blocks, using logical timestamps in a Byzantine setting, to eliminate transaction reordering by miners. This is a theoretical solution and is not trivial to implement in the current Byzantine consensus protocols. An implementation of fixed transaction ordering is Canonical Transaction Ordering Rule (CTOR) introduced in November 2018 fork of Bitcoin cash, which indicates an order in which blocks are valid based on the order of the transactions in them; coinbase first, then ascending lexicographic order based on transaction hash~\cite{bitcoinABC2018CTOR}. This solution can potentially mitigate the re-ordering attack by miners, however it does not prevent it fully. 
 %NOTE: the two solutions above are both on the transaction ordering, however Silva's solution requires a logical timestamp, and CTOR uses sorting based on transaction hash.
 
 
+
+\subsection{Confidentiality}
+
 \paragraph{Design Decision \#2:Privacy-Preserving Blockchains.}
 Privacy-preserving blockchains strive (to some extent~\cite{miller2017empirical,kappos2018empirical}) to keep all details of transactions private, including participants and amounts. As an example, ZCash~\cite{hopwood2016zcash} uses two distinct types of addresses, transparent and shielded addresses. Transparent addresses work similar to Bitcoin transactions, fully transparent about the sender and receiver addresses, the amount and included data. However, shielded addresses are private and do not leak any information. While this solution works for simple transactions, building similar shields for DApps is subject to on-going research~\cite{kosba2016hawk}. With the possibility of having private smart contracts in such a setting, it could be feasible to achieve a front-run resistance blockchain, however, the functionality of the smart contracts could be limited. 
-
-
-%\begin{figure}[t]
-%\centering
-%\includegraphics[width=0.9\linewidth]{figures/Vulnerable_Loopring.png}
-%\caption{ \emph{submitRing} Transaction in the old version of the Loopring protocol. Any user can regenerate this transaction by replacing the miner's address with his address and signing the hash of the ring using his private key. \label{fig:vulnerable_loopring}}
-%\end{figure}
-%https://www.lucidchart.com/invitations/accept/33d38ce9-4660-4743-806d-45c72f7e8393
-%\begin{figure}[t]
-%\centering
-%\includegraphics[width=0.7\linewidth]{figures/Dual_Authoring_Loopring.png}
-%\caption{ \emph{submitRing} Transaction in the new version of the Loopring protocol. Other users cannot regenerate this transaction as they do not access auth-keys and hence are not able to create the signatures. \label{fig:not_vulnerable_loopring}}
-%\end{figure}
-%https://www.lucidchart.com/invitations/accept/8dee869c-482c-433f-a901-8d041a1dc526
-
-%The first solution was to prevent front-running, but then it was attacked so they updated the solution. this new solution also could be attacked. 
-\paragraph{Design Decision \#3: Dual Authoring.} This scheme is proposed to solve the front-running issue within Loopring -- a decentralized exchange protocol proposed by Wang~\etal~\cite{wang2018loopring}. In the first version of this protocol, orders are grouped in \emph{ring orders} once they are sent by the users. After the required signatures are provided by the \textit{ring miner}, he sends the \emph{submitRing transaction} to the Loopring Smart Contract (LPSC) for verification and settlement (see Figure~\ref{fig:vulnerable_loopring}). While this transaction sits unconfirmed in the mempool, any front-runner can create a copy of this transaction with higher gasPrice and his address instead of the ring miner's address. Using the proposed \textit{dual authoring} solution in the new version of Loopring, regeneration of the \emph{submitRing transaction} is infeasible as the users have to sign the orders using their secondary private keys (auth-keys), which are only known to the ring miner and not other users (see Figure~\ref{fig:not_vulnerable_loopring}).
-
-
-% Loopring protocol is proposed by Wang~\etal to build decentralized exchanges~\cite{wang2018loopring}. In this protocol, the orders are grouped in \emph{ring orders} immediately after they are sent by the users. Next, the required signatures are provided by a miner and owner of the order, see Figure~\ref{fig:vulnerable_loopring}. Eventually, the ring miner sends the \emph{submitRing transaction} to the Loopring Smart Contract (LPSC) for verification and settlement. While the \emph{submitRing transaction} sits unconfirmed in the mempool, any front-runner can create a copy of this transaction with his address instead of the ring miner's address and then sign the hash of the ring using his own private key. By paying a higher gasPrice, block miners choose the front-runner's transaction instead of the original \emph{submitRing transaction}. 
-%To solve this issue, the new version of Loopring protocol uses the \emph{dual-authoring} scheme. This solution sets two levels of authorization for orders - one for settlement, and one for order matching. As it can be seen in Figure~\ref{fig:not_vulnerable_loopring}, each owner of an order generates a pair of public key (auth-address) and private key (auth-key), which are different from his address and its corresponding private key. These auth-keys are used to sign the hash of the ring and will further prevent anyone from regenerating the same \emph{submitRing transaction}. The reason is that the auth-keys are only known to the miner of the ring as they are not part of the on-chain transaction. Doing so, it is assured that (i) the orders are not modified because they are signed by the owner, (ii) no other miner can mine the ring because the miner's address is signed by the initial miner, and (iii) no user can front-run the \emph{submitRing transaction} because other users do not have access to the auth-keys and hence are not able to generate new transactions with auth-keys signatures on them.
-
-% = = =
-
-\subsection{Application Design to Prevent Front-running}
-
-Front-running can be tackled at the blockchain layer, as seen in the previous section, or mitigations can be built at the DApp level as seen here. 
 
 \paragraph{Design Decision \#1: Commit / Reveal.} \label{CommitmentScheme}
 A commitment scheme is a cryptographic primitive that enables one to commit to a value (\eg a statement, document, data, \etc) while keeping it a secret, and then open it (and only it) at a later time of the committer's choosing~\cite{brassard1988minimum}. A common approach is to submit the hash value of the data to be committed, potentially with a random nonce (for predictable data), to a smart contract and later reveal the original data and nonce which can be verified to hash to the commitment. See Figure~\ref{fig:commitReveal} in Appendix~\ref{app:cr}. 
@@ -227,6 +213,24 @@ The participatory factor is another issue for the commitment scheme. For anyone 
 \paragraph{Design Decision \#2: Submarine Commitments.}\label{submarineCommits}
 Submarine Commitments~\cite{breidenbach2018enter,submarinesendHD} extend basic commit/reveal functionality with additional properties. In particular, they hide the DApp being invoked during the commit phase and also ensure that revealed transactions that send funds are fully collateralized. With submarine send, it is possible to hide sender, receiver, value, and data, so the commitment transaction is identical to a transaction to a newly generated address. Submarine sends could be a solution for sealed-bid auctions on the blockchain to hide the existence of the bids for other participants. The details of how Submarine commitments work could fill an entire paper, however in short, using the way Ethereum transactions are constructed and ECDSA ECRecover functionality, it is possible to generate one outgoing transaction from an address of which no private key exists. By constructing a transaction from that address to the DApp and funding that address we fulfill the commitment phase. By revealing the details and broadcasting the constructed transaction we reveal the commitment~\cite{libsubmarine}. See Figure~\ref{fig:LibSubmarine}. However, this could be designed in other ways to suit the need of the DApp. Drawbacks of this scheme are similar to commit/reveal, with the addition of two more transactions to finalize a transaction, which adds cost and complexity to the user experience.
 
+
+%\begin{figure}[t]
+%\centering
+%\includegraphics[width=0.9\linewidth]{figures/Vulnerable_Loopring.png}
+%\caption{ \emph{submitRing} Transaction in the old version of the Loopring protocol. Any user can regenerate this transaction by replacing the miner's address with his address and signing the hash of the ring using his private key. \label{fig:vulnerable_loopring}}
+%\end{figure}
+%https://www.lucidchart.com/invitations/accept/33d38ce9-4660-4743-806d-45c72f7e8393
+%\begin{figure}[t]
+%\centering
+%\includegraphics[width=0.7\linewidth]{figures/Dual_Authoring_Loopring.png}
+%\caption{ \emph{submitRing} Transaction in the new version of the Loopring protocol. Other users cannot regenerate this transaction as they do not access auth-keys and hence are not able to create the signatures. \label{fig:not_vulnerable_loopring}}
+%\end{figure}
+%https://www.lucidchart.com/invitations/accept/8dee869c-482c-433f-a901-8d041a1dc526
+
+%The first solution was to prevent front-running, but then it was attacked so they updated the solution. this new solution also could be attacked. 
+
+\subsection{Design Practices}
+
 \paragraph{Design Decision \#3: Use-Case Specific Solutions.}
 There is no perfect generic solution to this issue as of now, however, to prevent front-running, one can design the application in a way that it is not possible to be front-run:
 
@@ -242,6 +246,20 @@ There is no perfect generic solution to this issue as of now, however, to preven
 % one solution could be to remove multiple actors, meaning that on each "play" (order), the smart contract would be the market maker. it does not matter if there are multiple similar orders. similar to PoC of Velocity~\cite{eskandari2017feasibility}. Although there are other concerns about this specific design but not for front-running.
 
 %TODO: inline talk about what these solutions are good for and if they fit Status ICO
+
+\paragraph{Design Decision \#3: Dual Authoring.} This scheme is proposed to solve the front-running issue within Loopring -- a decentralized exchange protocol proposed by Wang~\etal~\cite{wang2018loopring}. In the first version of this protocol, orders are grouped in \emph{ring orders} once they are sent by the users. After the required signatures are provided by the \textit{ring miner}, he sends the \emph{submitRing transaction} to the Loopring Smart Contract (LPSC) for verification and settlement (see Figure~\ref{fig:vulnerable_loopring}). While this transaction sits unconfirmed in the mempool, any front-runner can create a copy of this transaction with higher gasPrice and his address instead of the ring miner's address. Using the proposed \textit{dual authoring} solution in the new version of Loopring, regeneration of the \emph{submitRing transaction} is infeasible as the users have to sign the orders using their secondary private keys (auth-keys), which are only known to the ring miner and not other users (see Figure~\ref{fig:not_vulnerable_loopring}).
+
+
+% Loopring protocol is proposed by Wang~\etal to build decentralized exchanges~\cite{wang2018loopring}. In this protocol, the orders are grouped in \emph{ring orders} immediately after they are sent by the users. Next, the required signatures are provided by a miner and owner of the order, see Figure~\ref{fig:vulnerable_loopring}. Eventually, the ring miner sends the \emph{submitRing transaction} to the Loopring Smart Contract (LPSC) for verification and settlement. While the \emph{submitRing transaction} sits unconfirmed in the mempool, any front-runner can create a copy of this transaction with his address instead of the ring miner's address and then sign the hash of the ring using his own private key. By paying a higher gasPrice, block miners choose the front-runner's transaction instead of the original \emph{submitRing transaction}. 
+%To solve this issue, the new version of Loopring protocol uses the \emph{dual-authoring} scheme. This solution sets two levels of authorization for orders - one for settlement, and one for order matching. As it can be seen in Figure~\ref{fig:not_vulnerable_loopring}, each owner of an order generates a pair of public key (auth-address) and private key (auth-key), which are different from his address and its corresponding private key. These auth-keys are used to sign the hash of the ring and will further prevent anyone from regenerating the same \emph{submitRing transaction}. The reason is that the auth-keys are only known to the miner of the ring as they are not part of the on-chain transaction. Doing so, it is assured that (i) the orders are not modified because they are signed by the owner, (ii) no other miner can mine the ring because the miner's address is signed by the initial miner, and (iii) no user can front-run the \emph{submitRing transaction} because other users do not have access to the auth-keys and hence are not able to generate new transactions with auth-keys signatures on them.
+
+% = = =
+
+%\subsection{Application Design to Prevent Front-running}
+%
+%Front-running can be tackled at the blockchain layer, as seen in the previous section, or mitigations can be built at the DApp level as seen here. 
+
+
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = %
 % = = = Conc
