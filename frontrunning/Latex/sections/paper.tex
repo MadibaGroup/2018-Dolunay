@@ -168,26 +168,28 @@ By tracing the transactions from these 30 addresses, we found explicit interfere
 %https://drive.mindmup.com/map/1u27BpAgU2CVy4BUf33cTRsOzJ01W3Gl2
 
 
-We encounter a number of main approaches to mitigate front-running attacks on blockchains: we summerize the main approaches. 
+As we studied front-running attacks on blockchain, we also encountered a number of ways of preventing, detecting, or mitigating front-running attacks. Instead of providing the details of exact solutions which will change over time, we extract the main principles or primitives that address the attack. A particular system may implement more in a layered mitigation approach. 
 
+We classify the mitigations into three main categories. In the first category, the blockchain removes the miner's ability to arbitrarily order transactions and tries to enforce some ordering, or queue, for the transactions. In the second category, cryptographic techniques are used to limit the visibility of transactions, giving the potential front-running less information to base their strategy on. In the final category, dapps are designed from the bottom-up to remove the importance of transaction ordering or time in their operations. 
 
-
-one is to design a blockchain that is front-run resistant, and the other to design the application logic in a way that front-running is not profitable. This can be done in addition to any legal remedies that might be enforceable (See Appendix ~\ref{app:traditionalprevention}). We note, but consider out-of-scope, approaches that introduce trusted parties to centralize time-sensitive functionalities (\eg exchanges \textit{EtherDelta} and \textit{0xProject} use off-chain order books~\cite{warren20170x,0xfrontrunning:online}). 
-
-
-% = = =
-
-In this section, we describe the potential solutions using which, one can design and implement a decentralized application that is resistant to front-running. Note that, the existing technical difficulties make these solutions hard to achieve as it requires designers to test edge case scenarios. 
-
+We also note that for dapps that are legally well-formed (\eg with identified parties and a clear jurisdiction), front-running attacks can violate laws, which is its own deterrent. We do not discuss this further here; see Appendix ~\ref{app:traditionalprevention}. 
 
 %\subsection{Front-Running Resistant Blockchains}
 \subsection{Transaction Queue}
 
+% Jeremy: to do
 
-\paragraph{Design Decision \#1: Fixed Transaction Ordering.} da Silva~\etal~\cite{fixedordering2018silva} proposes an algorithm, known as Fixed Transaction Ordering and Admission (FTOA), in the consensus protocol that enforces the order of the transactions in the mined blocks, using logical timestamps in a Byzantine setting, to eliminate transaction reordering by miners. This is a theoretical solution and is not trivial to implement in the current Byzantine consensus protocols. An implementation of fixed transaction ordering is Canonical Transaction Ordering Rule (CTOR) introduced in November 2018 fork of Bitcoin cash, which indicates an order in which blocks are valid based on the order of the transactions in them; coinbase first, then ascending lexicographic order based on transaction hash~\cite{bitcoinABC2018CTOR}. This solution can potentially mitigate the re-ordering attack by miners, however it does not prevent it fully. 
+Transaction chaining -> resolve conflicts -> topological order/sort (also consider total order) -> cf UTXOs
+
+FIFO -> consensus on FI -> possible in theory
+-> could be solved with TTP -> censorship still possible (completeness issue)
+
+FI_O -> FIRO -> deterministic random order -> manipulatable (malleability in the collection and your own items in the collection and maybe and other items in the collection) -> CTOR 
+
+%\paragraph{Design Decision \#1: Fixed Transaction Ordering.} da Silva~\etal~\cite{fixedordering2018silva} proposes an algorithm, known as Fixed Transaction Ordering and Admission (FTOA), in the consensus protocol that enforces the order of the transactions in the mined blocks, using logical timestamps in a Byzantine setting, to eliminate transaction reordering by miners. This is a theoretical solution and is not trivial to implement in the current Byzantine consensus protocols. 
+
+An implementation of fixed transaction ordering is Canonical Transaction Ordering Rule (CTOR) introduced in November 2018 fork of Bitcoin cash, which indicates an order in which blocks are valid based on the order of the transactions in them; coinbase first, then ascending lexicographic order based on transaction hash~\cite{bitcoinABC2018CTOR}. This solution can potentially mitigate the re-ordering attack by miners, however it does not prevent it fully. 
 %NOTE: the two solutions above are both on the transaction ordering, however Silva's solution requires a logical timestamp, and CTOR uses sorting based on transaction hash.
-
-
 
 \subsection{Confidentiality}
 
@@ -248,6 +250,9 @@ There is no perfect generic solution to this issue as of now, however, to preven
 %TODO: inline talk about what these solutions are good for and if they fit Status ICO
 
 \paragraph{Design Decision \#3: Dual Authoring.} This scheme is proposed to solve the front-running issue within Loopring -- a decentralized exchange protocol proposed by Wang~\etal~\cite{wang2018loopring}. In the first version of this protocol, orders are grouped in \emph{ring orders} once they are sent by the users. After the required signatures are provided by the \textit{ring miner}, he sends the \emph{submitRing transaction} to the Loopring Smart Contract (LPSC) for verification and settlement (see Figure~\ref{fig:vulnerable_loopring}). While this transaction sits unconfirmed in the mempool, any front-runner can create a copy of this transaction with higher gasPrice and his address instead of the ring miner's address. Using the proposed \textit{dual authoring} solution in the new version of Loopring, regeneration of the \emph{submitRing transaction} is infeasible as the users have to sign the orders using their secondary private keys (auth-keys), which are only known to the ring miner and not other users (see Figure~\ref{fig:not_vulnerable_loopring}).
+
+We note, but consider out-of-scope, approaches that introduce trusted parties to centralize time-sensitive functionalities (\eg exchanges \textit{EtherDelta} and \textit{0xProject} use off-chain order books~\cite{warren20170x,0xfrontrunning:online}). 
+
 
 
 % Loopring protocol is proposed by Wang~\etal to build decentralized exchanges~\cite{wang2018loopring}. In this protocol, the orders are grouped in \emph{ring orders} immediately after they are sent by the users. Next, the required signatures are provided by a miner and owner of the order, see Figure~\ref{fig:vulnerable_loopring}. Eventually, the ring miner sends the \emph{submitRing transaction} to the Loopring Smart Contract (LPSC) for verification and settlement. While the \emph{submitRing transaction} sits unconfirmed in the mempool, any front-runner can create a copy of this transaction with his address instead of the ring miner's address and then sign the hash of the ring using his own private key. By paying a higher gasPrice, block miners choose the front-runner's transaction instead of the original \emph{submitRing transaction}. 
