@@ -196,7 +196,7 @@ Finally, transactions themselves could enforce order. In particular, they could 
 
 \paragraph{Privacy-Preserving Blockchains.}
 
-All transaction details in Bitcoin are make public and participant identities are only lightly protected. A number of techniques increase confidentiality~\cite{bunzBulletproofs,maxwell2015confidential} and anonymity [zerocoin, monero, etc] for cryptocurrencies. A current research direction is extending these protections to DApps. It is tempting to think that a confidential DApp would not permit front-running, as the front-runner would not know the details of the transaction she is front-running. However there are some nuances here to explore.
+All transaction details in Bitcoin are make public and participant identities are only lightly protected. A number of techniques increase confidentiality~\cite{bunzBulletproofs,maxwell2015confidential} and anonymity ~\cite{miers2013zerocoin,monerosite} for cryptocurrencies. A current research direction is extending these protections to DApps. It is tempting to think that a confidential DApp would not permit front-running, as the front-runner would not know the details of the transaction she is front-running. However there are some nuances here to explore.
 
 A DApp includes the following components: (1) the code of the DApp, (2) the current state of the DApp, (3) the name of the function being invoked, (4) the parameters supplied to the function, (5) the address of the contract the function is being invoked on, and (6) the identity of the sender. Confidentiality applied to a DApp could mean different levels of protection for each of these. For front-running, function calls (3,4) are the most important, however function calls could be inferred from state changes (2). Hawk~\cite{kosba2016hawk} and Eiden [c] are examples of (2,3,4)-confidentiality (with limitations we are glossing over).
 
@@ -225,7 +225,7 @@ Commit/reveal is a two round protocol, and aborting after the first round (early
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.7\linewidth]{figures/LibSubmarine.png}
-\caption{Submarine Send~\cite{libsubmarine}. User generates an \textit{Unlock} transaction from which the commitment address is retrieved using ECDSA ECRecover. By \textsf(1) funding the \textit{commitment address}, user is committed to the unlock transaction. In the reveal phase, \textsf(2) user sends the \textit{reveal transaction} to the DApp, revealing the nature of the commitment transaction. \textsf(3) Then after she can broadcast the Unlock transaction to unlock the funds in the commitment address. \textsf(4) Finally after the "Auction'' is over, anyone can call \textit{Finalize} function to finalize the process.  \label{fig:LibSubmarine}}
+\caption{Submarine Send~\cite{libsubmarine}. User generates an \textit{Unlock} transaction from which the commitment address is retrieved using ECDSA ECRecover. By \textsf{1.} funding the \textit{commitment address}, user is committed to the unlock transaction. In the reveal phase, \textsf{2.} user sends the \textit{reveal transaction} to the DApp, revealing the nature of the commitment transaction. \textsf{3.} Then after she can broadcast the Unlock transaction to unlock the funds in the commitment address. \textsf{4.} Finally after the "Auction'' is over, anyone can call \textit{Finalize} function to finalize the process.  \label{fig:LibSubmarine}}
 \end{figure}
 %https://www.lucidchart.com/invitations/accept/3a259b74-1162-4fb5-8023-eb0311018295
 
