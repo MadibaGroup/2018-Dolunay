@@ -35,11 +35,16 @@ In one sense, blockchain technology (which was introduced via Bitcoin in 2008~\c
 
 \subsection{Literature on Blockchain Front-running}
 
-%make them more pointy, shorten it. mainly the first paragraph
-% Jeremy: agree with above, also should be organized into subjects not just a list of papers
+Given the purpose of this entire paper is systemizing the existing literature, we do not re-enumerate the literature here. However, we note two things. First, we are not aware of any other systematic study of this issue. Second, front-running is related to two concepts that are often not considered front-running per se: double-spending and rushing adversaries. 
 
-Front-running is mentioned in passing in many papers and we try to 
-Aune~\etal discuss how the lack of time priority between broadcasting a transaction and its validation by miners on a blockchain based system would lead to market information leakage~\cite{aune2017footprints}. They also propose a cryptographic approach, similar to commit and reveal (see Section~\ref{sec:comm}) to prevent front-running. Malinova and Park discuss different design settings for financial markets and trading platforms on decentralized ledgers~\cite{malinova2017market}. They argue that blockchain brings new options of transparency which affects traders behaviour, especially in the presence of intermediary front-runners. They model indirect trading costs and use the economic literature on search and trading at decentralized exchanges in their design settings to make front-running costly and inefficient. Breidenbach~\etal~\cite{breidenbach2018enter} face the front-running issue in the context of automating bug bounties for smart contracts. Upon submitting the bug bounty to the Hydra smart contract, one can front-run the bug report and claim the bounty instead of the original reporter. In order to mitigate this issue they proposed \textit{Submarine Commitments} which extend commit and reveal; we discuss them further in Section~\ref{sec:comm}.
+% Jeremy: redistribute this to the relevant section
+%Aune~\etal discuss how the lack of time priority between broadcasting a transaction and its validation by miners on a blockchain based system would lead to market information leakage~\cite{aune2017footprints}. They also propose a cryptographic approach, similar to commit and reveal (see Section~\ref{sec:comm}) to prevent front-running. 
+
+
+% Jeremy: this is well described already, but we should use the bug-bounty example (citing this) somewhere in the paper as it is a nice example
+%Breidenbach~\etal~\cite{breidenbach2018enter} face the front-running issue in the context of automating bug bounties for smart contracts. Upon submitting the bug bounty to the Hydra smart contract, one can front-run the bug report and claim the bounty instead of the original reporter. In order to mitigate this issue they proposed \textit{Submarine Commitments} which extend commit and reveal; we discuss them further in Section~\ref{sec:comm}.
+
+% Jeremy: The following two paragraphs are fine 
 
 Double-spending attacks in Bitcoin are related to front-running~\cite{bamert2013have,karame2012double}. In this attack, a user broadcasts a transaction and is able to obtain some off-blockchain good or service before the transaction has actually been (fully) confirmed. The user can then broadcast a competing transaction that sends the same unspent coins to herself, perhaps using higher transaction fees, arrangements with miners or artifacts of the network topology to have the second transaction confirmed instead of the first. This can be considered a form of self-front-running.
 
@@ -230,9 +235,13 @@ Commit/reveal is a two round protocol, and aborting after the first round (early
 
 \subsection{Design Practices}
 
-The final main category of mitigation is to assume front-running is unpreventable and to thus responsively redesign the functionality of the DApp to remove any benefit from front-running. For example, when designing a decentralized exchange, one can use a call market design instead of a time-sensitive order book~\cite{clark2014decentralizing} to side-step and disincentivize front-running by miners. In a call market design, the arrival time of orders does not matter as they are executed in batches. The call market solution pivots profitable gains that front-running miners stand to gain into fees that they collect~\cite{clark2014decentralizing}, removing the financial incentive to front-run. To the same end, Malinova~\cite{malinova2017market} proposes a design for a decentralized exchange which uses economic models in their trading market design to make front-running expensive and more costly than profitable. They split big investments into smaller ones using intermediaries --liquidity demander-- and liquidity providers to achieve this.
+The final main category of mitigation is to assume front-running is unpreventable and to thus responsively redesign the functionality of the DApp to remove any benefit from front-running. For example, when designing a decentralized exchange, one can use a call market design instead of a time-sensitive order book~\cite{clark2014decentralizing} to side-step and disincentivize front-running by miners. In a call market design, the arrival time of orders does not matter as they are executed in batches. The call market solution pivots profitable gains that front-running miners stand to gain into fees that they collect~\cite{clark2014decentralizing}, removing the financial incentive to front-run. 
+
+% Jeremy: This needs some clarification; what exactly is the principle they are applying???
+Malinova and Park discuss different design settings for financial markets and trading platforms on decentralized ledgers~\cite{malinova2017market}. They argue that blockchain brings new options of transparency which affects traders behaviour, especially in the presence of intermediary front-runners. They model indirect trading costs and use the economic literature on search and trading at decentralized exchanges in their design settings to make front-running costly and inefficient. Specifically they use economic models in their trading market design to make front-running expensive and more costly than profitable. They split big investments into smaller ones using intermediaries --liquidity demander-- and liquidity providers to achieve this.
 
 % one solution could be to remove multiple actors, meaning that on each "play" (order), the smart contract would be the market maker. it does not matter if there are multiple similar orders. similar to PoC of Velocity~\cite{eskandari2017feasibility}. Although there are other concerns about this specific design but not for front-running.
+
 %TODO: inline talk about what these solutions are good for and if they fit Status ICO
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = %
