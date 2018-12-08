@@ -224,7 +224,7 @@ Commit/reveal is a two round protocol, and aborting after the first round (early
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.5\linewidth]{figures/LibSubmarine.png}
+\includegraphics[width=0.7\linewidth]{figures/LibSubmarine.png}
 \caption{Submarine Send~\cite{libsubmarine}. User generates an \textit{Unlock} transaction from which the commitment address is retrieved using ECDSA ECRecover. By \textsf(1) funding the \textit{commitment address}, user is committed to the unlock transaction. In the reveal phase, \textsf(2) user sends the \textit{reveal transaction} to the DApp, revealing the nature of the commitment transaction. \textsf(3) Then after she can broadcast the Unlock transaction to unlock the funds in the commitment address. \textsf(4) Finally after the "Auction'' is over, anyone can call \textit{Finalize} function to finalize the process.  \label{fig:LibSubmarine}}
 \end{figure}
 %https://www.lucidchart.com/invitations/accept/3a259b74-1162-4fb5-8023-eb0311018295
@@ -236,7 +236,9 @@ Commit/reveal is a two round protocol, and aborting after the first round (early
 The final main category of mitigation is to assume front-running is unpreventable and to thus responsively redesign the functionality of the DApp to remove any benefit from front-running. For example, when designing a decentralized exchange, one can use a call market design instead of a time-sensitive order book~\cite{clark2014decentralizing} to side-step and disincentivize front-running by miners. In a call market design, the arrival time of orders does not matter as they are executed in batches. The call market solution pivots profitable gains that front-running miners stand to gain into fees that they collect~\cite{clark2014decentralizing}, removing the financial incentive to front-run. 
 
 % Jeremy: This needs some clarification; what exactly is the principle they are applying???
-Malinova and Park discuss different design settings for financial markets and trading platforms on decentralized ledgers~\cite{malinova2017market}. They argue that blockchain brings new options of transparency which affects traders behaviour, especially in the presence of intermediary front-runners. They model indirect trading costs and use the economic literature on search and trading at decentralized exchanges in their design settings to make front-running costly and inefficient. Specifically they use economic models in their trading market design to make front-running expensive and more costly than profitable. They split big investments into smaller ones using intermediaries --liquidity demander-- and liquidity providers to achieve this.
+%Shayan: Is this better? they basically use economical model for welfare of the traders in a transparent environment. To extend the idea more, we need to dive in their economical model which I think is out of scope of this paper.
+Malinova and Park discuss different design setting for financial markets and trading platforms to mitigate front-running~\cite{malinova2017market}. They model indirect trading costs on search and trading at decentralized exchanges to make front-running costly and inefficient. They split big investments into smaller ones using intermediaries --liquidity demander-- and liquidity providers. To prevent front-running, the liquidity demander offers the liquidity-providing trader an incentive; establishing an equilibrium behaviour, in which front-runner needs to pay more incentives to come in front of the original trade, making front-running not too profitable.
+
 
 % one solution could be to remove multiple actors, meaning that on each "play" (order), the smart contract would be the market maker. it does not matter if there are multiple similar orders. similar to PoC of Velocity~\cite{eskandari2017feasibility}. Although there are other concerns about this specific design but not for front-running.
 
