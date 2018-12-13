@@ -4,7 +4,11 @@
 
 Blockchain technology enables decentralized applications (DApps) or smart contracts. Function calls (or transactions) to the DApp are processed by a decentralized network. Transactions are finalized in stages: they (generally) first relay around the network, then are selected by a miner and put into a valid block, and finally, the block is well-enough incorporated that is unlikely to be reorganized. Front-running is an attack where a malicious node observes a transaction after it is broadcast but before it is finalized, and attempts to have its own transaction confirmed before or instead of the observed transaction.
 
-The mechanics of front-running works on all DApps but front-running is not necessarily beneficial, depending on the DApp's internal logic and/or as any mitigations it might implement. Therefore, DApps need to be studied individually or in categories. In this paper we draw from a scattered body of knowledge regarding front-running attacks on blockchain applications and proposed solutions, with series of case studies of DApps deployed on Ethereum\footnote{Selected DApps from each category of the top 25 most active, based on user activity gathered from DAppRadar \url{https://DAppradar.com/DApps}} (a popular blockchain supporting DApps). We do case studies on decentralized exchanges (\eg Bancor), crypto-collectibles (\eg CryptoKitties), gambling services (\eg Fomo3D), and decentralized name services (\eg Ethereum Name Service). We also study initial coin offerings (ICOs), which by happenstance, did not appear in the top 25 on our sample day. After a few hacking incidents of high valued smart contracts~\cite{siegel2016daohack}, ICOs started to implement restrictions and capped how much funds can be gathered. This scarcity of the initial coins made for a competition to incentivize big investors to get in and buy the tokens at a discounted price and sell them to latecomers on the open markets~\cite{zetzsche2018ico,li2018initial}. ICOs started to experiment with different \textit{fair} capping methods, such as reverse dutch auction and dynamic ceilings~\cite{kaal2017initial}. We show empirical evidence of a miner purchasing tokens ahead of other users in Status.im. Finally, proposals to eliminate or mitigate front-running from DApps are scattered across forums, proposed standards (called EIPs in Ethereum) and academic papers; we systemize them in the last section.
+The mechanics of front-running works on all DApps but front-running is not necessarily beneficial, depending on the DApp's internal logic and/or as any mitigations it might implement. Therefore, DApps need to be studied individually or in categories. In this paper we draw from a scattered body of knowledge regarding front-running attacks on blockchain applications and proposed solutions, with series of case studies of DApps deployed on Ethereum (a popular blockchain supporting DApps). We do case studies on decentralized exchanges (\eg Bancor), crypto-collectibles (\eg CryptoKitties), gambling services (\eg Fomo3D), and decentralized name services (\eg Ethereum Name Service). We also study initial coin offerings (ICOs). Finally, we provide a categorization of  techniques to eliminate or mitigate front-running including transaction sequencing, cryptographic techniques like commit/reveal, and redesigning the functioning of the DApp to provide the same utility while removing time dependencies.
+
+% Jeremy: We give this later so that is fine
+%\footnote{Selected DApps from each category of the top 25 most active, based on user activity gathered from DAppRadar \url{https://DAppradar.com/DApps}}
+ 
 
 % Developers don't have the mindset to design DApps with front-running in mind. This is an attempt to bring forward the subject and make them more aware of these type of attacks
 
@@ -32,14 +36,6 @@ Front-running originates on the Chicago Board Options Exchange (\textit{CBoE}) \
 \subsection{Background on Blockchain Front-running} \label{sec:Front Running on the Blockchains}
 
 In one sense, blockchain technology (which was introduced via Bitcoin in 2008~\cite{nakamoto2008bitcoin}) strives to disintermediate certain central parties that participate in a transaction. However, blockchains also introduce new participants in the relaying and finalization (\ie mining) of transactions that can act as front-runners. Any user monitoring blockchain network transactions (\eg running a full node) can see an unconfirmed transactions and broadcast a reactionary transaction that might be confirmed ahead of the original transaction. For regular users to front-run others on the blockchain, they need to be well connected to other nodes on the network and listen to the network to monitor all transactions that are broadcast. On the Ethereum blockchain, users have to pay for the computations in a small amount of Ether called \textsf{gas}~\cite{AccountT67:online}. The price that users pay for transactions, \textsf{gasPrice}, can increase or decrease how quickly miners will execute them and include them within the blocks they mine. Once seeing two identical transactions with different transaction fees, a rational miner, due to limited space in the blocks, will prioritize the transaction that pays a higher gas price, this is also known as gas auctions~\cite{frontrunme}. Therefore, any regular user who runs a full-node Ethereum client can front-run pending transactions by sending similar transaction with a higher gas price. Also, blockchain miners are the only parties who can decide on the order of transactions within a block they mine, they can easily intercept and reorder the transactions in their blocks, this in case of malicious reordering is known as \textsf{transaction reordering} attack.
-
-\begin{figure}[t]
-\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,bottom},capbesidewidth=0.3\linewidth}}]{figure}[\FBwidth]
-{\caption{The adversarial miner monitors the Ethereum mempool for decentralized exchange transactions. Upon spotting a profitable cancellation transaction, he puts his buy order prior to the cancel transaction in the block he mines. Doing so, the miner can profit from the underlying trade and also get the gas included in the cancel transaction.}\label{fig:MinerFrontrunning}}
-{\includegraphics[width=\linewidth]{figures/Miner_reorder_frontrun.png}}
-\end{figure}
-%https://www.lucidchart.com/invitations/accept/c8768786-4a3f-4c78-b3c8-aa04a6b81d06
-
 
 \subsection{Literature on Blockchain Front-running}
 
@@ -92,15 +88,19 @@ To find example DApps to study, we use the top 25 DApps based on recent user act
 %Tragedy of the commons
 % the smart contract is the entity that acts as the market maker on regular cases with high liquidity front-running of the option calls do not result in any advantages, however, in the case of low balance of smart contracts pool of funds, the front-runner can front-run others to use up the remaining of the funds and make the rest of the option calls fail.
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.7\linewidth]{figures/Miner_reorder_frontrun.png}
+\caption{ The adversarial miner can monitor the Ethereum mempool for decentral exchange cancel orders and upon seeing the cancellation transaction, he puts his buy order prior to the cancel transaction. Doing so, the miner can profit from the underlying trade and also get the gas included in the cancel transaction. \label{fig:MinerFrontrunning}}
+\end{figure}
+%https://www.lucidchart.com/invitations/accept/c8768786-4a3f-4c78-b3c8-aa04a6b81d06
 
 The first category of DApp in Table~\ref{tab:top25DApps} is exchanges. Exchanges such as EtherDelta\footnote{Also known as ForkDelta for the UI \url{https://forkdelta.app/}}, purport to implement a decentralized exchange, however, their order books are stored on a central server they control and shown to their users with a website interface. Central exchanges can front-run orders in the traditional sense, as well as re-order or block orders on their servers. 0xProtocol~\cite{warren20170x} uses \textit{Relayers} which act as the order book holders and could front-run the orders they relay. As seen in traditional financial markets, one method to manipulation the spot price of an asset, is to flood the market with orders and cancel them when there are filling orders --taker's griefing~\cite{consesnsys0xReview2017}. As mentioned putting an order in the current decentralized exchange is free, but to prevent taker's griefing attacks, the user needs to send a transaction to cancel each of his orders. The reason for canceling order could be the unprofitability of the order due to price change. In this case, when an adversarial actor sees a pending cancellation transaction, he sends a fill order transaction with higher gasPrice to get in front of the cancellation order and take the order before it is canceled, this is known as \textit{\todo{cancellation grief}}. This is illustrated in Figure~\ref{fig:MinerFrontrunning}.
 
-
-%Shayan -> Jeremy: Not sure if this figure adds value to the paper. I edited and looked at this for so long that it lost its meaning. I'll come back to it tomorrow.
 \begin{figure}[t]
-\floatbox[{\capbeside\thisfloatsetup{capbesideposition={left,top},capbesidewidth=0.3\linewidth}}]{figure}[\FBwidth]
-{\caption{The front-runner upon spotting the profitable transaction \textit{Buy(1000)} sends his own transaction with higher gas price to bribe the miners to prioritize his transaction over initial transaction.}\label{fig:RegularFrontrunning}}
-{\includegraphics[width=1.1\linewidth]{figures/Regular_frontrunning.png}}
+\centering
+\includegraphics[width=0.7\linewidth]{figures/Regular_frontrunning.png}
+\caption{The Adversary upon seeing the Buy order sends his own buy order with higher gas to front-run the first order. \label{fig:RegularFrontrunning}}
 \end{figure}
 %https://www.lucidchart.com/invitations/accept/f8ca2662-5269-425d-9deb-deb14af2aac7
 
@@ -144,16 +144,17 @@ The final category in Table~\ref{tab:top25DApps} is name services, which are pri
 
 Initial coin offerings (ICOs) have changed how blockchain firms raise capital. More than 3000 ICOs have been held on Ethereum, and the market capitalization of these tokens appear to exceed \$75B USD in the first half of 2018~\cite{zetzsche2018ico}. At the DApp level, tokens are offered in short-term sales that see high transaction activity while the sale is on-going and then ICO activity tapers off to occasional owner transfers. When we collected the top 25 most active DApps on \texttt{DAppRadar.com}, no significant ICOs were in the initial sale stage. Despite the ICO category falls through our sampling method, we identify it as a major category of DApp and study it here.
 
+After a few hacking incidents of high valued smart contracts~\cite{siegel2016daohack}, ICOs started to implement restrictions and capped how much funds can be gathered. This scarcity of the initial coins made for a competition to incentivize big investors to get in and buy the tokens at a discounted price and sell them to latecomers on the open markets~\cite{zetzsche2018ico,li2018initial}. ICOs started to experiment with different \textit{fair} capping methods, such as reverse dutch auction and dynamic ceilings~\cite{kaal2017initial}. We show empirical evidence of a miner purchasing tokens ahead of other users in Status.im.
+
 \subsection{\textit{Status.im} ICO}
 To deal with demand, ICOs cap sales in a variety of ways to mitigate front-running attacks. In June 2017, \textit{Status.im}~\cite{statuswhitepaper} started its ICO and reached the predefined cap within 3 hours, collecting close to 300,000 Ether. In order to prevent wealthy investors purchasing all the tokens and limit the amount of Ether deposited in each investment, they used a \textit{fair} token distribution method called \textit{Dynamic Ceiling} as an attempt to increase the opportunity for smaller investors. They implemented multiple caps (ceilings) in which, each had a maximum amount that could be deposited in. In this case, every deposit was checked by the smart contract and the exceeding amount was refunded to the sender while the accepted amount was sent to their multi-signature wallet address~\cite{statusicoanalysis}.
 
 During the time the ICO was open for participation, there were reports of Ethereum network being unusable and transactions were not confirming. Further study showed that some mining pools might have been manipulating the network for their own profit. In addition, there were many transactions sent with a higher gas price to front-run other transactions, however, these transactions were failing due to the restriction in the ICO smart contract to reject any transactions with higher than 50 \textit{GWei} gas price (another mitigation against front-running).
 
-
 \begin{figure}[t]
-\floatbox[{\capbeside\thisfloatsetup{capbesideposition={left,bottom},capbesidewidth=0.35\linewidth}}]{figure}[\FBwidth]
-{\caption{The percentage of Ethereum blocks mined between block 3903900 and 3908029, this is the time frame in which Status.im ICO was running. This percentage roughly shows the hashing power ratio each miner had at that time.}\label{fig:mining_pool_ratio}}
-{\includegraphics[width=1.1\linewidth]{figures/Mining_pool_ratio.png}}
+\centering
+\includegraphics[width=0.5\linewidth]{figures/Mining_pool_ratio.png}
+\caption{ The percentage of Ethereum blocks mined between block 3903900 and 3908029, this is the time frame in which Status.im ICO was running. This percentage roughly shows the hashing power ratio each miner had at that time. \label{fig:mining_pool_ratio}} % IS THIS STATEMENT CORRECT?
 \end{figure}
 
 \subsection{Data Collection and Analysis}
@@ -165,19 +166,18 @@ As shown in Figure~\ref{fig:Transactions_miners_while_status_ico_cut}, most of t
 
 
 \begin{figure}[t]
-\floatbox[{\capbeside\thisfloatsetup{capbesideposition={left,bottom},capbesidewidth=0.3\linewidth}}]{figure}[\FBwidth]
-{\caption{This chart shows the miners behaviour on the time window that Status.im ICO was running. It is clear that the number of successful transactions mined by F2Pool do not follow the random homogeneous pattern of the rest of the network.}\label{fig:Transactions_miners_while_status_ico_cut}}
-{\includegraphics[width=1.1\linewidth]{figures/Transactions_miners_while_status_ico_cut_only_icotx.png}}
+\centering
+\includegraphics[width=0.7\linewidth]{figures/Transactions_miners_while_status_ico_cut_only_icotx.png}
+\caption{ This chart shows the miners behaviour on the time window that Status.im ICO was running. It is clear that the number of successful transactions mined by F2Pool do not follow the random homogeneous pattern of the rest of the network. \label{fig:Transactions_miners_while_status_ico_cut}}
 \end{figure}
 
+% make pie charts for each mining pool, all non-status-ico transactions vs success-ico-transactions vs failed-ico=transactions
 
 \begin{figure}[t]
-\floatbox[{\capbeside\thisfloatsetup{capbesideposition={left,top},capbesidewidth=0.5\linewidth}}]{figure}[\FBwidth]
-{\caption{Prior to \textit{Status.im} ICO  \textit{F2Pool} deposited 100 Ether in multiple new Ethereum addresses. On the time of the ICO transactions were sent from these addresses to \textit{Status} ICO smart contract and were prioritized their mining pool and received \textit{ERC20} tokens. This method was used to overcome the dynamic ceiling algorithm of the ICO smart contract. Later on they sent the refunded Ether back to their own address.\protect\footnotemark \label{fig:f2poolfront-run}}}
-{\includegraphics[width=0.8\linewidth]{figures/F2Pool_transactions_to_StatusICO_and_Refunds.png}}
+\centering
+\includegraphics[width=0.6\linewidth]{figures/F2Pool_transactions_to_StatusICO_and_Refunds.png}
+\caption{ F2Pool prior to Status.im ICO deposited 100 Ether in multiple new Ethereum addresses. On the time of the ICO they sent these deposits to Status ICO smart contract and prioritized mining of these transactions in their mining pool, this was to overcome the dynamic ceiling algorithm of the token sale smart contract. Later on they sent the refunded Ether back to their own address. [Graph made using Blockseer.com] \label{fig:f2poolfront-run}}
 \end{figure}
-
-\footnotetext{Graph was made using \url{Blockseer.com}}
 
 By tracing the transactions from these 30 addresses, we found explicit interference by the F2Pool\footnote{F2Pool Ethereum address was identified by their mining reward deposit address \url{https://etherscan.io/address/0x61c808d82a3ac53231750dadc13c777b59310bd9}} in this scenario. As shown in Figure~\ref{fig:f2poolfront-run}, the funds deposited by F2Pool in these addresses were sent to Status.im ICO and mined by F2Pool themselves, where the dynamic ceiling algorithm refunded a portion of the deposited funds back to these addresses, these funds were sent back to F2Pool main address a few days after and the tokens were aggregated later on in one single address. Although this incident does not involve transaction reordering in the blocks, it shows how miners can modify their mining software to behave in a certain way to front-run other transactions and gain monetary profit.
 
@@ -251,20 +251,12 @@ Commit/reveal is a two round protocol, and aborting after the first round (early
 % Jeremy: moved up to confidentiality as this is not specific to commit/reveal but applicable to any mitigation
 %The participatory factor is another issue for the commitment scheme. For anyone watching the DApp address, there will be a direct transaction from the user to the DApp address, revealing the fact that a specific address has participated in the auction or the DApp using a commit and reveal scheme, but the details are hidden through the scheme. Both these issues, albeit hiding the details of the order and preventing direct front-running, leak information to other participants which could lead to more sophisticated front-running attacks depending on the application design. On the other note, these method has some drawbacks, the user experience is not smooth and one might forget to reveal the committed transaction. In the ENS commit-reveal process, if one forgets to reveal in the reveal phase, the committed funds are burnt and inaccessible thereafter. Also, this scheme means two transactions are required for a functionality which makes it more expensive.
 
-%\begin{figure}[t]
-%\centering
-%\includegraphics[width=0.7\linewidth]{figures/LibSubmarine.png}
-%\caption{Submarine Send~\cite{libsubmarine}. User generates an \textit{Unlock} transaction from which the commitment address is retrieved using ECDSA ECRecover. By \textsf{1.} funding the \textit{commitment address}, user is committed to the unlock transaction. In the reveal phase, \textsf{2.} user sends the \textit{reveal transaction} to the DApp, revealing the nature of the commitment transaction. \textsf{3.} Then after she can broadcast the Unlock transaction to unlock the funds in the commitment address. \textsf{4.} Finally after the "Auction'' is over, anyone can call \textit{Finalize} function to finalize the process.  \label{fig:LibSubmarine}}
-%\end{figure}
-
-
 \begin{figure}[t]
-\floatbox[{\capbeside\thisfloatsetup{capbesideposition={left,bottom},capbesidewidth=0.5\linewidth}}]{figure}[\FBwidth]
-{\caption{Submarine Send~\cite{libsubmarine}. User generates an \textit{Unlock} transaction from which the commitment address is retrieved using ECDSA ECRecover. \textsf{1.} by funding the \textit{commitment address},user is committed to the transaction. \textsf{2.} User sends the \textit{reveal transaction} to the DApp, revealing the nature of the commitment transaction. \textsf{3.} She broadcasts the \textit{unlock transaction} to unlock the funds in the commitment address. \textsf{4.} After the \textit{"Auction''} is over, anyone can call \textit{Finalize} function to finalize the process.}\label{fig:LibSubmarine}}
-{\includegraphics[width=\linewidth]{figures/LibSubmarine.png}}
+\centering
+\includegraphics[width=0.7\linewidth]{figures/LibSubmarine.png}
+\caption{Submarine Send~\cite{libsubmarine}. User generates an \textit{Unlock} transaction from which the commitment address is retrieved using ECDSA ECRecover. By \textsf{1.} funding the \textit{commitment address}, user is committed to the unlock transaction. In the reveal phase, \textsf{2.} user sends the \textit{reveal transaction} to the DApp, revealing the nature of the commitment transaction. \textsf{3.} Then after she can broadcast the Unlock transaction to unlock the funds in the commitment address. \textsf{4.} Finally after the "Auction'' is over, anyone can call \textit{Finalize} function to finalize the process.  \label{fig:LibSubmarine}}
 \end{figure}
 %https://www.lucidchart.com/invitations/accept/3a259b74-1162-4fb5-8023-eb0311018295
-
 
 \paragraph{Enhanced Commit/Reveal.} Submarine Commitments~\cite{libsubmarine,submarinesendHD} extend the confidentiality of the commit and reveal, so that the commitment transaction is identical to a transaction to a newly generated Ethereum address. (1) they initially hide the contract address being invoked, providing (3,4,5)-confidentiality during the commit phase; and (2) they ensure that if a revealed transaction sent funds, the funds were fully collateralized at commit time and are available to the receiving smart contract. See Figure~\ref{fig:LibSubmarine}.
 
