@@ -175,19 +175,18 @@ As shown in Figure~\ref{fig:Transactions_miners_while_status_ico_cut}, most of t
 
 
 \begin{figure}[t]
-\floatbox[{\capbeside\thisfloatsetup{capbesideposition={left,bottom},capbesidewidth=0.3\linewidth}}]{figure}[\FBwidth]
+\floatbox[{\capbeside\thisfloatsetup{capbesideposition={left,top},capbesidewidth=0.3\linewidth}}]{figure}[\FBwidth]
 {\caption{This chart shows the miners behaviour on the time window that Status.im ICO was running. It is clear that the number of successful transactions mined by F2Pool do not follow the random homogeneous pattern of the rest of the network.}\label{fig:Transactions_miners_while_status_ico_cut}}
 {\includegraphics[width=1.1\linewidth]{figures/Transactions_miners_while_status_ico_cut_only_icotx.png}}
 \end{figure}
 
-
 \begin{figure}[t]
-\floatbox[{\capbeside\thisfloatsetup{capbesideposition={left,top},capbesidewidth=0.5\linewidth}}]{figure}[\FBwidth]
+\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,bottom},capbesidewidth=0.5\linewidth}}]{figure}[\FBwidth]
 {\caption{Prior to \textit{Status.im} ICO  \textit{F2Pool} deposited 100 Ether in multiple new Ethereum addresses. On the time of the ICO transactions were sent from these addresses to \textit{Status} ICO smart contract and were prioritized their mining pool and received \textit{ERC20} tokens. This method was used to overcome the dynamic ceiling algorithm of the ICO smart contract. Later on they sent the refunded Ether back to their own address.\protect\footnotemark \label{fig:f2poolfront-run}}}
 {\includegraphics[width=0.8\linewidth]{figures/F2Pool_transactions_to_StatusICO_and_Refunds.png}}
 \end{figure}
 
-\footnotetext{Graph was made using \url{Blockseer.com}}
+\footnotetext{Graph was made using \url{Blockseer.com} blockchain explorer.}
 
 By tracing the transactions from these 30 addresses, we found explicit interference by the F2Pool\footnote{F2Pool Ethereum address was identified by their mining reward deposit address \url{https://etherscan.io/address/0x61c808d82a3ac53231750dadc13c777b59310bd9}} in this scenario. As shown in Figure~\ref{fig:f2poolfront-run}, the funds deposited by F2Pool in these addresses were sent to Status.im ICO and mined by F2Pool themselves, where the dynamic ceiling algorithm refunded a portion of the deposited funds back to these addresses, these funds were sent back to F2Pool main address a few days after and the tokens were aggregated later on in one single address. Although this incident does not involve transaction reordering in the blocks, it shows how miners can modify their mining software to behave in a certain way to front-run other transactions and gain monetary profit.
 
