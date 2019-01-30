@@ -132,6 +132,14 @@ Bancor is an exchange DApp that allows users to exchange their tokens without an
 The second category of DApp in Table~\ref{tab:top25DApps} is crypto-collectables. Consider Cryptokitties\footnote{Cryptokitties website \url{https://www.cryptokitties.co/}}, the most active DApp in this category and third most active overall. Each kitty (see Appendix~\ref{app:cryptokitty}) is a cartoon kitten with a set of unique features to distinguish it from other cryptokitties, some features are rarer and harder to obtain. They can be bought, sold, or bred with other cryptokitties. At the Ethereum level, the kitty is a token implemented with \textit{ERC-721: Non-Fungible Token Standard}~\cite{erc721}. The market cap of cryptokitties peaked at more than 6 million dollars in the first few months of their launch, however, it has declined since. ERC-721 are similar enough to ERC-20 tokens that they can be listed on exchanges that are ERC-20 compatible. To buy a kitty from their main website, the user sends the following bid transaction: \texttt{bid(uint256 \_tokenId)}. It contains the kitty's ID which can be found either on their website or on the ERC721 token smart contract. This is similar to open auctions and markets on section~\ref{sec:frontrunningExchanges}, bid value and the object bidding on is visible to the network and any user could  easily front-run by sending the same transaction with higher gasPrice to replace the initial bidder. The front-runner can see there is an interest in a specific kitty and insert a pair of transactions to buy it and re-auctioning it at a higher price, keeping any profit. %we call this auction-frontrunning.
 % https://etherscan.io/tx/0x62a76b7e345e8abd463487d0348c118a9314b197024e090fee7b1fbce434da40
 
+
+% Shayan TODO:
+% remove most of the text above and replace it with references: https://hackernoon.com/how-we-made-100k-trading-cryptokitties-2d69aebe715b
+% disuss the application specific front-running, which is with giveBirth() function and front-running other calls
+% https://medium.com/block-science/exploring-cryptokitties-part-2-the-cryptomidwives-a0df37eb35a6
+% maybe: https://blog.kleros.io/generalized-ethereum-frontrunners-an-implementation-and-a-cheat/
+
+
 % = = =
 
 \subsection{Gambling}
