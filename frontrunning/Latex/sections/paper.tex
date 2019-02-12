@@ -154,17 +154,8 @@ We classify this in the unique category of a suppression attack in our taxonomy 
 
 The final category in Table~\ref{tab:top25DApps} is name services, which are primarily aimed at disintermediating central parties involved in web domain registration (\eg ICAAN and registrars) and resolution (\eg DNS). For simple name services (such as some academic work like Ghazal~\cite{moosavighazal}), domains purchases are transactions and front-runners can displace other users attempting to register domains. This parallels front-running attacks seen in regular (non-blockchain) domain registration~\cite{sac022en33:online}. \textsf{Ethereum Name Service (ENS)}~\cite{ensEIP} is the most active naming service on Ethereum. Instead of allowing new \texttt{.eth} domain names to be purchased directly, they are put up for a sealed bid auction which seals the domain name in a bid, but not the bid amount. Most implementations use the more user friendly but less confidential method for starting and bidding on a domain name: \texttt{startAuctionsAndBid()}. This method leaks the hash of the domain and the initial bid amount in the auction. Original names can be guessed from the hashes (\eg rainbow tables, used in ENS Twitter bot\footnote{\url{https://twitter.com/ensbot}}) or people can bid on domains even though they do not know what they are because of speculation on its value. 
 
-Users are allowed to bid for 3 days before the 48-hour reveal phase begins (see ~\ref{sec:comm}), in which all bidders (winners and losers) must send a transaction to reveal their bids for a specific domain or sacrifice their bid amount . Also note that if two bidders bid the same price, the first to reveal wins it~\cite{ENSHandlingFrontRunningDiscussion}. Combined with the leaked information, this introduces a race condition which could be mitigated if bidding time was taken into effect instead of solely reveal time. 
+Users are allowed to bid for 3 days before the 2-day reveal phase begins (see ~\ref{sec:comm}), in which all bidders (winners and losers) must send a transaction to reveal their bids for a specific domain or sacrifice their bid amount . Also note that if two bidders bid the same price, the first to reveal wins it~\cite{ENSHandlingFrontRunningDiscussion}. Using the leaked information, the domain squatter can win the auction with the same price of the original bidder by revealing it first. This is similar to front-running as it relies on inserting an action before the user, however we do not consider this specific action as front-running attack. 
 
-Two strategies: (1) Attacker knows the domain name, then he makes sure he is first to reveal. (2) Attacker is speculating, which he will bid with a slightly higher value %so he waits to see other reveal, then insert myself with the information from the other reveal. (3) If my amount is bigger, I see other reveal and then reveal. 
-
-Sealed bids could easily be identified from the recent transactions --> depends on the anonymity set
-
-Displacement attack <-- 
-
-%A front-runner using the leaked information can bid with the same amount and reveal prior to the original bidder to win the auction. 
-
-Also using the leaked information, the front-running attack vector mimics the traditional domain front-running attacks. The auction model is similar to open auctions in \ref{sec:cryptogames}.
 
 %% = = = = = = = = = = = = = = = = = = = = = = = = = = %
 % = = = ICOs
@@ -303,13 +294,14 @@ The final main category of mitigation is to assume front-running is unpreventabl
 
 In the finance literature, Malinova and Park discuss front-running mitigations for blockchain-based trading platforms~\cite{malinova2017market}. Instead of studying DApps, they develop an economic model where transactions, asset holdings, and traders' identities have greater transparency than in standard economic models---transparency they argue that could be accomplished by blockchain technology. However, in their model, they assume entities can interact directly over private channels to arrange trades. They define front-running in the context of private offers, where parties might adjust their position before accepting or countering a received offer. This model is quite different than the DApp-based model we study here. 
 
-%Shayan -> Jeremy: the following probably needs some rewrite to focus on the solution rather than the issue.
+%Shayan -> TODO: Jeremy: the following probably needs some rewrite to focus on the solution rather than the issue.
 Another example in the design of ERC20 standard~\cite{erc20}, is on the allowance functionality. \textit{approve()} function in the specification allows a second entity to be able to spend N tokens from the sender's balance. In order to change the allowance, sender must send a transaction to set the new allowance value. Using the insertion attack, attacker could front-run the new allowance transaction and spend the old value before the new value is set~\cite{blockchainProjectAllowanceAttack,erc20GithubIssue}. Solutions such as \textit{decreaseApproval()}/\textit{increaseApproval()} were added in updated implementations.
 
 % = = = = = = = = = = = = = = = = = = = = = = = = = = %
 % = = = Conc
 % = = = = = = = = = = = = = = = = = = = = = = = = = = %
 
+%Jeremy TODO
 \section{Concluding Remarks}
 
 Front-running is a pervasive issue in Ethereum DApps. While some DApp-level application logic could be built to mitigate these attacks, its ubiquity across different DApp categories suggests mitigations at the blockchain-level would perhaps be more effective. We highlight this as an important research area.
