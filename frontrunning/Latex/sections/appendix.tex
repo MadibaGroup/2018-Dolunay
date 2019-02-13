@@ -4,8 +4,6 @@
 \section{Appendix}
 \appendix
 
-\textblue{\textbf{Note to Reviewers:}} If accepted, the camera-ready version will link to a full version of the paper on eprint that will include the information in this appendix. We include it here for reference.
-
 \section{CryptoKitty} \label{app:cryptokitty}
 
 %Possibly remove this figure due to page limit
@@ -18,24 +16,24 @@
 Figure~\ref{fig:cryptokittie} shows an example of a Cryptokitty.
 
 
-\section{LocalEthereum} \label{app:localethereum}
-
+%\section{LocalEthereum} \label{app:localethereum}
+%
 %Possibly remove this code snippet due to page limit . don't forget to remove the refrence to it ^
-\begin{lstlisting}[basicstyle=\scriptsize\ttfamily,caption={Code snippet from LocalEthereum smart contract. Values V,R and S are set by LocalEtherem to have a valid signature, also the tradeHash uses buyer and seller addresses, mitigating the possibility of front-running by a third party.},label={code:localethereum}]
-    function createEscrow(bytes16 _tradeID, address _seller, address _buyer, uint256 _value, uint16 _fee,
-					uint32 _paymentWindowInSeconds, uint32 _expiry, uint8 _v, bytes32 _r, bytes32 _s) 
-        payable external {
-        bytes32 _tradeHash = keccak256(abi.encodePacked(_tradeID, _seller, _buyer, _value, _fee));
-	...
-        // A signature (v, r and s) must come from localethereum to open an escrow
-        bytes32 _invitationHash = keccak256(abi.encodePacked(
-            _tradeHash,
-            _paymentWindowInSeconds,
-            _expiry
-        )); 
-\end{lstlisting}
-
-Code~\ref{code:localethereum} shows a mitigation technique employed by LocalEthereum. \\
+%\begin{lstlisting}[basicstyle=\scriptsize\ttfamily,caption={Code snippet from LocalEthereum smart contract. Values V,R and S are set by LocalEtherem to have a valid signature, also the tradeHash uses buyer and seller addresses, mitigating the possibility of front-running by a third party.},label={code:localethereum}]
+%    function createEscrow(bytes16 _tradeID, address _seller, address _buyer, uint256 _value, uint16 _fee,
+%					uint32 _paymentWindowInSeconds, uint32 _expiry, uint8 _v, bytes32 _r, bytes32 _s) 
+%        payable external {
+%        bytes32 _tradeHash = keccak256(abi.encodePacked(_tradeID, _seller, _buyer, _value, _fee));
+%	...
+%        // A signature (v, r and s) must come from localethereum to open an escrow
+%        bytes32 _invitationHash = keccak256(abi.encodePacked(
+%            _tradeHash,
+%            _paymentWindowInSeconds,
+%            _expiry
+%        )); 
+%\end{lstlisting}
+%
+%Code~\ref{code:localethereum} shows a mitigation technique employed by LocalEthereum. \\
 
 
 
